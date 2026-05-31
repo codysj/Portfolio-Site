@@ -36,3 +36,7 @@ npm run build
 ## Notes
 
 The ASCII hero is currently a generated single-file prototype. It still injects a large CSS string inside the component with `dangerouslySetInnerHTML`; a later refactor should move those styles into `src/app/globals.css` or a dedicated hero stylesheet after the app baseline is stable.
+
+## Dependency Audit
+
+`next` and `eslint-config-next` are kept on the same 15.5.x line. The project also pins `postcss` through npm `overrides` so Next's nested PostCSS dependency resolves to the audited safe version used by the root project.
