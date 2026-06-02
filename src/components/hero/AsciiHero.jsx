@@ -90,7 +90,14 @@ const STYLES = `
 /* ------- ascii tree (planted on the hill crest, right of center) ------- */
 .ah-tree-wrap{position:absolute;left:var(--tree-x,73%);bottom:var(--tree-y,25%);
   transform:translateX(-50%);}
-.ah-tree-sway{display:block;transform-origin:50% 100%;animation:ah-sway 11s ease-in-out infinite;will-change:transform;}
+/* faint, contained warm glow anchoring the trunk base into the particle field —
+   sits behind the text, stays put while the tree sways; not a spotlight/halo. */
+.ah-tree-glow{position:absolute;left:47%;bottom:0;width:30%;height:13%;
+  transform:translate(-50%,40%);pointer-events:none;z-index:0;
+  background:radial-gradient(50% 50% at 50% 50%,
+    rgba(207,132,120,0.15),rgba(201,120,96,0.06) 45%,transparent 72%);
+  filter:blur(5px);mix-blend-mode:screen;}
+.ah-tree-sway{position:relative;z-index:1;display:block;transform-origin:50% 100%;animation:ah-sway 11s ease-in-out infinite;will-change:transform;}
 /* font scales with BOTH width and height (min) so the tall crown — which keeps
    empty headroom rows above it — always fits the viewport without clipping.
    The tree is drawn as a few stacked, full-grid ASCII layers (see AsciiTree). */
@@ -402,28 +409,41 @@ function growTree({ cols, rows, seed }) {
     const halfw = baseHalf * Math.pow(1 - frac, 1.55) + (frac > 0.8 ? 0.4 : 0.7);
     path.push([x, groundY - i, halfw, frac]);
   }
+  // The lowest rows dissolve into the ambient ground field with a CONTINUOUS
+  // gradient across both density (progressive deletion) and value
+  // (solid bark -> dim branch -> faint far particles), so the column reads as:
+  // dense vertical trunk -> broken vertical fragments -> sparse symbols ->
+  // low-opacity dots -> ambient ground noise, never a hard line->dot switch.
+  const baseFadeRows = 6;
   for (const [px, py, hw, frac] of path) {
     const hi = Math.ceil(hw);
     const fromBottom = groundY - py;                     // 0 at the very base
-    const baseFade = fromBottom <= 4;                    // lowest rows dissolve into the grass
+    const t = fromBottom / baseFadeRows;                 // 0 at the base -> 1 at the top of the fade band
     for (let dx = -hi; dx <= hi; dx++) {
       if (Math.abs(dx) > hw + 0.4) continue;
-      // base dissolve #1: delete characters near the bottom (thinning, densest upward)
-      if (baseFade && rnd() > 0.28 + fromBottom * 0.17) continue;
       const edge = Math.abs(dx) > hw - 0.85;
       const n = noiseAt(px + dx, py);
-      let ch, type = "trunk";
-      if (baseFade && fromBottom <= 2) {                 // base dissolve #2: faint, dim, light glyphs
-        ch = n < 0.4 ? ":" : n > 0.75 ? "'" : ".";
-        type = "branch";                                 // routed to the dimmer layer -> reduced value
-      } else if (edge && hw > 1.1) {                     // gnarled, uneven bark edges
+      if (fromBottom < baseFadeRows) {
+        if (rnd() > 0.2 + t * 0.85) continue;            // progressive thinning: sparse low, full higher up
+        if (t < 0.3) {                                   // faint low-opacity particles (dimmest layer)
+          bloom(px + dx, py, 0.05 + rnd() * 0.1);        // far-tier dots / specks
+        } else if (t < 0.6) {                            // sparse broken fragments / symbols (dim)
+          put(px + dx, py, n < 0.4 ? "," : n < 0.72 ? ":" : ";", "branch");
+        } else {                                         // lightened, occasionally-broken vertical lines
+          const ch = n < 0.55 ? "|" : n < 0.8 ? ":" : ";";
+          put(px + dx, py, ch, rnd() < 0.5 ? "trunk" : "branch");
+        }
+        continue;
+      }
+      let ch;
+      if (edge && hw > 1.1) {                            // gnarled, uneven bark edges
         ch = dx < 0 ? (n > 0.62 ? "(" : "/") : (n > 0.62 ? ")" : "\\");
       } else if (frac < 0.32) {                          // dense, dark, knotted base
         ch = n < 0.24 ? "8" : n > 0.8 ? "%" : n > 0.52 ? "#" : "|";
       } else {                                           // lighter, grainy bark higher up
         ch = n < 0.28 ? ":" : n > 0.82 ? "/" : n > 0.6 ? ";" : "|";
       }
-      put(px + dx, py, ch, type);
+      put(px + dx, py, ch, "trunk");
     }
   }
   // a few knots / branch scars on the trunk for variation
@@ -671,6 +691,7 @@ function AsciiTree({ cols = 140, rows = 82, seed = 11 }) {
 
   return (
     <div className="ah-tree-wrap">
+      <div className="ah-tree-glow" aria-hidden="true" />
       <div className="ah-tree-sway">
         <div className="ah-tree" aria-hidden="true">
           {/* disjoint ASCII layers — 5 text nodes instead of ~4000 spans */}
