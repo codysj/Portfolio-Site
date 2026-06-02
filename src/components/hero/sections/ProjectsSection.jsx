@@ -4,7 +4,7 @@ import { projects } from "@/data/portfolio";
 
 export default function ProjectsSection() {
   return (
-    <section id="projects" className="ah-section">
+    <section id="projects" className="ah-section ah-section-bridge">
       <p className="ah-section-tag">{projects.tag}</p>
       <h2>{projects.title}</h2>
       <div className="ah-grid">

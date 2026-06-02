@@ -160,6 +160,14 @@
 .ah-foot{position:relative;z-index:3;padding:40px clamp(24px,7vw,120px);border-top:1px solid rgba(236,234,226,0.08);
   color:var(--branch);font-size:12px;letter-spacing:.16em;text-transform:uppercase;}
 
+/* seamless hero -> projects transition: the hero's bottom scrim ends at
+   rgba(7,10,9,0.55), so the section below would otherwise start one alpha-step
+   lighter. This thin gradient continues that exact tone across the boundary and
+   dissolves it, leaving no visible color seam. */
+.ah-section-bridge::before{content:"";position:absolute;left:0;right:0;top:0;height:120px;
+  pointer-events:none;z-index:-1;
+  background:linear-gradient(180deg, rgba(7,10,9,0.55), rgba(7,10,9,0) 100%);}
+
 /* ------- entrance reveal ------- */
 .reveal{opacity:0;animation:ah-fadeup .9s cubic-bezier(.2,.7,.2,1) forwards;}
 
