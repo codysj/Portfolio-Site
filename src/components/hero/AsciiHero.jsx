@@ -88,17 +88,21 @@ const STYLES = `
     linear-gradient(180deg, transparent 58%, rgba(7,10,9,0.55) 100%);}
 
 /* ------- ascii tree (planted on the hill crest, right of center) ------- */
-.ah-tree-wrap{position:absolute;left:var(--tree-x,74%);bottom:var(--tree-y,25%);
+.ah-tree-wrap{position:absolute;left:var(--tree-x,73%);bottom:var(--tree-y,25%);
   transform:translateX(-50%);}
 .ah-tree-sway{display:block;transform-origin:50% 100%;animation:ah-sway 11s ease-in-out infinite;will-change:transform;}
-.ah-tree{font-family:var(--mono);font-size:clamp(6px,1vw,11px);line-height:1;white-space:pre;}
-.ah-row{display:block;height:1em;}
-.t-trunk{color:var(--bark);opacity:.95;text-shadow:0 0 5px rgba(207,132,120,0.5);}
-.t-limb{color:var(--bark);opacity:.85;text-shadow:0 0 5px rgba(207,132,120,0.4);}
-.t-branch{color:var(--bark-dim);opacity:.7;}
-.t-bl{color:var(--rose);}
-.t-bl.near{color:var(--rose-soft);text-shadow:0 0 6px rgba(243,205,214,0.5);}
-.t-bl.tw{animation:ah-twinkle var(--d,4s) ease-in-out infinite;}
+/* font scales with BOTH width and height (min) so the tall crown — which keeps
+   empty headroom rows above it — always fits the viewport without clipping.
+   The tree is drawn as a few stacked, full-grid ASCII layers (see AsciiTree). */
+.ah-tree{position:relative;font-family:var(--mono);font-size:clamp(5px,min(0.8vw,0.95vh),10px);line-height:1;letter-spacing:-0.02em;}
+.ah-tl{margin:0;font:inherit;white-space:pre;position:absolute;top:0;left:0;}
+.ah-tl:first-child{position:relative;}   /* first layer establishes the box size */
+.ah-tl.far{color:var(--bark-dim);opacity:.5;}                                   /* dim receding background */
+.ah-tl.branch{color:var(--bark-dim);opacity:.72;text-shadow:0 0 4px rgba(156,95,87,0.4);}
+.ah-tl.bark{color:var(--bark);opacity:.96;text-shadow:0 0 6px rgba(207,132,120,0.55);}
+.ah-tl.mid{color:var(--rose);opacity:.9;}                                        /* middle canopy mass */
+.ah-tl.near{color:var(--rose-soft);text-shadow:0 0 7px rgba(243,205,214,0.55);  /* bright foreground */
+  animation:ah-twinkle 6.5s ease-in-out infinite;}                              /* ONE subtle shimmer node */
 
 /* ------- hill (warm filled ground: mass glow, shrub texture, pooled glow) ------- */
 .ah-hill{position:absolute;inset:0;font-family:var(--mono);font-size:clamp(9px,1vw,13px);}
@@ -178,7 +182,7 @@ const STYLES = `
 
 /* ------- keyframes ------- */
 @keyframes ah-sway{0%,100%{transform:rotate(-0.45deg)}50%{transform:rotate(0.6deg)}}
-@keyframes ah-twinkle{0%,100%{opacity:.4}50%{opacity:.95}}
+@keyframes ah-twinkle{0%,100%{opacity:.82}50%{opacity:1}}
 @keyframes ah-gwave{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}}
 @keyframes ah-fpulse{0%,100%{opacity:.45;transform:scale(.9)}50%{opacity:1;transform:scale(1.1)}}
 @keyframes ah-breathe{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
@@ -200,7 +204,7 @@ const STYLES = `
 
 /* ------- reduced motion: kill all ambient movement ------- */
 @media (prefers-reduced-motion:reduce){
-  .ah-tree-sway,.t-bl,.gblade,.flower,.ah-shrub,.ah-glow,.ah-scroll .bar{animation:none!important;}
+  .ah-tree-sway,.ah-tl,.gblade,.flower,.ah-shrub,.ah-glow,.ah-scroll .bar{animation:none!important;}
   .reveal{animation:none!important;opacity:1!important;transform:none!important;}
 }
 `;
@@ -226,109 +230,390 @@ function hillTop(t) {
   return HILL.base + (HILL.crest - HILL.base) * bump;
 }
 
-/* Grows a weeping cherry into a character grid.
-   - lower trunk is bare and curved
-   - branches fan UPWARD only (clamped to the upper hemisphere)
-   - blossoms hang from the branches in drooping, tapering strands with
-     front/back depth so the canopy reads as a lacy cloud, not a block.
-   Returns rows[y][x] = null | {ch, type, depth, near, tw, d}. */
+/* Grows a large weeping cherry into a character grid.
+
+   The silhouette is composed (not a lollipop) so structure reads through:
+     1. an S-curved, bark-textured trunk that tapers as it rises and, crucially,
+        CONTINUES as a visible central leader up into the crown before forking;
+     2. asymmetric primary limbs branching off at several heights — these are
+        marked "limb" and are NEVER painted over by blossoms, so the branch
+        scaffold stays visible the way it does in the reference;
+     3. a crown whose outline is a noisy radial boundary (irregular, rounded,
+        feathered top — no flat cut) with blossoms concentrated on the OUTER
+        shell + clustered on branch tips, leaving the interior open so limbs
+        show through;
+     4. weeping strands hanging from twig tips / the canopy underside.
+
+   Returns rows[y][x] = null | {ch, type, depth, tier, tw, d}. */
 function growTree({ cols, rows, seed }) {
   const rnd = mulberry32(seed);
   const grid = Array.from({ length: rows }, () => new Array(cols).fill(null));
   const inb = (x, y) => x >= 0 && x < cols && y >= 0 && y < rows;
-  const bloomNear = ["@", "*", "o", "8", "&"];     // bright, foreground
-  const bloomFar = [".", "·", "'", '"', ",", ":"];  // dim, receding
+  const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
+  // blossom palettes graded by depth tier
+  const bloomFar = [".", "·", "'", "`", ",", '"', ":"];   // dim, receding texture
+  const bloomMid = [":", "*", "o", "+", "8", ","];        // mid-canopy mass
+  const bloomNear = ["@", "8", "&", "o", "%", "*"];        // bright foreground clumps
+
+  // Trunk and primary limbs win over blossoms so the scaffold reads through the
+  // canopy; small twigs ("branch") get covered except where the canopy is open.
   const put = (x, y, ch, type, extra) => {
     x = Math.round(x); y = Math.round(y);
     if (!inb(x, y)) return;
     const cur = grid[y][x];
-    if (cur && cur.type === "blossom" && type !== "blossom") return; // blossoms win
-    if (cur && cur.type === "blossom" && type === "blossom" && cur.depth > (extra?.depth ?? 0)) return; // keep nearer
+    if (type === "blossom") {
+      if (cur && cur.type === "trunk") return;                                 // trunk always wins
+      // big limbs read THROUGH the canopy, but foreground (near) blossoms may
+      // sit in front of them, so branches end up partially obscured, not bare
+      if (cur && cur.type === "limb" && (extra?.depth ?? 0) < 0.66) return;
+      if (cur && cur.type === "blossom" && cur.depth >= (extra?.depth ?? 0)) return;
+    }
     grid[y][x] = { ch, type, ...extra };
   };
 
+  // ---- value-noise fields (deterministic): a FINE grain for blossom texture
+  //      and a COARSE field for large clusters / negative pockets / recession ----
+  const blur = (src) => {
+    const d = new Float32Array(src.length);
+    for (let y = 0; y < rows; y++)
+      for (let x = 0; x < cols; x++) {
+        let s = 0, k = 0;
+        for (let oy = -1; oy <= 1; oy++)
+          for (let ox = -1; ox <= 1; ox++) {
+            const xx = x + ox, yy = y + oy;
+            if (xx < 0 || yy < 0 || xx >= cols || yy >= rows) continue;
+            s += src[yy * cols + xx]; k++;
+          }
+        d[y * cols + x] = s / k;
+      }
+    return d;
+  };
+  const normalize = (f) => {
+    let mn = 1, mx = 0;
+    for (const v of f) { if (v < mn) mn = v; if (v > mx) mx = v; }
+    const span = mx - mn || 1;
+    const o = new Float32Array(f.length);
+    for (let i = 0; i < f.length; i++) o[i] = (f[i] - mn) / span;
+    return o;
+  };
+  const base = new Float32Array(cols * rows);
+  for (let i = 0; i < base.length; i++) base[i] = rnd();
+  const field = normalize(blur(blur(base)));                       // fine medium clumps
+  const coarse = normalize(blur(blur(blur(blur(blur(base))))));    // big soft clusters
+  const at = (f, x, y) => {
+    x = Math.max(0, Math.min(cols - 1, Math.round(x)));
+    y = Math.max(0, Math.min(rows - 1, Math.round(y)));
+    return f[y * cols + x];
+  };
+  const noiseAt = (x, y) => at(field, x, y);
+  const coarseAt = (x, y) => at(coarse, x, y);
+
   const bloom = (x, y, depth) => {
-    const near = depth > 0.55;
-    const set = near ? bloomNear : bloomFar;
+    depth = clamp01(depth);
+    let set, tier;
+    if (depth > 0.6) { set = bloomNear; tier = "near"; }
+    else if (depth > 0.33) { set = bloomMid; tier = "mid"; }
+    else { set = bloomFar; tier = "far"; }
     put(x, y, set[(rnd() * set.length) | 0], "blossom", {
-      depth, near, tw: rnd() < 0.6, d: 3 + rnd() * 4.5,
+      depth, tier, tw: rnd() < 0.5, d: 3 + rnd() * 5,
     });
   };
 
-  // a drooping strand of blossoms hanging down from (x,y)
-  const drape = (x, y, len, depth) => {
-    const w = 1.6;
+  // a weeping strand of blossoms hanging straight down. Width, taper rate and
+  // density are all caller-controlled so short/medium/long strands differ a lot.
+  const drape = (x, y, len, depth, opts) => {
+    const w = opts?.w ?? 1.6;
+    const taper = opts?.taper ?? 0.8;                  // how fast the strand narrows
+    const base = opts?.dens ?? 0.86;                   // density at the top of the strand
+    const fall = opts?.fall ?? 0.85;                   // how fast density thins to the tip
     for (let i = 0; i < len; i++) {
       const frac = i / len;
-      const dens = 0.92 * (1 - frac) + 0.1;          // thins toward the tip
-      const halfw = Math.max(0, w * (1 - frac * 0.85));
+      const dens = base * (1 - frac * fall) + 0.08;
+      const halfw = Math.max(0, w * (1 - frac * taper));
       for (let dx = -halfw; dx <= halfw; dx += 1) {
-        if (rnd() < dens) bloom(x + dx + (rnd() - 0.5), y + i, depth * (0.8 + rnd() * 0.35));
+        if (rnd() < dens) bloom(x + dx + (rnd() - 0.5), y + i, depth * (0.7 + rnd() * 0.45));
       }
-      if (halfw < 0.6 && rnd() < 0.5) bloom(x + (rnd() - 0.5), y + i, depth * 0.7); // trailing tip
+      if (halfw < 0.8 && rnd() < 0.55) bloom(x + (rnd() - 0.5), y + i, depth * 0.6);
     }
   };
 
-  // recursive branch walk, upper hemisphere only; collects drape anchors
+  // Limbs must never climb into the empty headroom above the crown, otherwise
+  // they read as bare branches poking out to the (clipped) top edge.
+  const limbCeil = rows * 0.14;
+
+  // ---- recursive limb walk: organic curvature, asymmetry, taper ----
+  // Returns nothing; pushes twig tips into `anchors` (for blossom clusters/drapes).
   const anchors = [];
-  const branch = (x, y, angle, len, depth) => {
+  const branch = (x, y, angle, len, depth, curve) => {
     const steps = Math.max(2, Math.round(len));
-    const dx = Math.cos(angle), dy = -Math.sin(angle);
-    let cx = x, cy = y;
+    let cx = x, cy = y, a = angle;
+    // primary limbs hold the upper hemisphere; thinner twigs may arch outward
+    // and droop below horizontal so the branch structure fills the whole crown.
+    const loA = depth >= 3 ? 0.22 : -0.55;
+    const hiA = depth >= 3 ? Math.PI - 0.22 : Math.PI + 0.55;
     for (let i = 0; i < steps; i++) {
-      cx += dx; cy += dy;
+      a += curve + (rnd() - 0.5) * 0.09;               // gentle organic drift each step
+      a = Math.max(loA, Math.min(hiA, a));
+      cx += Math.cos(a); cy -= Math.sin(a);
+      if (cy < limbCeil) { cy += Math.sin(a); break; } // stop before piercing the crown top
+      if (i > 1 && lobeField(cx, cy) < 0.05) break;    // PRUNE: never sprawl outside the blossom mass
+      const c = Math.cos(a), s = Math.sin(a);
       let ch = "|";
-      if (dx > 0.3) ch = "/"; else if (dx < -0.3) ch = "\\";
-      put(cx, cy, ch, depth >= 3 ? "limb" : "branch");
-      if (depth <= 2 && rnd() < 0.3) anchors.push([cx, cy, depth]); // mid-twig anchors
+      if (s < -0.2) ch = c >= 0 ? "\\" : "/";          // drooping twig
+      else if (c > 0.35) ch = "/"; else if (c < -0.35) ch = "\\";
+      else if (s < 0.55) ch = "~";
+      put(cx, cy, ch, depth >= 4 ? "limb" : "branch");
+      if (depth >= 4) put(cx + (c >= 0 ? -1 : 1), cy, c > 0.2 ? "/" : c < -0.2 ? "\\" : "|", "limb"); // thicken big limbs
+      if (depth <= 2 && rnd() < 0.45) anchors.push([cx, cy, depth]);
     }
-    anchors.push([cx, cy, depth]);                    // tip anchor
-    if (depth <= 0) return;
-    const kids = 2 + (rnd() < 0.6 ? 1 : 0);
-    const open = depth >= 3 ? 0.5 : 0.62;
+    anchors.push([cx, cy, depth]);                     // tip anchor
+    if (depth <= 0 || cy < limbCeil + 1) return;       // don't spawn children into the headroom
+    if (lobeField(cx, cy) < 0.07) return;              // don't keep branching outside the canopy
+    const kids = depth >= 3 ? 2 + (rnd() < 0.6 ? 1 : 0)
+                            : 2 + (rnd() < 0.7 ? 1 : 0) + (rnd() < 0.3 ? 1 : 0);
+    const spread = depth >= 3 ? 0.5 : 0.9;
     for (let k = 0; k < kids; k++) {
       const t = kids === 1 ? 0 : k / (kids - 1) - 0.5;
-      let na = angle + t * open * 2 + (rnd() - 0.5) * 0.3;
-      na = Math.max(0.4, Math.min(Math.PI - 0.4, na));  // never droop below horizontal
-      branch(cx, cy, na, len * (0.64 + rnd() * 0.12), depth - 1);
+      let na = a + t * spread * 2 + (rnd() - 0.5) * 0.35;
+      // deeper twigs splay further from vertical, beginning to weep -> interior fill
+      if (depth <= 1) na += Math.sign(na - Math.PI / 2) * (0.3 + rnd() * 0.45);
+      const nc = curve * 0.55 + (rnd() - 0.5) * 0.18;  // children inherit + perturb curvature
+      branch(cx, cy, na, len * (0.64 + rnd() * 0.14), depth - 1, nc);
     }
   };
 
-  // trunk: bare, curving up roughly half the height
-  let tx = cols * 0.54;
-  let ty = rows - 1;
-  const trunkLen = Math.round(rows * 0.48);
-  for (let i = 0; i < trunkLen; i++) {
-    const frac = i / trunkLen;
-    put(tx, ty, "|", "trunk");
-    if (frac < 0.55) {                                 // thicker near the base
-      put(tx - 1, ty, i % 4 === 0 ? "(" : "|", "trunk");
-      put(tx + 1, ty, i % 4 === 0 ? ")" : "|", "trunk");
+  // ---- trunk: pronounced S-curve, continues as a leader into the crown ----
+  const groundY = rows - 1;
+  const leaderTopY = Math.round(rows * 0.34);          // leader rises well into the crown
+  const H = groundY - leaderTopY;
+  const baseX = cols * 0.47;
+  const sAmp = cols * 0.1;                              // S-curve amplitude (pronounced)
+  const lean = cols * 0.05;                            // slight net lean as it climbs
+  const baseHalf = Math.max(3, cols * 0.05);           // half-width at the base
+  const path = [];
+  for (let i = 0; i <= H; i++) {
+    const frac = i / H;                                 // 0 = base, 1 = leader top
+    // pronounced S: bows out low-down, sweeps back through, leans the crown over
+    const xoff = sAmp * Math.sin(frac * Math.PI * 1.5) + lean * Math.pow(frac, 1.6);
+    const x = baseX + xoff + (rnd() - 0.5) * 0.3;
+    const halfw = baseHalf * Math.pow(1 - frac, 1.55) + (frac > 0.8 ? 0.4 : 0.7);
+    path.push([x, groundY - i, halfw, frac]);
+  }
+  for (const [px, py, hw, frac] of path) {
+    const hi = Math.ceil(hw);
+    for (let dx = -hi; dx <= hi; dx++) {
+      if (Math.abs(dx) > hw + 0.4) continue;
+      const edge = Math.abs(dx) > hw - 0.85;
+      const n = noiseAt(px + dx, py);
+      let ch;
+      if (edge && hw > 1.1) {                            // gnarled, uneven bark edges
+        ch = dx < 0 ? (n > 0.62 ? "(" : "/") : (n > 0.62 ? ")" : "\\");
+      } else if (frac < 0.32) {                          // dense, dark, knotted base
+        ch = n < 0.24 ? "8" : n > 0.8 ? "%" : n > 0.52 ? "#" : "|";
+      } else {                                           // lighter, grainy bark higher up
+        ch = n < 0.28 ? ":" : n > 0.82 ? "/" : n > 0.6 ? ";" : "|";
+      }
+      put(px + dx, py, ch, "trunk");
     }
-    ty -= 1;
-    tx += (frac < 0.5 ? 0.16 : -0.12) + (rnd() - 0.5) * 0.18;  // gentle S-curve
+  }
+  // a few knots / branch scars on the trunk for variation
+  for (let i = 0; i < 6; i++) {
+    const node = path[((0.15 + rnd() * 0.7) * path.length) | 0];
+    const side = rnd() < 0.5 ? -1 : 1;
+    put(node[0] + side * (node[2] + 0.2), node[1], rnd() < 0.5 ? "o" : side < 0 ? "<" : ">", "limb");
+  }
+  // root flare spreading sideways into the hill
+  const [brx, bry] = path[0];
+  for (let s = 1; s <= Math.ceil(baseHalf) + 3; s++) {
+    if (rnd() < 0.85) put(brx - baseHalf - s + 1, bry, s % 2 ? "\\" : "_", "trunk");
+    if (rnd() < 0.85) put(brx + baseHalf + s - 1, bry, s % 2 ? "/" : "_", "trunk");
+    if (rnd() < 0.5) put(brx - baseHalf - s, bry - 1, "\\", "limb");
+    if (rnd() < 0.5) put(brx + baseHalf + s, bry - 1, "/", "limb");
   }
 
-  // canopy scaffold: a fan of limbs into the upper hemisphere, biased up-left
-  const baseAngles = [0.32, 0.46, 0.55, 0.66, 0.78, 0.9].map((p) => p * Math.PI);
-  for (const a of baseAngles) branch(tx, ty + ((rnd() * 2) | 0), a, rows * 0.2, 4);
+  // ---- crown geometry, defined UP-FRONT so the limb walk can be pruned to it ----
+  const topX = path[path.length - 1][0];
+  const nodeAt = (frac) => path[Math.min(path.length - 1, Math.max(0, Math.round(frac * H)))];
+  const canCx = topX + cols * 0.01;
+  const canCy = rows * 0.43;
+  const crownRx = cols * 0.31;
+  const crownRy = rows * 0.26;
+  // broad core + MANY small scattered satellites; the last few protrude beyond the
+  // core (sprouting clusters), but all bounded so the mass never reaches the grid edge.
+  const lobes = [{ x: canCx, y: canCy, rx: crownRx * 0.72, ry: crownRy * 0.8, w: 1 }];
+  for (let i = 0; i < 15; i++) {
+    const ang = rnd() * Math.PI * 2;
+    const rad = 0.32 + rnd() * (i < 11 ? 0.6 : 0.9);
+    lobes.push({
+      x: canCx + Math.cos(ang) * crownRx * 0.7 * rad,
+      y: canCy + Math.sin(ang) * crownRy * 0.74 * rad,
+      rx: crownRx * (0.14 + rnd() * 0.22),
+      ry: crownRy * (0.14 + rnd() * 0.22),
+      w: 0.5 + rnd() * 0.5,
+    });
+  }
+  // negative lobes carve missing chunks / bites out of the mass -> uneven edges
+  const holes = [];
+  for (let i = 0; i < 5; i++) {
+    const ang = rnd() * Math.PI * 2;
+    const rad = 0.45 + rnd() * 0.7;
+    holes.push({
+      x: canCx + Math.cos(ang) * crownRx * 0.88 * rad,
+      y: canCy + Math.sin(ang) * crownRy * 0.88 * rad,
+      rx: crownRx * (0.12 + rnd() * 0.18),
+      ry: crownRy * (0.12 + rnd() * 0.18),
+      w: 0.6 + rnd() * 0.5,
+    });
+  }
+  const lobeField = (x, y) => {                          // max gaussians, minus carved holes
+    let m = 0;
+    for (const L of lobes) {
+      const dx = (x - L.x) / L.rx, dy = (y - L.y) / L.ry;
+      const v = L.w * Math.exp(-(dx * dx + dy * dy));
+      if (v > m) m = v;
+    }
+    let cut = 0;
+    for (const Hl of holes) {
+      const dx = (x - Hl.x) / Hl.rx, dy = (y - Hl.y) / Hl.ry;
+      cut += Hl.w * Math.exp(-(dx * dx + dy * dy));
+    }
+    return m - cut * 0.95;
+  };
+  const crownTopY = Math.max(0, Math.floor(canCy - crownRy * 1.5));
+  const crownBotY = canCy + crownRy * 1.12;
 
-  // hang drapes from the anchors; canopy bottom stays above this floor
-  const floorY = rows * 0.6;
+  // ---- primary limbs: asymmetric, off several heights, all pruned to the canopy ----
+  // [trunk-height fraction, base angle (rad), length factor]
+  const limbDefs = [
+    [1.00, 1.70, 0.20],   // leader carries on, slightly left of vertical
+    [0.96, 2.42, 0.26],   // upper-left limb
+    [0.92, 0.85, 0.24],   // upper-right limb
+    [0.84, 2.74, 0.26],   // mid-left, reaches wide
+    [0.78, 0.55, 0.26],   // mid-right, reaches wide
+    [0.70, 2.85, 0.27],   // low-left, near-horizontal -> left canopy
+    [0.64, 0.42, 0.27],   // low-right, near-horizontal -> right canopy
+    [0.88, 1.45, 0.18],   // inner near-vertical limb
+  ];
+  for (const [hf, ang, lf] of limbDefs) {
+    const [nx, ny] = nodeAt(hf);
+    branch(nx, ny, ang + (rnd() - 0.5) * 0.25, rows * lf, 4, (rnd() - 0.5) * 0.14);
+  }
+  // secondary limbs sprouting along the upper trunk/leader at staggered heights,
+  // angled mostly OUTWARD so the hierarchy reaches into the left/right canopy
+  for (let f = 0.55; f <= 0.98; f += 0.045) {
+    if (rnd() < 0.72) {
+      const [nx, ny] = nodeAt(f + (rnd() - 0.5) * 0.03);
+      const left = rnd() < 0.5;
+      const ang = (left ? 2.5 : 0.64) + (rnd() - 0.5) * 0.7;    // lateral spread
+      branch(nx, ny, ang, rows * (0.1 + rnd() * 0.12), 3, (rnd() - 0.5) * 0.2);
+    }
+  }
+
+  // PASS A — dim, desaturated BACKGROUND layer. Fills interior for depth but the
+  // coarse field opens real negative pockets where it is weak; boundary is broken
+  // up by the fine noise so no edge is straight.
+  for (let y = crownTopY; y < crownBotY; y++) {
+    for (let x = 0; x < cols; x++) {
+      const dens = lobeField(x, y);
+      if (dens < 0.1) continue;                          // hard outer bound -> no far scatter to grid edge
+      const edgeN = noiseAt(x, y);
+      if (dens + (edgeN - 0.5) * 0.32 < 0.2) continue;   // jagged, noise-broken rim
+      const cl = coarseAt(x, y);
+      let p = clamp01(cl * 1.9 + 0.2);                   // fills the interior densely (dim), pockets only where cluster field is weak
+      if (dens < 0.32) p *= clamp01(dens / 0.32);        // feather the rim
+      if (rnd() > p) continue;
+      bloom(x, y, clamp01(0.03 + edgeN * 0.16 + cl * 0.12));  // dim "far" tier, gently varied
+    }
+  }
+
+  // PASS B — clumped FOREGROUND blossoms. The coarse cluster field decides which
+  // regions are dense + bright (advancing) vs sparse + dim (receding), giving
+  // localized clumps, thinner pockets and depth variation instead of a flat mass.
+  for (let y = crownTopY; y < crownBotY; y++) {
+    for (let x = 0; x < cols; x++) {
+      const dens = lobeField(x, y);
+      if (dens < 0.1) continue;                          // hard outer bound -> no far scatter
+      const edgeN = noiseAt(x, y);
+      if (dens + (edgeN - 0.5) * 0.32 < 0.18) continue;  // same ragged boundary
+      const cl = coarseAt(x, y);
+      const n = noiseAt(x, y);
+      const edge = clamp01((0.7 - dens) / 0.6);          // 0 lobe-core -> 1 lobe-rim
+      const clump = cl * 0.72 + n * 0.5;                 // dense clumps only where cluster field is strong
+      if (clump < 0.46) continue;                        // -> leaves genuine negative spaces
+      let p = 0.62 + 0.36 * edge;
+      if (dens < 0.26) p *= clamp01(dens / 0.26);        // feather the soft outer rim
+      if (rnd() > p) continue;
+      // whole clusters advance/recede together based on the coarse field
+      const depth = clamp01(0.1 + cl * 0.52 + edge * 0.3 + (rnd() - 0.5) * 0.16);
+      bloom(x + (rnd() - 0.5) * 0.5, y, depth);
+    }
+  }
+
+  // PASS C — tight puffs hugging branch tips (also cover any exposed limb tips)
   for (const [ax, ay, d] of anchors) {
-    const depth = 0.25 + rnd() * 0.75 - d * 0.05;      // deeper twigs read nearer
-    let len = 3 + rnd() * 9;
-    len = Math.min(len, floorY - ay);
-    if (len < 2) len = 2;
-    drape(ax, ay, Math.round(len), Math.max(0.15, Math.min(1, depth)));
+    if (ay > crownBotY + 2 || ay < crownTopY - 2) continue;
+    if (lobeField(ax, ay) < 0.1) continue;               // only where the canopy mass is
+    const cr = 1.5 + rnd() * 2.6;
+    const count = 5 + ((rnd() * 8) | 0);
+    const puffDepth = clamp01(0.42 + rnd() * 0.42 - d * 0.04);  // each puff its own tier
+    for (let k = 0; k < count; k++) {
+      const a = rnd() * 6.28;
+      const rr = Math.pow(rnd(), 0.6) * cr;
+      const x = ax + Math.cos(a) * rr;
+      const y = ay + Math.sin(a) * rr * 0.85;
+      if (y < limbCeil - 1 || noiseAt(x, y) < 0.1) continue;
+      bloom(x, y, clamp01(puffDepth + (rnd() - 0.5) * 0.18));
+    }
   }
 
-  // a few extra fill drapes across the canopy top for fullness
-  for (let i = 0; i < 16; i++) {
-    const ax = tx + (rnd() - 0.55) * cols * 0.34;
-    const ay = ty - rnd() * rows * 0.16;
-    drape(ax, ay, 3 + ((rnd() * 6) | 0), 0.3 + rnd() * 0.6);
+  // ---- weeping strands: grouped into a few uneven drooping CLUSTERS (not an even
+  //      curtain) and kept from hanging too low ----
+  const floorY = rows * 0.78;
+  const strand = (x, y, kind) => {
+    const r = kind ?? rnd();
+    let len, opts;
+    if (r < 0.5) {             // short, dense, quick taper
+      len = 2 + rnd() * 4; opts = { w: 1.2, taper: 0.95, dens: 0.92, fall: 0.9 };
+    } else if (r < 0.82) {     // medium
+      len = 5 + rnd() * 6; opts = { w: 1.6, taper: 0.8, dens: 0.85, fall: 0.78 };
+    } else if (r < 0.95) {     // long, sparse, wispy
+      len = 9 + rnd() * 7; opts = { w: 1.1, taper: 0.55, dens: 0.64, fall: 0.55 };
+    } else {                   // occasional deeper curtain (still moderate)
+      len = 13 + rnd() * 7; opts = { w: 0.9, taper: 0.35, dens: 0.55, fall: 0.4 };
+    }
+    len = Math.min(len, floorY - y);
+    if (len < 2) return;
+    drape(x, y, Math.round(len), clamp01(0.22 + rnd() * 0.5), opts);
+  };
+  const lowestBlossom = (x) => {
+    const col = Math.round(Math.max(0, Math.min(cols - 1, x)));
+    for (let y = Math.floor(crownBotY); y >= crownTopY; y--) {
+      if (grid[y][col] && grid[y][col].type === "blossom") return y;
+    }
+    return -1;
+  };
+  // some twig tips weep (only those well inside the canopy mass)
+  for (const [ax, ay] of anchors) {
+    if (ay > crownBotY || ay < crownTopY) continue;
+    if (lobeField(ax, ay) < 0.14) continue;
+    if (rnd() < 0.45) continue;
+    strand(ax, ay);
+  }
+  // the underside fringe is concentrated into a handful of uneven clusters at
+  // irregular positions, instead of a single broad horizontal curtain
+  const nClusters = 5 + ((rnd() * 3) | 0);
+  for (let c = 0; c < nClusters; c++) {
+    const cxp = canCx + (rnd() - 0.5) * crownRx * 1.7;
+    const span = 3 + rnd() * 5;
+    const nStr = 3 + ((rnd() * 5) | 0);
+    const deep = rnd() < 0.3;                            // a few clusters droop slightly deeper
+    for (let s = 0; s < nStr; s++) {
+      const x = cxp + (rnd() - 0.5) * span;
+      const yLow = lowestBlossom(x);
+      if (yLow < 0) continue;
+      strand(x, yLow - ((rnd() * 4) | 0), deep && rnd() < 0.5 ? 0.97 : undefined);
+    }
   }
 
   return grid;
@@ -336,47 +621,58 @@ function growTree({ cols, rows, seed }) {
 
 /* ------------------------------ AsciiTree -------------------------------- */
 
-function AsciiTree({ cols = 66, rows = 50, seed = 11 }) {
-  const grid = useMemo(() => growTree({ cols, rows, seed }), [cols, rows, seed]);
-  const cls = (t) => (t === "trunk" ? "t-trunk" : t === "limb" ? "t-limb" : "t-branch");
+/* PERFORMANCE NOTE
+   The previous renderer emitted one <span> per blossom CHARACTER (thousands of
+   DOM nodes) and attached a CSS keyframe animation to ~half of them (thousands
+   of simultaneous animations) — that was the cause of the severe render/preview
+   lag, not the generation (which is memoized).
 
-  const lines = grid.map((row, y) => {
-    const out = [];
-    let buf = "", bufType = null, key = 0;
-    const flush = () => {
-      if (!buf) return;
-      if (bufType === "space") out.push(buf);
-      else out.push(<span key={`${y}-${key++}`} className={cls(bufType)}>{buf}</span>);
-      buf = "";
-    };
-    for (let x = 0; x < row.length; x++) {
-      const cell = row[x];
-      if (!cell) {
-        if (bufType !== "space") { flush(); bufType = "space"; }
-        buf += " ";
-      } else if (cell.type === "blossom") {
-        flush(); bufType = null;
-        const op = (0.35 + cell.depth * 0.6).toFixed(2);
-        out.push(
-          <span key={`${y}-${key++}`}
-            className={`t-bl${cell.near ? " near" : ""}${cell.tw ? " tw" : ""}`}
-            style={{ opacity: op, ...(cell.tw ? { "--d": `${cell.d}s` } : {}) }}>
-            {cell.ch}
-          </span>
-        );
-      } else {
-        if (bufType !== cell.type) { flush(); bufType = cell.type; }
-        buf += cell.ch;
+   This renderer instead flattens the grid into a SMALL, FIXED set of full-grid
+   ASCII layers (5 <pre> text nodes total). Each cell belongs to exactly one
+   layer, so the layers are disjoint and simply stack to reproduce the image.
+   Colour/opacity is per-layer (CSS), and only ONE layer animates (a single
+   subtle shimmer), so the DOM and animation cost are both ~O(1). */
+function AsciiTree({ cols = 140, rows = 82, seed = 11 }) {
+  const layers = useMemo(() => {
+    const grid = growTree({ cols, rows, seed });
+    const bark = [], branch = [], far = [], mid = [], near = [];
+    for (let y = 0; y < rows; y++) {
+      const row = grid[y];
+      let b = "", br = "", f = "", m = "", n = "";
+      for (let x = 0; x < cols; x++) {
+        const c = row[x];
+        if (!c) { b += " "; br += " "; f += " "; m += " "; n += " "; continue; }
+        if (c.type === "blossom") {
+          const t = c.tier;
+          f += t === "far" ? c.ch : " ";
+          m += t === "mid" ? c.ch : " ";
+          n += t === "near" ? c.ch : " ";
+          b += " "; br += " ";
+        } else if (c.type === "branch") {
+          br += c.ch; b += " "; f += " "; m += " "; n += " ";
+        } else {                              // trunk + primary limbs
+          b += c.ch; br += " "; f += " "; m += " "; n += " ";
+        }
       }
+      bark.push(b); branch.push(br); far.push(f); mid.push(m); near.push(n);
     }
-    flush();
-    return <span key={y} className="ah-row">{out}</span>;
-  });
+    return {
+      bark: bark.join("\n"), branch: branch.join("\n"), far: far.join("\n"),
+      mid: mid.join("\n"), near: near.join("\n"),
+    };
+  }, [cols, rows, seed]);
 
   return (
     <div className="ah-tree-wrap">
       <div className="ah-tree-sway">
-        <div className="ah-tree">{lines}</div>
+        <div className="ah-tree" aria-hidden="true">
+          {/* disjoint ASCII layers — 5 text nodes instead of ~4000 spans */}
+          <pre className="ah-tl far">{layers.far}</pre>
+          <pre className="ah-tl branch">{layers.branch}</pre>
+          <pre className="ah-tl bark">{layers.bark}</pre>
+          <pre className="ah-tl mid">{layers.mid}</pre>
+          <pre className="ah-tl near">{layers.near}</pre>
+        </div>
       </div>
     </div>
   );
