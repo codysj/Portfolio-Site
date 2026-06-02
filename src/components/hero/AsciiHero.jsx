@@ -357,7 +357,9 @@ function growTree({ cols, rows, seed }) {
       a = Math.max(loA, Math.min(hiA, a));
       cx += Math.cos(a); cy -= Math.sin(a);
       if (cy < limbCeil) { cy += Math.sin(a); break; } // stop before piercing the crown top
-      if (i > 1 && lobeField(cx, cy) < 0.05) break;    // PRUNE: never sprawl outside the blossom mass
+      // PRUNE: major limbs may bridge low-density gaps (so they can reach + support
+      // detached-looking canopy), but small twigs stay confined to the dense canopy
+      if (i > 1 && lobeField(cx, cy) < (depth >= 4 ? 0.05 : 0.16)) break;
       const c = Math.cos(a), s = Math.sin(a);
       let ch = "|";
       if (s < -0.2) ch = c >= 0 ? "\\" : "/";          // drooping twig
@@ -369,7 +371,7 @@ function growTree({ cols, rows, seed }) {
     }
     anchors.push([cx, cy, depth]);                     // tip anchor
     if (depth <= 0 || cy < limbCeil + 1) return;       // don't spawn children into the headroom
-    if (lobeField(cx, cy) < 0.07) return;              // don't keep branching outside the canopy
+    if (lobeField(cx, cy) < (depth >= 4 ? 0.06 : 0.2)) return;  // major limbs reach further; twigs stay in the canopy
     const kids = depth >= 3 ? 2 + (rnd() < 0.6 ? 1 : 0)
                             : 2 + (rnd() < 0.7 ? 1 : 0) + (rnd() < 0.3 ? 1 : 0);
     const spread = depth >= 3 ? 0.5 : 0.9;
@@ -402,19 +404,26 @@ function growTree({ cols, rows, seed }) {
   }
   for (const [px, py, hw, frac] of path) {
     const hi = Math.ceil(hw);
+    const fromBottom = groundY - py;                     // 0 at the very base
+    const baseFade = fromBottom <= 4;                    // lowest rows dissolve into the grass
     for (let dx = -hi; dx <= hi; dx++) {
       if (Math.abs(dx) > hw + 0.4) continue;
+      // base dissolve #1: delete characters near the bottom (thinning, densest upward)
+      if (baseFade && rnd() > 0.28 + fromBottom * 0.17) continue;
       const edge = Math.abs(dx) > hw - 0.85;
       const n = noiseAt(px + dx, py);
-      let ch;
-      if (edge && hw > 1.1) {                            // gnarled, uneven bark edges
+      let ch, type = "trunk";
+      if (baseFade && fromBottom <= 2) {                 // base dissolve #2: faint, dim, light glyphs
+        ch = n < 0.4 ? ":" : n > 0.75 ? "'" : ".";
+        type = "branch";                                 // routed to the dimmer layer -> reduced value
+      } else if (edge && hw > 1.1) {                     // gnarled, uneven bark edges
         ch = dx < 0 ? (n > 0.62 ? "(" : "/") : (n > 0.62 ? ")" : "\\");
       } else if (frac < 0.32) {                          // dense, dark, knotted base
         ch = n < 0.24 ? "8" : n > 0.8 ? "%" : n > 0.52 ? "#" : "|";
       } else {                                           // lighter, grainy bark higher up
         ch = n < 0.28 ? ":" : n > 0.82 ? "/" : n > 0.6 ? ";" : "|";
       }
-      put(px + dx, py, ch, "trunk");
+      put(px + dx, py, ch, type);
     }
   }
   // a few knots / branch scars on the trunk for variation
@@ -423,13 +432,18 @@ function growTree({ cols, rows, seed }) {
     const side = rnd() < 0.5 ? -1 : 1;
     put(node[0] + side * (node[2] + 0.2), node[1], rnd() < 0.5 ? "o" : side < 0 ? "<" : ">", "limb");
   }
-  // root flare spreading sideways into the hill
+  // base DISSOLVES into the abstract grass instead of looking planted in soil:
+  // only faint, sparse horizontal root hints (dim "branch" tone, no hard flare)...
   const [brx, bry] = path[0];
-  for (let s = 1; s <= Math.ceil(baseHalf) + 3; s++) {
-    if (rnd() < 0.85) put(brx - baseHalf - s + 1, bry, s % 2 ? "\\" : "_", "trunk");
-    if (rnd() < 0.85) put(brx + baseHalf + s - 1, bry, s % 2 ? "/" : "_", "trunk");
-    if (rnd() < 0.5) put(brx - baseHalf - s, bry - 1, "\\", "limb");
-    if (rnd() < 0.5) put(brx + baseHalf + s, bry - 1, "/", "limb");
+  for (let s = 1; s <= baseHalf; s++) {
+    if (rnd() < 0.5) put(brx - baseHalf - s + 1, bry, s % 2 ? "\\" : "_", "branch");
+    if (rnd() < 0.5) put(brx + baseHalf + s - 1, bry, s % 2 ? "/" : "_", "branch");
+  }
+  // ...and a light scatter of dim "fallen blossoms" fading into the grass field
+  for (let i = 0; i < 14; i++) {
+    const fx = brx + (rnd() - 0.5) * baseHalf * 4;
+    const fy = bry - ((rnd() * 3) | 0);
+    bloom(fx, fy, 0.1 + rnd() * 0.12);                  // dim "far" tier -> reads as scattered petals
   }
 
   // ---- crown geometry, defined UP-FRONT so the limb walk can be pruned to it ----
@@ -444,41 +458,28 @@ function growTree({ cols, rows, seed }) {
   const lobes = [{ x: canCx, y: canCy, rx: crownRx * 0.72, ry: crownRy * 0.8, w: 1 }];
   for (let i = 0; i < 15; i++) {
     const ang = rnd() * Math.PI * 2;
-    const rad = 0.32 + rnd() * (i < 11 ? 0.6 : 0.9);
+    const rad = 0.3 + rnd() * (i < 11 ? 0.52 : 0.7);   // pulled in so satellites overlap -> one connected mass
     lobes.push({
-      x: canCx + Math.cos(ang) * crownRx * 0.7 * rad,
-      y: canCy + Math.sin(ang) * crownRy * 0.74 * rad,
-      rx: crownRx * (0.14 + rnd() * 0.22),
-      ry: crownRy * (0.14 + rnd() * 0.22),
+      x: canCx + Math.cos(ang) * crownRx * 0.66 * rad,
+      y: canCy + Math.sin(ang) * crownRy * 0.7 * rad,
+      rx: crownRx * (0.17 + rnd() * 0.2),
+      ry: crownRy * (0.17 + rnd() * 0.2),
       w: 0.5 + rnd() * 0.5,
     });
   }
-  // negative lobes carve missing chunks / bites out of the mass -> uneven edges
-  const holes = [];
-  for (let i = 0; i < 5; i++) {
-    const ang = rnd() * Math.PI * 2;
-    const rad = 0.45 + rnd() * 0.7;
-    holes.push({
-      x: canCx + Math.cos(ang) * crownRx * 0.88 * rad,
-      y: canCy + Math.sin(ang) * crownRy * 0.88 * rad,
-      rx: crownRx * (0.12 + rnd() * 0.18),
-      ry: crownRy * (0.12 + rnd() * 0.18),
-      w: 0.6 + rnd() * 0.5,
-    });
-  }
-  const lobeField = (x, y) => {                          // max gaussians, minus carved holes
+  // Explicit fill lobes that guarantee a FULL upper crown (the previous "carved
+  // hole" came from negative lobes here — removed; gaps now come only from the
+  // coarse cluster field, which reads as natural clumping rather than a bite).
+  lobes.push({ x: canCx - crownRx * 0.04, y: canCy - crownRy * 0.6,  rx: crownRx * 0.52, ry: crownRy * 0.46, w: 0.96 }); // upper-centre
+  lobes.push({ x: canCx - crownRx * 0.34, y: canCy - crownRy * 0.36, rx: crownRx * 0.42, ry: crownRy * 0.42, w: 0.92 }); // upper-left
+  const lobeField = (x, y) => {                          // union of soft lobes (max gaussian)
     let m = 0;
     for (const L of lobes) {
       const dx = (x - L.x) / L.rx, dy = (y - L.y) / L.ry;
       const v = L.w * Math.exp(-(dx * dx + dy * dy));
       if (v > m) m = v;
     }
-    let cut = 0;
-    for (const Hl of holes) {
-      const dx = (x - Hl.x) / Hl.rx, dy = (y - Hl.y) / Hl.ry;
-      cut += Hl.w * Math.exp(-(dx * dx + dy * dy));
-    }
-    return m - cut * 0.95;
+    return m;
   };
   const crownTopY = Math.max(0, Math.floor(canCy - crownRy * 1.5));
   const crownBotY = canCy + crownRy * 1.12;
@@ -487,11 +488,11 @@ function growTree({ cols, rows, seed }) {
   // [trunk-height fraction, base angle (rad), length factor]
   const limbDefs = [
     [1.00, 1.70, 0.20],   // leader carries on, slightly left of vertical
-    [0.96, 2.42, 0.26],   // upper-left limb
+    [0.94, 2.50, 0.38],   // LONG upper-left limb -> supports the left-upper canopy
     [0.92, 0.85, 0.24],   // upper-right limb
-    [0.84, 2.74, 0.26],   // mid-left, reaches wide
+    [0.86, 2.66, 0.40],   // LONG mid-left limb -> supports the left-middle canopy
     [0.78, 0.55, 0.26],   // mid-right, reaches wide
-    [0.70, 2.85, 0.27],   // low-left, near-horizontal -> left canopy
+    [0.70, 2.88, 0.34],   // low-left, near-horizontal -> far left canopy
     [0.64, 0.42, 0.27],   // low-right, near-horizontal -> right canopy
     [0.88, 1.45, 0.18],   // inner near-vertical limb
   ];
@@ -518,10 +519,13 @@ function growTree({ cols, rows, seed }) {
       const dens = lobeField(x, y);
       if (dens < 0.1) continue;                          // hard outer bound -> no far scatter to grid edge
       const edgeN = noiseAt(x, y);
-      if (dens + (edgeN - 0.5) * 0.32 < 0.2) continue;   // jagged, noise-broken rim
+      const upper = (canCy - y) / crownRy;               // >0 above centre, grows toward the top
+      const breakAmt = 0.3 + Math.max(0, upper) * 0.85;  // ragged UPPER edge (noise break only -> not a hole)
+      if (dens + (edgeN - 0.5) * breakAmt < 0.18 + Math.max(0, upper) * 0.08) continue;
       const cl = coarseAt(x, y);
-      let p = clamp01(cl * 1.9 + 0.2);                   // fills the interior densely (dim), pockets only where cluster field is weak
+      let p = clamp01(cl * 1.9 + 0.2);                   // fills the interior densely (dim), pockets where cluster field is weak
       if (dens < 0.32) p *= clamp01(dens / 0.32);        // feather the rim
+      if (upper > 0.85) p *= clamp01(1.4 - (upper - 0.85) * 1.4);  // soften ONLY the very top edge
       if (rnd() > p) continue;
       bloom(x, y, clamp01(0.03 + edgeN * 0.16 + cl * 0.12));  // dim "far" tier, gently varied
     }
@@ -535,7 +539,9 @@ function growTree({ cols, rows, seed }) {
       const dens = lobeField(x, y);
       if (dens < 0.1) continue;                          // hard outer bound -> no far scatter
       const edgeN = noiseAt(x, y);
-      if (dens + (edgeN - 0.5) * 0.32 < 0.18) continue;  // same ragged boundary
+      const upper = (canCy - y) / crownRy;               // >0 above centre
+      const breakAmt = 0.3 + Math.max(0, upper) * 0.8;   // ragged top edge (noise break only)
+      if (dens + (edgeN - 0.5) * breakAmt < 0.16 + Math.max(0, upper) * 0.08) continue;
       const cl = coarseAt(x, y);
       const n = noiseAt(x, y);
       const edge = clamp01((0.7 - dens) / 0.6);          // 0 lobe-core -> 1 lobe-rim
@@ -543,6 +549,7 @@ function growTree({ cols, rows, seed }) {
       if (clump < 0.46) continue;                        // -> leaves genuine negative spaces
       let p = 0.62 + 0.36 * edge;
       if (dens < 0.26) p *= clamp01(dens / 0.26);        // feather the soft outer rim
+      if (upper > 0.85) p *= clamp01(1.4 - (upper - 0.85) * 1.5);  // soften ONLY the very top edge
       if (rnd() > p) continue;
       // whole clusters advance/recede together based on the coarse field
       const depth = clamp01(0.1 + cl * 0.52 + edge * 0.3 + (rnd() - 0.5) * 0.16);
