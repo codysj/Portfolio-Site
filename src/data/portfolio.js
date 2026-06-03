@@ -16,7 +16,8 @@
        tech      array of stack chips
        features  array of highlight bullets
        repo      GitHub URL (opens in a new tab)
-       image     path under /public used as the expanded visual
+       image     path under /public used as the visual
+       imagePoster optional static poster for animated media used in cards
        imageAlt  alt text for that visual
 -------------------------------------------------------------------------------- */
 
@@ -54,8 +55,9 @@ export const projects = {
         "15+ risk/performance metrics (Sharpe, Sortino, max drawdown…)",
       ],
       repo: "https://github.com/codysj/AI-Backtest-Lab",
-      image: "/projects/ai-backtest-lab.png",
-      imageAlt: "AI Backtest Lab dashboard showing a single backtest run with equity curve and metrics",
+      image: "/projects/ai-backtest-lab-demo.gif",
+      imagePoster: "/projects/ai-backtest-lab.png",
+      imageAlt: "AI Backtest Lab dashboard preview",
     },
     {
       idx: "02",

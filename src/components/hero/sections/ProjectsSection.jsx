@@ -5,6 +5,8 @@ import { LayoutGroup, MotionConfig } from "framer-motion";
 import { projects } from "@/data/portfolio";
 import ProjectCard from "@/components/hero/sections/ProjectCard";
 
+const TRANSITION_MS = 540;
+
 /* ----------------------------- ProjectsSection --------------------------- */
 /* Renders the project grid. One card may be expanded at a time (accordion);
    the open card moves to the top so the remaining minimized cards stay readable
@@ -37,10 +39,26 @@ function centerInViewport(el, behavior) {
 export default function ProjectsSection() {
   const items = projects.items;
   const [openIdx, setOpenIdx] = useState(null);
+  const [transitioningIds, setTransitioningIds] = useState([]);
   const gridRef = useRef(null);
   const raf = useRef(0);
+  const transitionTimer = useRef(0);
 
-  useEffect(() => () => cancelAnimationFrame(raf.current), []);
+  useEffect(() => () => {
+    cancelAnimationFrame(raf.current);
+    clearTimeout(transitionTimer.current);
+  }, []);
+
+  const markTransitioning = (ids) => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    clearTimeout(transitionTimer.current);
+    if (reduce) {
+      setTransitioningIds([]);
+      return;
+    }
+    setTransitioningIds([...new Set(ids.filter(Boolean))]);
+    transitionTimer.current = setTimeout(() => setTransitioningIds([]), TRANSITION_MS);
+  };
 
   // Start the centring scroll on the next frame (so the new layout is committed
   // and offsets are final) — concurrent with the expand/collapse animation.
@@ -56,6 +74,7 @@ export default function ProjectsSection() {
 
   const toggle = (idx) => {
     const willOpen = openIdx !== idx;
+    markTransitioning([idx]);
     setOpenIdx(willOpen ? idx : null);
     scrollToCenter(willOpen);
   };
@@ -63,7 +82,9 @@ export default function ProjectsSection() {
   const cycle = (dir) => {
     if (openIdx == null) return;
     const i = items.findIndex((p) => p.idx === openIdx);
-    setOpenIdx(items[(i + dir + items.length) % items.length].idx);
+    const nextIdx = items[(i + dir + items.length) % items.length].idx;
+    markTransitioning([openIdx, nextIdx]);
+    setOpenIdx(nextIdx);
     scrollToCenter(true);
   };
 
@@ -79,6 +100,7 @@ export default function ProjectsSection() {
                 key={p.idx}
                 project={p}
                 open={openIdx === p.idx}
+                transitioning={transitioningIds.includes(p.idx)}
                 onToggle={() => toggle(p.idx)}
                 onPrev={() => cycle(-1)}
                 onNext={() => cycle(1)}

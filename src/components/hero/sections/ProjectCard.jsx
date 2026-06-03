@@ -9,19 +9,22 @@ import ProjectMedia from "@/components/hero/sections/ProjectMedia";
    details panel — overview, features, tech stack, and a GitHub link — and shows
    prev/next arrows to cycle between projects.
 
-   Framer Motion `layout` animations drive every size/position change: the card
-   grows, the preview visual scales up to full size, and (because the open card
-   reorders to the top) the other cards slide/shuffle into place — all smoothly
-   and concurrently. `MotionConfig reducedMotion="user"` (in the section) makes
-   these instant for reduced-motion users. */
+   Framer Motion animates card position changes while CSS handles the open/
+   closed layout. Keeping layout animation position-only avoids horizontally
+   scaling card content during shuffles and closes. */
 
 const LAYOUT_T = { type: "tween", duration: 0.45, ease: [0.2, 0.7, 0.2, 1] };
 
-export default function ProjectCard({ project, open, onToggle, onPrev, onNext }) {
+export default function ProjectCard({ project, open, transitioning, onToggle, onPrev, onNext }) {
   const detailsId = `proj-${project.idx}-details`;
+  const className = [
+    "ah-card",
+    open ? "open" : "",
+    transitioning ? "is-morphing" : "",
+  ].filter(Boolean).join(" ");
 
   return (
-    <motion.article layout transition={LAYOUT_T} className={open ? "ah-card open" : "ah-card"}>
+    <motion.article layout="position" transition={LAYOUT_T} className={className}>
       <button
         type="button"
         className="ah-card-head"
@@ -35,16 +38,15 @@ export default function ProjectCard({ project, open, onToggle, onPrev, onNext })
         <p>{project.tagline}</p>
       </button>
 
-      <motion.div layout transition={LAYOUT_T} className="ah-card-body">
+      <div className="ah-card-body">
         {/* preview visual — shown collapsed and expanded; grows to full size */}
-        <motion.div layout transition={LAYOUT_T} className="ah-card-media">
-          <ProjectMedia src={project.image} alt={project.imageAlt} />
-        </motion.div>
+        <div className="ah-card-media">
+          <ProjectMedia src={project.image} poster={project.imagePoster} alt={project.imageAlt} />
+        </div>
 
         <AnimatePresence initial={false}>
           {open && (
             <motion.div
-              layout
               key="details"
               id={detailsId}
               role="region"
@@ -80,7 +82,7 @@ export default function ProjectCard({ project, open, onToggle, onPrev, onNext })
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {open && (
         <>

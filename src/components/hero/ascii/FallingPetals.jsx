@@ -15,7 +15,7 @@ export default function FallingPetals() {
     const ctx = canvas.getContext("2d");
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    let w = 0, h = 0, dpr = 1, raf = 0;
+    let w = 0, h = 0, dpr = 1, raf = 0, viewH = 0;
     const chars = ["'", "·", ".", "*"];
     const tint = ["207,159,170", "236,201,209", "200,150,140"];
     let parts = [];
@@ -40,6 +40,13 @@ export default function FallingPetals() {
     const resize = () => {
       w = canvas.parentElement.clientWidth;
       h = canvas.parentElement.clientHeight;
+      // The petals are a hero ambiance, but the canvas's parent (.ah-bg) spans the
+      // whole document. We keep the canvas full-size and the petal lifecycle
+      // exactly as before (so the hero's petals are completely unchanged), but
+      // only DRAW petals within the first viewport — see tick(). Otherwise they
+      // drift, with an alpha flicker, behind the near-transparent project cards
+      // below the fold and read as the cards "flickering" while idle.
+      viewH = window.innerHeight;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = w * dpr; canvas.height = h * dpr;
       canvas.style.width = w + "px"; canvas.style.height = h + "px";
@@ -54,9 +61,11 @@ export default function FallingPetals() {
     if (reduce) {
       // static, sparse scatter — no animation loop
       parts.slice(0, Math.min(24, parts.length)).forEach((p) => {
+        const py = p.y < 0 ? Math.random() * h : p.y;
+        if (py > viewH) return; // keep the scatter within the hero viewport
         ctx.font = `${p.size}px "IBM Plex Mono", monospace`;
         ctx.fillStyle = `rgba(${p.col},${p.a})`;
-        ctx.fillText(p.ch, p.x, p.y < 0 ? Math.random() * h : p.y);
+        ctx.fillText(p.ch, p.x, py);
       });
       return () => window.removeEventListener("resize", resize);
     }
@@ -68,6 +77,10 @@ export default function FallingPetals() {
         p.y += p.vy;
         p.x += p.vx + Math.sin(time * p.freq + p.phase) * p.amp * 0.4;
         if (p.y > h + 12 || p.x < -12) Object.assign(p, makePart(true));
+        // only paint within the hero viewport — petals keep moving below the
+        // fold (preserving the original count/density up here) but aren't drawn
+        // behind the content sections, so the project cards never flicker
+        if (p.y > viewH) continue;
         const flicker = 0.75 + 0.25 * Math.sin(time * 1.5 + p.phase);
         ctx.font = `${p.size}px "IBM Plex Mono", monospace`;
         ctx.fillStyle = `rgba(${p.col},${p.a * flicker})`;
