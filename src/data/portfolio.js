@@ -18,6 +18,8 @@
        repo      GitHub URL (opens in a new tab)
        image     path under /public used as the visual
        imagePoster optional static poster for animated media used in cards
+       imageSprite optional static sprite sheet for CSS-driven preview motion
+       imageSpriteFrames frame count for `imageSprite`
        imageAlt  alt text for that visual
 -------------------------------------------------------------------------------- */
 
@@ -55,8 +57,10 @@ export const projects = {
         "15+ risk/performance metrics (Sharpe, Sortino, max drawdown…)",
       ],
       repo: "https://github.com/codysj/AI-Backtest-Lab",
-      image: "/projects/ai-backtest-lab-demo.gif",
+      image: "/projects/ai-backtest-lab.png",
       imagePoster: "/projects/ai-backtest-lab.png",
+      imageSprite: "/projects/ai-backtest-lab-demo-sprite.webp",
+      imageSpriteFrames: 24,
       imageAlt: "AI Backtest Lab dashboard preview",
     },
     {

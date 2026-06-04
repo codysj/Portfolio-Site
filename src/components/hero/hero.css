@@ -173,6 +173,8 @@
 .ah-card-body{transition:filter .12s ease;}
 .ah-card.is-morphing .ah-card-body{filter:blur(.55px);}
 .ah-card.is-morphing::after{opacity:.42;}
+.ah-card.is-size-morphing{transform-origin:0 0;}
+.ah-card.is-size-morphing .ah-card-body{filter:blur(.45px);}
 .ah-card .idx{color:var(--sage);font-size:12px;letter-spacing:.2em;}
 .ah-card h3{font-family:var(--serif);font-weight:400;font-size:1.35rem;margin:14px 0 10px;}
 .ah-card p{color:var(--ink-dim);font-size:.9rem;line-height:1.7;margin:0;}
@@ -225,7 +227,12 @@
   overflow:hidden;background:var(--bg-1);contain:paint;}
 .ah-card-media img,.ah-card-media video{display:block;width:100%;height:auto;transform:translateZ(0);
   backface-visibility:hidden;}
-.ah-card-media [data-media-kind="gif-poster"]{background:var(--bg-1);}
+.ah-card-media [data-media-kind="sprite-preview"]{display:block;width:100%;aspect-ratio:16/9;
+  background-image:var(--sprite-url);background-size:var(--sprite-size);
+  background-position:0 0;background-repeat:no-repeat;
+  animation:var(--sprite-animation);}
+.ah-card-media [data-media-kind="animated-image"]{transform:none;backface-visibility:visible;}
+.ah-card-media [data-media-kind="animation-poster"]{background:var(--bg-1);}
 
 /* details panel — mounted only when open; Framer Motion fades/animates it in */
 .ah-card-details-inner{margin-top:16px;min-width:0;
@@ -286,6 +293,7 @@
 @keyframes ah-breath{0%,100%{opacity:.32}50%{opacity:.7}}
 @keyframes ah-fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 @keyframes ah-drop{0%{transform:scaleY(.2);opacity:.3;transform-origin:top}50%{transform:scaleY(1);opacity:1}100%{transform:scaleY(.2);opacity:.3;transform-origin:bottom}}
+@keyframes ah-sprite-preview{to{background-position:100% 0}}
 
 /* ------- responsive: push the scene right so copy breathes ------- */
 @media (max-width:900px){
@@ -308,4 +316,5 @@
   .ah-card-toggle::before,.ah-card-toggle::after{transition:none!important;}
   .ah-card-body,.ah-card::after{transition:none!important;filter:none!important;opacity:1!important;}
   .ah-card::after{display:none!important;}
+  .ah-card-media [data-media-kind="sprite-preview"]{animation:none!important;}
 }

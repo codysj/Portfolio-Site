@@ -40,6 +40,7 @@ export default function ProjectsSection() {
   const items = projects.items;
   const [openIdx, setOpenIdx] = useState(null);
   const [transitioningIds, setTransitioningIds] = useState([]);
+  const [sizeMorphId, setSizeMorphId] = useState(null);
   const gridRef = useRef(null);
   const raf = useRef(0);
   const transitionTimer = useRef(0);
@@ -54,10 +55,15 @@ export default function ProjectsSection() {
     clearTimeout(transitionTimer.current);
     if (reduce) {
       setTransitioningIds([]);
-      return;
+      setSizeMorphId(null);
+      return false;
     }
     setTransitioningIds([...new Set(ids.filter(Boolean))]);
-    transitionTimer.current = setTimeout(() => setTransitioningIds([]), TRANSITION_MS);
+    transitionTimer.current = setTimeout(() => {
+      setTransitioningIds([]);
+      setSizeMorphId(null);
+    }, TRANSITION_MS);
+    return true;
   };
 
   // Start the centring scroll on the next frame (so the new layout is committed
@@ -74,7 +80,9 @@ export default function ProjectsSection() {
 
   const toggle = (idx) => {
     const willOpen = openIdx !== idx;
-    markTransitioning([idx]);
+    const directFirstCardToggle = idx === items[0]?.idx && (openIdx == null || openIdx === idx);
+    const willAnimate = markTransitioning([idx]);
+    setSizeMorphId(willAnimate && directFirstCardToggle ? idx : null);
     setOpenIdx(willOpen ? idx : null);
     scrollToCenter(willOpen);
   };
@@ -84,6 +92,7 @@ export default function ProjectsSection() {
     const i = items.findIndex((p) => p.idx === openIdx);
     const nextIdx = items[(i + dir + items.length) % items.length].idx;
     markTransitioning([openIdx, nextIdx]);
+    setSizeMorphId(null);
     setOpenIdx(nextIdx);
     scrollToCenter(true);
   };
@@ -101,6 +110,7 @@ export default function ProjectsSection() {
                 project={p}
                 open={openIdx === p.idx}
                 transitioning={transitioningIds.includes(p.idx)}
+                sizeMorphing={sizeMorphId === p.idx}
                 onToggle={() => toggle(p.idx)}
                 onPrev={() => cycle(-1)}
                 onNext={() => cycle(1)}

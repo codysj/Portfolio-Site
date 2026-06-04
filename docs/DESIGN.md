@@ -6,4 +6,6 @@ Project cards use Framer Motion for position changes only. Open/closed layout is
 
 Only cards that are actively expanding or minimizing receive the temporary `is-morphing` treatment. The effect is intentionally subtle: a light body blur plus a low-opacity tonal veil, used only to soften content reflow on the changing card.
 
-Animated GIFs should provide an `imagePoster` in `src/data/portfolio.js`. Card media renders the poster instead of autoplaying GIF frames inside the card chrome, preventing idle flicker while keeping the animated source available as project metadata.
+Animated previews should provide an `imagePoster`, `imageSprite`, and `imageSpriteFrames` in `src/data/portfolio.js`. Card media animates the static sprite sheet with CSS for normal motion users and falls back to the poster for reduced-motion users, avoiding animated image decoder repainting inside the card.
+
+The first project card uses a narrowly scoped size morph only for direct expand/minimize from the all-minimized state. Expanded-card shuffle remains position-only so the existing shuffle feel does not change.

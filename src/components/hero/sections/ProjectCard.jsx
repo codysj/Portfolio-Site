@@ -15,16 +15,25 @@ import ProjectMedia from "@/components/hero/sections/ProjectMedia";
 
 const LAYOUT_T = { type: "tween", duration: 0.45, ease: [0.2, 0.7, 0.2, 1] };
 
-export default function ProjectCard({ project, open, transitioning, onToggle, onPrev, onNext }) {
+export default function ProjectCard({
+  project,
+  open,
+  transitioning,
+  sizeMorphing,
+  onToggle,
+  onPrev,
+  onNext,
+}) {
   const detailsId = `proj-${project.idx}-details`;
   const className = [
     "ah-card",
     open ? "open" : "",
     transitioning ? "is-morphing" : "",
+    sizeMorphing ? "is-size-morphing" : "",
   ].filter(Boolean).join(" ");
 
   return (
-    <motion.article layout="position" transition={LAYOUT_T} className={className}>
+    <motion.article layout={sizeMorphing ? true : "position"} transition={LAYOUT_T} className={className}>
       <button
         type="button"
         className="ah-card-head"
@@ -41,7 +50,13 @@ export default function ProjectCard({ project, open, transitioning, onToggle, on
       <div className="ah-card-body">
         {/* preview visual — shown collapsed and expanded; grows to full size */}
         <div className="ah-card-media">
-          <ProjectMedia src={project.image} poster={project.imagePoster} alt={project.imageAlt} />
+          <ProjectMedia
+            src={project.image}
+            poster={project.imagePoster}
+            sprite={project.imageSprite}
+            spriteFrames={project.imageSpriteFrames}
+            alt={project.imageAlt}
+          />
         </div>
 
         <AnimatePresence initial={false}>
