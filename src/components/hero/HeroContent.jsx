@@ -27,7 +27,7 @@ export default function HeroContent() {
 
       <h1 className="ah-h1 reveal" style={{ animationDelay: ".28s" }}>
         {hero.headline.map((seg, i) =>
-          seg.em ? <em key={i}>{seg.text}</em> : <Fragment key={i}>{seg.text}</Fragment>
+          seg.br ? <br key={i} /> : seg.em ? <em key={i}>{seg.text}</em> : <Fragment key={i}>{seg.text}</Fragment>
         )}
       </h1>
 

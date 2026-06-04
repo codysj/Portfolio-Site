@@ -16,23 +16,21 @@
        tech      array of stack chips
        features  array of highlight bullets
        repo      GitHub URL (opens in a new tab)
-       image     path under /public used as the visual
-       imagePoster optional static poster for animated media used in cards
-       imageSprite optional static sprite sheet for CSS-driven preview motion
-       imageSpriteFrames frame count for `imageSprite`
+       image     path under /public used as the expanded visual
        imageAlt  alt text for that visual
 -------------------------------------------------------------------------------- */
 
 export const hero = {
-  brand: "Cody Jung — CS Portfolio",
+  brand: "Cody Jung",
   status: "Open to work",
-  eyebrow: ["Full-Stack Engineering", "AI / ML Systems", "Quant Research"],
+  eyebrow: ["Full-Stack Engineering", "AI Systems", "Quantitative Tooling"],
   headline: [
-    { text: "Building software at the " },
-    { text: "edge", em: true },
-    { text: " of AI, markets, and systems." },
+    { text: "Hi! I'm Cody Jung —" },
+    { text: "Building software where AI meets " },
+    { text: "real", em: true },
+    { text: " systems." },
   ],
-  sub: "Business + Data Science at UC Berkeley Haas. I build full-stack products, AI-assisted research tools, and quantitative trading systems.",
+  sub: "Business + Data Science at UC Berkeley Haas. I build production-minded AI tools: RL simulation environments, backtesting systems, market intelligence dashboards, and full-stack data products.",
   ctaPrimary: "View Projects",
   ctaSecondary: "About Me",
   scrollLabel: "Scroll",
@@ -57,11 +55,8 @@ export const projects = {
         "15+ risk/performance metrics (Sharpe, Sortino, max drawdown…)",
       ],
       repo: "https://github.com/codysj/AI-Backtest-Lab",
-      image: "/projects/ai-backtest-lab.png",
-      imagePoster: "/projects/ai-backtest-lab.png",
-      imageSprite: "/projects/ai-backtest-lab-demo-sprite.webp",
-      imageSpriteFrames: 24,
-      imageAlt: "AI Backtest Lab dashboard preview",
+      image: "/projects/ai-backtest-lab-demo.gif",
+      imageAlt: "AI Backtest Lab dashboard showing a single backtest run with equity curve and metrics",
     },
     {
       idx: "02",
@@ -124,11 +119,11 @@ export const about = {
   tag: "Profile",
   title: "About",
   body:
-    "I'm Cody Jung, studying Business + Data Science at UC Berkeley Haas. I build at the " +
-    "intersection of quantitative modeling, AI/ML infrastructure, and full-stack product " +
-    "engineering — favoring tools that are fast, legible, and honest about their assumptions.",
+    "I’m Cody Jung, studying Business + Data Science at UC Berkeley Haas. I build full-stack systems around AI workflows, reinforcement learning, and quantitative research tools — usually with Python, TypeScript, FastAPI, Next.js, PostgreSQL, and Redis." +
+    "Recently, I’ve been focused on moving from AI-assisted products toward deeper ML systems: CombatRL, a deterministic tactical arena for training and evaluating RL agents; an event-driven backtesting lab with an AI research copilot; and a prediction-market intelligence platform combining market data, sentiment, and anomaly detection." +
+    "I’m most interested in tools that make intelligent systems usable in practice: structured inputs, reproducible evaluation, clear assumptions, and workflows that can survive outside a demo.",
 };
 
 export const footer = {
-  text: "© 2026 Cody Jung — Built with React & ASCII.",
+  text: "Cody Jung, 2026 — Built with React & ASCII.",
 };
