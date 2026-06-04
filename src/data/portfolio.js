@@ -119,8 +119,8 @@ export const about = {
   tag: "Profile",
   title: "About",
   body:
-    "I’m Cody Jung, studying Business + Data Science at UC Berkeley Haas. I build full-stack systems around AI workflows, reinforcement learning, and quantitative research tools — usually with Python, TypeScript, FastAPI, Next.js, PostgreSQL, and Redis." +
-    "Recently, I’ve been focused on moving from AI-assisted products toward deeper ML systems: CombatRL, a deterministic tactical arena for training and evaluating RL agents; an event-driven backtesting lab with an AI research copilot; and a prediction-market intelligence platform combining market data, sentiment, and anomaly detection." +
+    "I’m Cody Jung, studying Business + Data Science at UC Berkeley Haas. I build full-stack systems around AI workflows, reinforcement learning, and quantitative research tools — usually with Python, TypeScript, FastAPI, Next.js, PostgreSQL, and Redis. " +
+    "Recently, I’ve been focused on moving from AI-assisted products toward deeper ML systems: CombatRL, a deterministic tactical arena for training and evaluating RL agents; an event-driven backtesting lab with an AI research copilot; and a prediction-market intelligence platform combining market data, sentiment, and anomaly detection. " +
     "I’m most interested in tools that make intelligent systems usable in practice: structured inputs, reproducible evaluation, clear assumptions, and workflows that can survive outside a demo.",
 };
 
