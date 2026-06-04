@@ -1,8 +1,6 @@
-"use client";
-
 import { Fragment } from "react";
 import AsciiLandscape from "@/components/hero/ascii/AsciiLandscape";
-import { scrollToId } from "@/lib/scroll";
+import HeroCtas from "@/components/hero/HeroCtas";
 import { hero } from "@/data/portfolio";
 
 /* ------------------------------ HeroContent ------------------------------ */
@@ -37,14 +35,7 @@ export default function HeroContent() {
         {hero.sub}
       </p>
 
-      <div className="ah-cta reveal" style={{ animationDelay: ".56s" }}>
-        <button className="ah-btn ah-btn-primary" onClick={() => scrollToId("projects")}>
-          {hero.ctaPrimary} <span className="ah-arrow">→</span>
-        </button>
-        <button className="ah-btn ah-btn-ghost" onClick={() => scrollToId("about")}>
-          {hero.ctaSecondary}
-        </button>
-      </div>
+      <HeroCtas primary={hero.ctaPrimary} secondary={hero.ctaSecondary} />
 
       <div className="ah-scroll reveal" style={{ animationDelay: ".8s" }}>
         <span className="bar" /> {hero.scrollLabel}

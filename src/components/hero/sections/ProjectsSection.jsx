@@ -41,19 +41,26 @@ export default function ProjectsSection() {
   const [openIdx, setOpenIdx] = useState(null);
   const [transitioningIds, setTransitioningIds] = useState([]);
   const [sizeMorphId, setSizeMorphId] = useState(null);
+  const [reduceMotion, setReduceMotion] = useState(false);
   const gridRef = useRef(null);
   const raf = useRef(0);
   const transitionTimer = useRef(0);
 
-  useEffect(() => () => {
-    cancelAnimationFrame(raf.current);
-    clearTimeout(transitionTimer.current);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setReduceMotion(mq.matches);
+    sync();
+    mq.addEventListener?.("change", sync);
+    return () => {
+      mq.removeEventListener?.("change", sync);
+      cancelAnimationFrame(raf.current);
+      clearTimeout(transitionTimer.current);
+    };
   }, []);
 
   const markTransitioning = (ids) => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     clearTimeout(transitionTimer.current);
-    if (reduce) {
+    if (reduceMotion) {
       setTransitioningIds([]);
       setSizeMorphId(null);
       return false;
@@ -69,8 +76,7 @@ export default function ProjectsSection() {
   // Start the centring scroll on the next frame (so the new layout is committed
   // and offsets are final) — concurrent with the expand/collapse animation.
   const scrollToCenter = (willHaveOpen) => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const behavior = reduce ? "auto" : "smooth";
+    const behavior = reduceMotion ? "auto" : "smooth";
     cancelAnimationFrame(raf.current);
     raf.current = requestAnimationFrame(() => {
       const target = willHaveOpen ? document.querySelector(".ah-card.open") : gridRef.current;
@@ -111,6 +117,7 @@ export default function ProjectsSection() {
                 open={openIdx === p.idx}
                 transitioning={transitioningIds.includes(p.idx)}
                 sizeMorphing={sizeMorphId === p.idx}
+                reduceMotion={reduceMotion}
                 onToggle={() => toggle(p.idx)}
                 onPrev={() => cycle(-1)}
                 onNext={() => cycle(1)}

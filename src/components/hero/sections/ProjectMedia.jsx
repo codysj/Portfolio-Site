@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /* ------------------------------ ProjectMedia ----------------------------- */
 /* Renders a project's visual, picking the right element from the file
@@ -17,22 +17,13 @@ function extOf(src) {
   return (src.split("?")[0].split("#")[0].split(".").pop() || "").toLowerCase();
 }
 
-export default function ProjectMedia({ src, poster, sprite, spriteFrames, alt, className }) {
+export default function ProjectMedia({ src, poster, sprite, spriteFrames, reduceMotion = false, alt, className }) {
   const videoRef = useRef(null);
-  const [reduceMotion, setReduceMotion] = useState(false);
   const ext = extOf(src);
   const isVideo = VIDEO_EXT.has(ext);
   const isAnimatedImage = ext === "gif" || (ext === "webp" && Boolean(poster));
   const useSprite = Boolean(sprite && spriteFrames && !reduceMotion);
   const usePoster = (isAnimatedImage || sprite) && poster && reduceMotion;
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReduceMotion(mq.matches);
-    sync();
-    mq.addEventListener?.("change", sync);
-    return () => mq.removeEventListener?.("change", sync);
-  }, []);
 
   useEffect(() => {
     if (!isVideo) return;

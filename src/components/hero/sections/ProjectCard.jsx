@@ -20,6 +20,7 @@ export default function ProjectCard({
   open,
   transitioning,
   sizeMorphing,
+  reduceMotion,
   onToggle,
   onPrev,
   onNext,
@@ -55,6 +56,7 @@ export default function ProjectCard({
             poster={project.imagePoster}
             sprite={project.imageSprite}
             spriteFrames={project.imageSpriteFrames}
+            reduceMotion={reduceMotion}
             alt={project.imageAlt}
           />
         </div>

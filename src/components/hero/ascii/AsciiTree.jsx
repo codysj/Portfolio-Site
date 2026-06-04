@@ -1,6 +1,3 @@
-"use client";
-
-import { useMemo } from "react";
 import { growTree } from "@/lib/growTree";
 
 /* ------------------------------ AsciiTree -------------------------------- */
@@ -16,35 +13,37 @@ import { growTree } from "@/lib/growTree";
    layer, so the layers are disjoint and simply stack to reproduce the image.
    Colour/opacity is per-layer (CSS), and only ONE layer animates (a single
    subtle shimmer), so the DOM and animation cost are both ~O(1). */
-export default function AsciiTree({ cols = 140, rows = 82, seed = 11 }) {
-  const layers = useMemo(() => {
-    const grid = growTree({ cols, rows, seed });
-    const bark = [], branch = [], far = [], mid = [], near = [];
-    for (let y = 0; y < rows; y++) {
-      const row = grid[y];
-      let b = "", br = "", f = "", m = "", n = "";
-      for (let x = 0; x < cols; x++) {
-        const c = row[x];
-        if (!c) { b += " "; br += " "; f += " "; m += " "; n += " "; continue; }
-        if (c.type === "blossom") {
-          const t = c.tier;
-          f += t === "far" ? c.ch : " ";
-          m += t === "mid" ? c.ch : " ";
-          n += t === "near" ? c.ch : " ";
-          b += " "; br += " ";
-        } else if (c.type === "branch") {
-          br += c.ch; b += " "; f += " "; m += " "; n += " ";
-        } else {                              // trunk + primary limbs
-          b += c.ch; br += " "; f += " "; m += " "; n += " ";
-        }
+function buildTreeLayers(cols, rows, seed) {
+  const grid = growTree({ cols, rows, seed });
+  const bark = [], branch = [], far = [], mid = [], near = [];
+  for (let y = 0; y < rows; y++) {
+    const row = grid[y];
+    let b = "", br = "", f = "", m = "", n = "";
+    for (let x = 0; x < cols; x++) {
+      const c = row[x];
+      if (!c) { b += " "; br += " "; f += " "; m += " "; n += " "; continue; }
+      if (c.type === "blossom") {
+        const t = c.tier;
+        f += t === "far" ? c.ch : " ";
+        m += t === "mid" ? c.ch : " ";
+        n += t === "near" ? c.ch : " ";
+        b += " "; br += " ";
+      } else if (c.type === "branch") {
+        br += c.ch; b += " "; f += " "; m += " "; n += " ";
+      } else {                              // trunk + primary limbs
+        b += c.ch; br += " "; f += " "; m += " "; n += " ";
       }
-      bark.push(b); branch.push(br); far.push(f); mid.push(m); near.push(n);
     }
-    return {
-      bark: bark.join("\n"), branch: branch.join("\n"), far: far.join("\n"),
-      mid: mid.join("\n"), near: near.join("\n"),
-    };
-  }, [cols, rows, seed]);
+    bark.push(b); branch.push(br); far.push(f); mid.push(m); near.push(n);
+  }
+  return {
+    bark: bark.join("\n"), branch: branch.join("\n"), far: far.join("\n"),
+    mid: mid.join("\n"), near: near.join("\n"),
+  };
+}
+
+export default function AsciiTree({ cols = 140, rows = 82, seed = 11 }) {
+  const layers = buildTreeLayers(cols, rows, seed);
 
   return (
     <div className="ah-tree-wrap">
