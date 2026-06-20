@@ -160,6 +160,8 @@ Bottom-left, mono caps 11px, `--ink-dim`. A 1px vertical bar that animates in `a
 ### Cards
 Bordered box, near-zero rounded, hover lifts `-3px` + accent border. Index ("01") mono sage, title serif 400, body mono dim. No icons.
 
+Animated card previews provide `imagePoster`, `imageSprite`, and `imageSpriteFrames` in `src/data/portfolio.js`. Card media animates the static sprite sheet with CSS (`ah-sprite-preview`) for normal-motion users and falls back to the poster for reduced motion — never an animated-image decoder, which repaints (flickers) inside the card chrome. The grid is `align-items:start` so a collapsing card sizes to its own height and never stretches its row-mates.
+
 ### Section tag
 Above each `h2`. Mono caps, `--sage`, letter-spacing `.3em`. Examples: `SELECTED WORK`, `PROFILE`.
 
@@ -186,6 +188,7 @@ Everything **breathes**. No element jumps, snaps, or springs. Cycle durations ar
 | `ah-fadeup`    | Hero copy entrance              | 0.9s     | Translate 16px ↑ + fade, staggered 50–800ms     |
 | `ah-drop`      | Scroll-cue bar                  | 2.4s     | scaleY origin-flip                              |
 | Petals (canvas)| FallingPetals                   | continuous | Drift down-and-left with sine sway; respawn top-right |
+| `ah-sprite-preview`| Project card preview        | 7s       | Steps a static sprite-sheet WebP via `background-position` |
 
 ### Rules
 
