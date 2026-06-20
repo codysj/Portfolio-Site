@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675" role="img" aria-label="Municipal Finance AI preview">
+  <defs>
+    <linearGradient id="gbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b110e"/>
+      <stop offset="1" stop-color="#070a09"/>
+    </linearGradient>
+    <radialGradient id="gglow" cx="0.8" cy="0.22" r="0.7">
+      <stop offset="0" stop-color="#9ad3b0" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#9ad3b0" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#gbg)"/>
+  <rect width="1200" height="675" fill="url(#gglow)"/>
+  <!-- ledger: aligned rows with reconciled (✓) and flagged (·) marks -->
+  <g font-family="'IBM Plex Mono', ui-monospace, monospace">
+    <g opacity="0.9">
+      <line x1="660" y1="360" x2="1120" y2="360" stroke="#2c3a32" stroke-width="2"/>
+      <line x1="660" y1="420" x2="1120" y2="420" stroke="#2c3a32" stroke-width="2"/>
+      <line x1="660" y1="480" x2="1120" y2="480" stroke="#2c3a32" stroke-width="2"/>
+      <line x1="660" y1="540" x2="1120" y2="540" stroke="#2c3a32" stroke-width="2"/>
+    </g>
+    <g fill="#5d6c62" font-size="22" letter-spacing="2">
+      <text x="700" y="352">1042 · GENERAL FUND</text>
+      <text x="700" y="412">2210 · ACCOUNTS PAYABLE</text>
+      <text x="700" y="472">4001 · BUDGET VARIANCE</text>
+      <text x="700" y="532">5130 · BANK RECON</text>
+    </g>
+    <g font-size="26" font-weight="500">
+      <text x="1060" y="352" fill="#9ad3b0">✓</text>
+      <text x="1060" y="412" fill="#9ad3b0">✓</text>
+      <text x="1063" y="472" fill="#dab57c">·</text>
+      <text x="1060" y="532" fill="#9ad3b0">✓</text>
+    </g>
+  </g>
+  <g font-family="'IBM Plex Mono', ui-monospace, monospace">
+    <text x="80" y="150" fill="#aacfb6" font-size="22" letter-spacing="6">DETERMINISTIC FINANCE WORKFLOWS</text>
+    <text x="78" y="232" fill="#eceae2" font-size="64" font-weight="500" letter-spacing="1">Municipal Finance AI</text>
+    <text x="80" y="282" fill="#98a39a" font-size="24">auditable · source-linked · human-reviewed</text>
+  </g>
+</svg>
