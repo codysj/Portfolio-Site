@@ -160,8 +160,19 @@
 .ah-experience-item{display:grid;grid-template-columns:minmax(220px,.9fr) minmax(320px,1.45fr) auto;
   grid-template-areas:"heading summary period";column-gap:clamp(28px,4vw,68px);align-items:start;
   padding:28px 0;border-bottom:1px solid rgba(236,234,226,0.1);}
-.ah-experience-heading{grid-area:heading;min-width:0;}
+.ah-experience-heading{grid-area:heading;min-width:0;display:grid;
+  grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;}
+.ah-experience-logo{width:28px;height:28px;display:grid;place-items:center;color:var(--sage-bright);margin-top:1px;}
+.ah-experience-logo svg{display:block;width:24px;height:24px;overflow:visible;}
+.ah-experience-logo.afterquery{background:#000;color:#fff;border-radius:3px;
+  box-shadow:0 0 0 1px rgba(236,234,226,0.1);}
+.ah-experience-logo.afterquery svg{width:21px;height:21px;}
+.ah-experience-logo.mastercard svg{width:27px;height:27px;}
 .ah-experience-heading h3{font-family:var(--serif);font-size:1.28rem;font-weight:400;line-height:1.2;margin:0 0 8px;}
+.ah-company-badge{display:inline-flex;min-width:40px;height:16px;margin-left:7px;padding:0 4px;
+  align-items:center;justify-content:center;border-radius:2px;background:#ff6600;color:#fff;
+  font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:.04em;line-height:1;
+  vertical-align:3px;white-space:nowrap;}
 .ah-experience-role{color:var(--sage);font-size:.78rem;line-height:1.55;margin:0;}
 .ah-experience-summary{grid-area:summary;color:var(--ink-dim);font-size:.9rem;line-height:1.75;margin:0;max-width:66ch;}
 .ah-experience-period{grid-area:period;color:var(--branch);font-size:.74rem;letter-spacing:.08em;

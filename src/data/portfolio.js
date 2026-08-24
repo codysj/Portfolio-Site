@@ -64,20 +64,24 @@ export const experience = {
   items: [
     {
       company: "Matrix Power",
+      icon: "power",
       role: "AI Research Intern — Agent Systems",
       period: "Jun 2026 — Present",
       summary:
         "Built and deployed an always-on B2B agent system as sole engineer, with sandboxing, approval gates, retries, spend controls, and audit logs.",
     },
     {
-      company: "AfterQuery (YC W25)",
-      role: "Generative AI Engineer — Financial Reasoning",
+      company: "AfterQuery",
+      icon: "afterquery",
+      badge: "YC W25",
+      role: "Generative AI Engineer -- Financial Reasoning (Contract)",
       period: "Dec 2025 — Mar 2026",
       summary:
         "Built LLM evaluation infrastructure across roughly 35 financial-reasoning benchmarks and used failure patterns to redirect data collection.",
     },
     {
       company: "Haas Business Student Association",
+      icon: "education",
       role: "Director of Technology",
       period: "Sep 2025 — Present",
       summary:
@@ -85,13 +89,15 @@ export const experience = {
     },
     {
       company: "Mastercard",
-      role: "Technology Consultant",
+      icon: "mastercard",
+      role: "Technology Consultant (Contract)",
       period: "Feb 2026 — May 2026",
       summary:
         "Modeled customer segments across 990 survey responses and translated the findings into three personalized-rewards product prototypes.",
     },
     {
       company: "Kinjo Insurance & Financial Services",
+      icon: "insurance",
       role: "Software Engineering & Finance Intern",
       period: "Dec 2024 — Jul 2025",
       summary:
