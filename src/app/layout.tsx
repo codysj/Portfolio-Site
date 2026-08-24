@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Cody Jung | Portfolio",
+  title: "Cody Jung | Software Engineer & Applied AI",
   description:
-    "Portfolio of Cody Jung — Business + Data Science at UC Berkeley Haas. Full-stack products, AI-assisted research tools, and quantitative data projects.",
+    "UC Berkeley Computer Science and Business student building reliable agent systems, ML evaluation infrastructure, and data-intensive software.",
   icons: {
     icon: "/favicon.png",
   },
