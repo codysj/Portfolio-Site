@@ -25,18 +25,79 @@
 
 export const hero = {
   brand: "Cody Jung",
-  status: "Open to work",
-  eyebrow: ["Full-Stack Engineering", "AI Systems", "Quantitative Tooling"],
+  status: "Seeking Summer 2027",
+  eyebrow: ["Software Engineering", "Applied AI", "Data Systems"],
   headline: [
     { text: "Hi! I'm Cody Jung —" },
     { text: "Building software where AI meets " },
     { text: "real", em: true },
     { text: " systems." },
   ],
-  sub: "Business + Data Science at UC Berkeley Haas. I build production-minded AI tools: RL simulation environments, backtesting systems, market intelligence dashboards, and full-stack data products.",
-  ctaPrimary: "View Projects",
-  ctaSecondary: "About Me",
+  sub: "Computer Science + Business at UC Berkeley. I’ve shipped production agent systems, financial-reasoning evaluation infrastructure, and full-stack products serving thousands of users.",
+  ctaPrimary: "View Selected Work",
+  ctaSecondary: "View Résumé",
+  resumeHref: "/CodyJungResume.pdf",
   scrollLabel: "Scroll",
+};
+
+export const socialLinks = [
+  {
+    id: "email",
+    label: "Email Cody",
+    href: "mailto:codyjung@berkeley.edu",
+  },
+  {
+    id: "linkedin",
+    label: "Cody on LinkedIn",
+    href: "https://www.linkedin.com/in/codyjung",
+  },
+  {
+    id: "github",
+    label: "Cody on GitHub",
+    href: "https://github.com/codysj",
+  },
+];
+
+export const experience = {
+  tag: "Professional Work",
+  title: "Selected Experience",
+  items: [
+    {
+      company: "Matrix Power",
+      role: "AI Research Intern — Agent Systems",
+      period: "Jun 2026 — Present",
+      summary:
+        "Built and deployed an always-on B2B agent system as sole engineer, with sandboxing, approval gates, retries, spend controls, and audit logs.",
+    },
+    {
+      company: "AfterQuery (YC W25)",
+      role: "Generative AI Engineer — Financial Reasoning",
+      period: "Dec 2025 — Mar 2026",
+      summary:
+        "Built LLM evaluation infrastructure across roughly 35 financial-reasoning benchmarks and used failure patterns to redirect data collection.",
+    },
+    {
+      company: "Haas Business Student Association",
+      role: "Director of Technology",
+      period: "Sep 2025 — Present",
+      summary:
+        "Lead a six-person technology committee shipping React and Next.js features across Berkeley platforms serving more than 6,000 users.",
+    },
+    {
+      company: "Mastercard",
+      role: "Technology Consultant",
+      period: "Feb 2026 — May 2026",
+      summary:
+        "Modeled customer segments across 990 survey responses and translated the findings into three personalized-rewards product prototypes.",
+    },
+    {
+      company: "Kinjo Insurance & Financial Services",
+      role: "Software Engineering & Finance Intern",
+      period: "Dec 2024 — Jul 2025",
+      summary:
+        "Built financial-data infrastructure that unified three custodian export formats and reduced reporting preparation by approximately 40%.",
+    },
+  ],
 };
 
 export const projects = {
@@ -152,11 +213,18 @@ export const about = {
   tag: "Profile",
   title: "About",
   body:
-    "I’m Cody Jung, studying Business + Data Science at UC Berkeley Haas. I build full-stack systems around AI workflows, reinforcement learning, and quantitative research tools — usually with Python, TypeScript, FastAPI, Next.js, PostgreSQL, and Redis. " +
-    "Recently, I’ve been focused on moving from AI-assisted products toward deeper ML systems: CombatRL, a deterministic tactical arena for training and evaluating RL agents; an event-driven backtesting lab with an AI research copilot; and a prediction-market intelligence platform combining market data, sentiment, and anomaly detection. " +
-    "I’m most interested in tools that make intelligent systems usable in practice: structured inputs, reproducible evaluation, clear assumptions, and workflows that can survive outside a demo.",
+    "I’m a Computer Science and Business student at UC Berkeley focused on reliable software for intelligent, data-intensive systems. " +
+    "At Matrix Power, I built and deployed an always-on agent system as the sole engineer, with sandboxing, approval gates, retries, spend controls, and audit logs. " +
+    "Previously, I built financial-reasoning evaluation infrastructure at AfterQuery and led product engineering for Berkeley platforms serving more than 6,000 users. " +
+    "I care about rigorous evaluation, explicit failure boundaries, and turning ambiguous problems into software people can trust.",
 };
 
 export const footer = {
-  text: "Cody Jung, 2026 — Built with React & ASCII.",
+  text: "Cody Jung",
+  links: [
+    { label: "GitHub", href: "https://github.com/codysj" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/codyjung" },
+    { label: "Email", href: "mailto:codyjung@berkeley.edu" },
+    { label: "Résumé", href: "/CodyJungResume.pdf" },
+  ],
 };

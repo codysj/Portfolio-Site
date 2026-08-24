@@ -104,7 +104,7 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="ah-section ah-section-bridge">
+    <section id="projects" className="ah-section">
       <p className="ah-section-tag">{projects.tag}</p>
       <h2>{projects.title}</h2>
       <MotionConfig reducedMotion="user">

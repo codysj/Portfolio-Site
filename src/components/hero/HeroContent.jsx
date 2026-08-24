@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import AsciiLandscape from "@/components/hero/ascii/AsciiLandscape";
 import HeroCtas from "@/components/hero/HeroCtas";
+import HeroSocials from "@/components/hero/HeroSocials";
 import { hero } from "@/data/portfolio";
 
 /* ------------------------------ HeroContent ------------------------------ */
@@ -35,7 +36,13 @@ export default function HeroContent() {
         {hero.sub}
       </p>
 
-      <HeroCtas primary={hero.ctaPrimary} secondary={hero.ctaSecondary} />
+      <HeroSocials />
+
+      <HeroCtas
+        primary={hero.ctaPrimary}
+        secondary={hero.ctaSecondary}
+        resumeHref={hero.resumeHref}
+      />
 
       <div className="ah-scroll reveal" style={{ animationDelay: ".8s" }}>
         <span className="bar" /> {hero.scrollLabel}

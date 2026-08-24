@@ -110,7 +110,7 @@
 /* ------- content ------- */
 .ah-hero{position:relative;z-index:3;min-height:100svh;display:flex;flex-direction:column;
   justify-content:center;padding:clamp(24px,7vw,120px);overflow:hidden;}
-.ah-eyebrow,.ah-h1,.ah-sub,.ah-cta{position:relative;z-index:2;}
+.ah-eyebrow,.ah-h1,.ah-sub,.ah-socials,.ah-cta{position:relative;z-index:2;}
 .ah-topbar,.ah-scroll{z-index:2;}
 .ah-topbar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;
   padding:clamp(18px,3vw,30px) clamp(24px,7vw,120px);font-size:12px;letter-spacing:.18em;
@@ -125,7 +125,14 @@
 .ah-h1 em{font-style:italic;color:var(--rose-soft);}
 .ah-sub{margin:clamp(22px,2.8vw,34px) 0 0;max-width:58ch;color:var(--ink-dim);
   font-size:clamp(.92rem,1.15vw,1.06rem);line-height:1.75;}
-.ah-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:clamp(30px,3.6vw,46px);}
+.ah-socials{display:flex;align-items:center;gap:17px;margin-top:clamp(18px,2.2vw,26px);}
+.ah-social-link{display:inline-flex;width:21px;height:21px;align-items:center;justify-content:center;
+  color:rgba(236,234,226,0.72);text-decoration:none;
+  transition:color .2s ease,transform .2s ease;}
+.ah-social-link svg{display:block;width:100%;height:100%;}
+.ah-social-link:hover{color:var(--ink);transform:translateY(-1px);}
+.ah-social-link:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px;}
+.ah-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:clamp(22px,2.8vw,34px);}
 .ah-btn{font-family:var(--mono);font-size:13px;letter-spacing:.12em;text-transform:uppercase;
   padding:14px 26px;border-radius:2px;cursor:pointer;transition:all .25s ease;
   display:inline-flex;align-items:center;gap:10px;text-decoration:none;}
@@ -149,6 +156,16 @@
 .ah-section{position:relative;z-index:3;padding:clamp(70px,10vw,150px) clamp(24px,7vw,120px);}
 .ah-section-tag{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--sage);margin-bottom:26px;}
 .ah-section h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.9rem,4vw,3rem);margin:0 0 14px;}
+.ah-experience-list{margin-top:42px;border-top:1px solid rgba(236,234,226,0.1);}
+.ah-experience-item{display:grid;grid-template-columns:minmax(220px,.9fr) minmax(320px,1.45fr) auto;
+  grid-template-areas:"heading summary period";column-gap:clamp(28px,4vw,68px);align-items:start;
+  padding:28px 0;border-bottom:1px solid rgba(236,234,226,0.1);}
+.ah-experience-heading{grid-area:heading;min-width:0;}
+.ah-experience-heading h3{font-family:var(--serif);font-size:1.28rem;font-weight:400;line-height:1.2;margin:0 0 8px;}
+.ah-experience-role{color:var(--sage);font-size:.78rem;line-height:1.55;margin:0;}
+.ah-experience-summary{grid-area:summary;color:var(--ink-dim);font-size:.9rem;line-height:1.75;margin:0;max-width:66ch;}
+.ah-experience-period{grid-area:period;color:var(--branch);font-size:.74rem;letter-spacing:.08em;
+  line-height:1.6;text-align:right;text-transform:uppercase;white-space:nowrap;}
 /* fixed-fraction columns so a minimized card keeps the SAME size whether or not
    another card is expanded — that constancy is what lets the shuffle animate as
    a clean slide (no horizontal/vertical stretch or content bounce).
@@ -168,9 +185,14 @@
 .ah-card p{color:var(--ink-dim);font-size:.9rem;line-height:1.7;margin:0;}
 .ah-about p{color:var(--ink-dim);max-width:62ch;line-height:1.85;font-size:1.02rem;}
 .ah-foot{position:relative;z-index:3;padding:40px clamp(24px,7vw,120px);border-top:1px solid rgba(236,234,226,0.08);
-  color:var(--branch);font-size:12px;letter-spacing:.16em;text-transform:uppercase;}
+  color:var(--branch);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;}
+.ah-foot nav{display:flex;align-items:center;flex-wrap:wrap;gap:18px;}
+.ah-foot a{color:var(--ink-dim);text-decoration:none;transition:color .2s ease;}
+.ah-foot a:hover{color:var(--ink);}
+.ah-foot a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:2px;}
 
-/* seamless hero -> projects transition: the hero's bottom scrim ends at
+/* seamless hero -> first content section transition: the hero's bottom scrim ends at
    rgba(7,10,9,0.55), so the section below would otherwise start one alpha-step
    lighter. This thin gradient continues that exact tone across the boundary and
    dissolves it, leaving no visible color seam. */
@@ -290,6 +312,11 @@
   .ah-hero-scrim{background:
     linear-gradient(90deg, var(--bg-0) 0%, rgba(7,10,9,0.55) 30%, transparent 70%),
     linear-gradient(180deg, transparent 52%, rgba(7,10,9,0.6) 100%);}
+}
+@media (max-width:760px){
+  .ah-experience-item{grid-template-columns:1fr;grid-template-areas:"heading" "period" "summary";
+    row-gap:11px;padding:24px 0;}
+  .ah-experience-period{text-align:left;}
 }
 @media (max-width:560px){
   .ah-tree-wrap{--tree-x:84%;--tree-y:24%;opacity:.5;}
