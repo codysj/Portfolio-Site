@@ -1,0 +1,14 @@
+{
+  "twoFingerPan": {
+    "before": [
+      0,
+      0
+    ],
+    "after": [
+      -1.1042253521126761,
+      0.828169014084507
+    ]
+  },
+  "offscreenPause": true,
+  "fallback": true
+}

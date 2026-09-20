@@ -1,0 +1,52 @@
+{
+  "camera": {
+    "initial": [
+      0,
+      0
+    ],
+    "left": [
+      -2.4163060857631256,
+      0.04675798214285201
+    ],
+    "right": [
+      2.3769821855935453,
+      0.04099680218330814
+    ],
+    "up": [
+      0.02397139629666332,
+      2.313318266094374
+    ],
+    "down": [
+      0.00003522360933703973,
+      -2.303405933575253
+    ]
+  },
+  "errors": [],
+  "stats": {
+    "frames": 442,
+    "running": false,
+    "samples": 4,
+    "hdr": true,
+    "camera": [
+      0,
+      0
+    ],
+    "zoom": 1,
+    "pan": [
+      0,
+      0
+    ],
+    "actualSamples": 4,
+    "antialiasing": "MSAA",
+    "colorSpace": "srgb",
+    "toneMapping": "ACESFilmic",
+    "bloomStrength": 0.1,
+    "drawCalls": 24,
+    "triangles": 749732,
+    "buffer": [
+      390,
+      1057
+    ],
+    "time": 12.558766666666637
+  }
+}

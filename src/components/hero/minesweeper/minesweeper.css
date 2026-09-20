@@ -1,0 +1,20 @@
+.ms-game{position:static;min-width:0;font-family:var(--mono);}
+.ms-scene{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;}
+.ms-scene canvas{display:block;width:100%;height:100%;}
+.ms-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,#091310db 0%,#091310ac 30%,#09131018 54%,transparent 75%),linear-gradient(0deg,#0b1514 0%,transparent 12%);}
+.ms-anchor{position:relative;z-index:2;width:100%;height:clamp(490px,calc(100svh - 160px),770px);}
+.ms-grid-input{position:absolute;inset:0;outline:none;}
+.ms-grid-input:focus-visible{outline:1px solid #e9ce7022;outline-offset:4px;}
+.ms-counter{position:absolute;z-index:3;pointer-events:none;font-family:var(--mono);font-size:clamp(18px,2vw,29px);font-variant-numeric:tabular-nums;letter-spacing:.09em;color:#e5c781;text-shadow:0 2px 12px #050a08;transform:translate(-50%,-50%);}
+.ms-mines{left:58%;top:20%;}.ms-time{left:90%;top:20%;}
+.is-ready .ms-counter{opacity:0;}
+.ms-buddy{position:absolute;z-index:4;left:74%;top:20%;transform:translate(-50%,-50%);width:65px;height:65px;border:0;border-radius:50%;background:#f5cb39;color:#111;cursor:pointer;font:50px/1 Arial;padding:0;touch-action:manipulation;}
+.is-ready .ms-buddy{background:transparent;}.is-ready .ms-buddy span{visibility:hidden;}
+.ms-buddy:focus-visible{outline:2px solid #ffe496;outline-offset:5px;}
+.ms-sr,.is-ready .ms-accessible-grid{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+.ms-accessible-grid{position:absolute;inset:18% 3% 3%;display:grid;grid-template-rows:repeat(16,minmax(0,1fr));gap:3px;}
+.ms-accessible-grid>[role=row]{display:grid;grid-template-columns:repeat(16,minmax(0,1fr));min-height:0;gap:3px;}
+.ms-cell{min-height:0;line-height:1;display:grid;place-items:center;background:#adbfab;border-radius:2px;box-shadow:inset 1px 1px #e2e6cd,1px 2px #445c4c;font-size:clamp(9px,1.2vw,18px);color:#c44b40;cursor:pointer;}
+.ms-cell.opened{background:#233c36;box-shadow:none;color:#b9dced;}.ms-cell.hit{background:#a65544;}
+.ms-grid-input:focus-visible .ms-cell.active{outline:2px solid #ffe59a;}
+@media(max-width:1000px){.ms-anchor{height:clamp(390px,95vw,730px);margin:35px auto 0;max-width:740px;}.ms-shade{background:linear-gradient(180deg,#091310ad 0%,#0913109c 42%,transparent 64%),linear-gradient(0deg,#0b1514,transparent 10%);}.ms-mines{left:12%;top:auto;bottom:420px;}.ms-time{left:88%;top:auto;bottom:420px;}.ms-buddy{left:50%;top:auto;bottom:395px;}}

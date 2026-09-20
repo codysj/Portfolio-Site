@@ -1,0 +1,29 @@
+{
+  "parallax": [
+    [
+      -0.9607618539445649,
+      0.01094224026925649
+    ],
+    [
+      -0.5099068078370557,
+      0.42524061845286776
+    ]
+  ],
+  "chordClick": true,
+  "combinedButtonsNoAccidentalAction": true,
+  "keyboard": true,
+  "scroll": [
+    [
+      -1.030719897902403,
+      0.09958076807506709
+    ],
+    [
+      -1.2557370000247954,
+      0.5438006250674241
+    ]
+  ],
+  "longPress": true,
+  "mobileZoom": 2.039607805437114,
+  "nativeScroll": true,
+  "errors": []
+}
