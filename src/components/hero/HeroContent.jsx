@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import AsciiLandscape from "@/components/hero/ascii/AsciiLandscape";
+import Minesweeper from "@/components/hero/minesweeper/Minesweeper";
 import HeroCtas from "@/components/hero/HeroCtas";
 import HeroSocials from "@/components/hero/HeroSocials";
 import { hero } from "@/data/portfolio";
@@ -9,14 +9,12 @@ import { hero } from "@/data/portfolio";
 export default function HeroContent() {
   return (
     <header className="ah-hero">
-      <AsciiLandscape />
-      <div className="ah-hero-scrim" aria-hidden="true" />
-
       <div className="ah-topbar reveal" style={{ animationDelay: ".05s" }}>
         <span>{hero.brand}</span>
         <span><span className="dot" />{hero.status}</span>
       </div>
 
+      <div className="ah-copy">
       <p className="ah-eyebrow reveal" style={{ animationDelay: ".15s" }}>
         {hero.eyebrow.map((part, i) => (
           <Fragment key={i}>
@@ -43,6 +41,8 @@ export default function HeroContent() {
         secondary={hero.ctaSecondary}
         resumeHref={hero.resumeHref}
       />
+      </div>
+      <Minesweeper />
 
       <div className="ah-scroll reveal" style={{ animationDelay: ".8s" }}>
         <span className="bar" /> {hero.scrollLabel}

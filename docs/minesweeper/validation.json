@@ -1,0 +1,28 @@
+{
+  "keyboard": "single grid entry, arrows, flag protection, reveal, visible focus",
+  "timer": "starts on reveal, stops on loss",
+  "contextMenu": {
+    "board": true,
+    "outside": false
+  },
+  "buddy": "hover label and physical disc reset verified",
+  "reset": "reset during explosion has no stale reveal or loss",
+  "offscreenPause": true,
+  "reducedMotion": "idle rendering stops, game feedback still updates",
+  "responsive": "320px, tablet, landscape: no document overflow",
+  "touch": {
+    "panBefore": [
+      318,
+      225
+    ],
+    "panAfter": [
+      388,
+      309
+    ],
+    "dragDidNotReveal": true,
+    "flagAndReveal": true
+  },
+  "modal": "escape restores focus, scroll and background interaction; keyboard finds far corner after zoom",
+  "fallback": "WebGL unavailable: playable HTML board, keyboard and pointer",
+  "errors": []
+}

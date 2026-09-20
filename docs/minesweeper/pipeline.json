@@ -1,0 +1,68 @@
+[
+  {
+    "kind": "normal",
+    "stats": {
+      "frames": 40,
+      "running": true,
+      "samples": 4,
+      "hdr": true,
+      "drawCalls": 20,
+      "triangles": 293562,
+      "actualSamples": 4,
+      "antialiasing": "MSAA",
+      "colorSpace": "srgb",
+      "toneMapping": "ACESFilmic",
+      "bloomStrength": 0.1,
+      "buffer": [
+        754,
+        520
+      ],
+      "time": 0.631466666666667
+    },
+    "errors": []
+  },
+  {
+    "kind": "smaa",
+    "stats": {
+      "frames": 48,
+      "running": true,
+      "samples": 0,
+      "hdr": true,
+      "drawCalls": 23,
+      "triangles": 293565,
+      "actualSamples": 0,
+      "antialiasing": "SMAA",
+      "colorSpace": "srgb",
+      "toneMapping": "ACESFilmic",
+      "bloomStrength": 0.1,
+      "buffer": [
+        754,
+        520
+      ],
+      "time": 0.6388666666666666
+    },
+    "errors": []
+  },
+  {
+    "kind": "ldr",
+    "stats": {
+      "frames": 46,
+      "running": true,
+      "samples": 4,
+      "hdr": false,
+      "drawCalls": 20,
+      "triangles": 293562,
+      "actualSamples": 4,
+      "antialiasing": "MSAA",
+      "colorSpace": "srgb",
+      "toneMapping": "ACESFilmic",
+      "bloomStrength": 0.1,
+      "buffer": [
+        754,
+        520
+      ],
+      "time": 0.6246666666666669
+    },
+    "errors": []
+  }
+]

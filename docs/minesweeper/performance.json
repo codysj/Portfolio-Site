@@ -1,0 +1,145 @@
+{
+  "browser": "152.0.7977.84",
+  "os": "win32",
+  "cases": [
+    {
+      "name": "desktop",
+      "meanMs": 31.488888888888894,
+      "p95Ms": 48.69999999999982,
+      "observedFps": 31.75723359209597,
+      "sceneFrames": 181,
+      "stats": {
+        "frames": 217,
+        "running": true,
+        "samples": 4,
+        "hdr": true,
+        "camera": [
+          0,
+          0
+        ],
+        "zoom": 1,
+        "pan": [
+          0,
+          0
+        ],
+        "actualSamples": 4,
+        "antialiasing": "MSAA",
+        "colorSpace": "srgb",
+        "toneMapping": "ACESFilmic",
+        "bloomStrength": 0.1,
+        "drawCalls": 25,
+        "triangles": 555614,
+        "buffer": [
+          1440,
+          915
+        ],
+        "time": 6.137966666666669
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) 880M Graphics (0x0000150E) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "cssCanvas": [
+        1440,
+        915
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "name": "desktop-dpr2",
+      "meanMs": 33.72833333333333,
+      "p95Ms": 48.69999999999982,
+      "observedFps": 29.648663339427785,
+      "sceneFrames": 181,
+      "stats": {
+        "frames": 219,
+        "running": true,
+        "samples": 4,
+        "hdr": true,
+        "camera": [
+          0,
+          0
+        ],
+        "zoom": 1,
+        "pan": [
+          0,
+          0
+        ],
+        "actualSamples": 4,
+        "antialiasing": "MSAA",
+        "colorSpace": "srgb",
+        "toneMapping": "ACESFilmic",
+        "bloomStrength": 0.1,
+        "drawCalls": 25,
+        "triangles": 555206,
+        "buffer": [
+          1586,
+          1008
+        ],
+        "time": 6.373166666666673
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) 880M Graphics (0x0000150E) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 2,
+      "cssCanvas": [
+        1440,
+        915
+      ],
+      "overflow": false,
+      "errors": []
+    },
+    {
+      "name": "mobile-emulated",
+      "meanMs": 27.05111111111111,
+      "p95Ms": 41.79999999999973,
+      "observedFps": 36.96705824365399,
+      "sceneFrames": 181,
+      "stats": {
+        "frames": 225,
+        "running": true,
+        "samples": 4,
+        "hdr": true,
+        "camera": [
+          0,
+          0
+        ],
+        "zoom": 1,
+        "pan": [
+          0,
+          0
+        ],
+        "actualSamples": 4,
+        "antialiasing": "MSAA",
+        "colorSpace": "srgb",
+        "toneMapping": "ACESFilmic",
+        "bloomStrength": 0.1,
+        "drawCalls": 25,
+        "triangles": 749644,
+        "buffer": [
+          487,
+          1321
+        ],
+        "time": 5.71316666666667
+      },
+      "gpu": "ANGLE (AMD, AMD Radeon(TM) 880M Graphics (0x0000150E) Direct3D11 vs_5_0 ps_5_0, D3D11)",
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 3,
+      "cssCanvas": [
+        390,
+        1057
+      ],
+      "overflow": false,
+      "errors": []
+    }
+  ],
+  "noJavaScript": true
+}

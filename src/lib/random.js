@@ -2,7 +2,7 @@
 
 /* mulberry32 — a tiny, fast, seedable PRNG. Returns a function that yields a
    deterministic stream of floats in [0,1) for a given integer seed, so every
-   ASCII layer regenerates identically across renders. */
+   procedural scene regenerates identically across renders. */
 export function mulberry32(a) {
   return function () {
     a |= 0; a = (a + 0x6d2b79f5) | 0;

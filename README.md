@@ -1,42 +1,33 @@
 # Cody Portfolio Site
 
-This is a local Next.js portfolio project for Cody J., built with the App Router, React, TypeScript project files, Tailwind CSS, and ESLint.
+A Next.js portfolio with an optional, playable 3D Minesweeper hero. The introduction, navigation, résumé, project gallery, and contact links remain ordinary HTML. The Three.js scene loads separately.
 
-The current homepage renders the generated ASCII hero prototype. The visual design has intentionally not been redesigned in this setup pass.
+## Local development
 
-## Install
-
-Requires Node.js and npm.
-
-```bash
+```sh
 npm install
-```
-
-## Run Locally
-
-```bash
 npm run dev
 ```
 
-Then open the local URL printed by Next.js, usually `http://localhost:3000`.
+## Verification
 
-## Build
-
-```bash
+```sh
+npm test
+npm run lint
+npx tsc --noEmit
 npm run build
+npm start
 ```
 
-## Project Structure
+## Structure
 
-- `src/app/page.tsx` renders the homepage.
-- `src/app/layout.tsx` defines the root layout and metadata.
-- `src/app/globals.css` contains global Tailwind imports and base page styles.
-- `src/components/hero/AsciiHero.jsx` contains the generated ASCII hero component.
+- `src/data/portfolio.js`: portfolio content and links.
+- `src/components/hero/HeroPage.jsx`: page composition.
+- `src/components/hero/hero.css`: layout, typography, and shared palette.
+- `src/components/hero/minesweeper/`: pure game rules, accessible React controls, and the lazy-loaded Three.js scene.
+- `src/lib/three/HighlightBloomPass.js`: shared selective-highlight bloom pass.
+- `tests/minesweeper.test.mjs`: independent game-rule checks.
 
-## Notes
+See [scene architecture and controls](docs/MINESWEEPER.md), [visual guidelines](docs/DESIGN.md), and [verification evidence](docs/minesweeper/REPORT.md).
 
-The ASCII hero is currently a generated single-file prototype. It still injects a large CSS string inside the component with `dangerouslySetInnerHTML`; a later refactor should move those styles into `src/app/globals.css` or a dedicated hero stylesheet after the app baseline is stable.
-
-## Dependency Audit
-
-`next` and `eslint-config-next` are kept on the same 15.5.x line. The project also pins `postcss` through npm `overrides` so Next's nested PostCSS dependency resolves to the audited safe version used by the root project.
+The project uses Next.js 15.5, React 18, and Three.js r186 directly. It does not need a React Three Fiber wrapper. Framer Motion remains in use by the portfolio sections. PostCSS remains pinned through npm overrides.
