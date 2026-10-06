@@ -1,5 +1,5 @@
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function Resume() {
-  notFound();
+  redirect("/resume.pdf");
 }
