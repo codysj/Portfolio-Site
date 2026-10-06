@@ -1,6 +1,6 @@
 # Cody Portfolio Site
 
-A Next.js portfolio with an optional, playable 3D Minesweeper hero. The introduction, navigation, résumé, project gallery, and contact links remain ordinary HTML. The Three.js scene loads separately.
+A Next.js portfolio with an optional, playable 3D Minesweeper hero. The introduction, navigation, project gallery, and contact links remain ordinary HTML. The Three.js scene loads separately. Résumé links currently lead to a themed 404 page; no résumé file is published.
 
 ## Local development
 

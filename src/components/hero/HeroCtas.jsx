@@ -11,8 +11,6 @@ export default function HeroCtas({ primary, secondary, resumeHref }) {
       <a
         className="ah-btn ah-btn-ghost"
         href={resumeHref}
-        target="_blank"
-        rel="noopener noreferrer"
       >
         {secondary}
       </a>

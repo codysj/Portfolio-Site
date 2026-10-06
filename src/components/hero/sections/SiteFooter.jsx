@@ -13,8 +13,8 @@ export default function SiteFooter() {
             <a
               key={link.label}
               href={link.href}
-              target={external || link.href.endsWith(".pdf") ? "_blank" : undefined}
-              rel={external || link.href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
             >
               {link.label}
             </a>

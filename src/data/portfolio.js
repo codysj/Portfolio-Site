@@ -36,7 +36,7 @@ export const hero = {
   sub: "Computer Science + Business at UC Berkeley. I’ve shipped production agent systems, financial-reasoning evaluation infrastructure, and full-stack products serving thousands of users.",
   ctaPrimary: "View Selected Work",
   ctaSecondary: "View Résumé",
-  resumeHref: "/CodyJungResume.pdf",
+  resumeHref: "/resume",
   scrollLabel: "Scroll",
 };
 
@@ -231,6 +231,6 @@ export const footer = {
     { label: "GitHub", href: "https://github.com/codysj" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/codyjung" },
     { label: "Email", href: "mailto:codyjung@berkeley.edu" },
-    { label: "Résumé", href: "/CodyJungResume.pdf" },
+    { label: "Résumé", href: "/resume" },
   ],
 };
