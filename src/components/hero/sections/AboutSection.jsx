@@ -8,6 +8,7 @@ export default function AboutSection() {
       <p className="ah-section-tag">{about.tag}</p>
       <h2>{about.title}</h2>
       <p>{about.body}</p>
+      <p className="ah-education">{about.education}</p>
     </section>
   );
 }

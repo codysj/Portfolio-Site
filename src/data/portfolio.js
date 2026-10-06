@@ -33,7 +33,7 @@ export const hero = {
     { text: "real", em: true },
     { text: " systems." },
   ],
-  sub: "Computer Science + Business at UC Berkeley. I’ve shipped production agent systems, financial-reasoning evaluation infrastructure, and full-stack products serving thousands of users.",
+  sub: "Computer Science + Business at UC Berkeley. I build AI applications with deterministic checks, resilient backend systems, and measurable impact.",
   ctaPrimary: "View Selected Work",
   ctaSecondary: "View Résumé",
   resumeHref: "/resume",
@@ -65,19 +65,27 @@ export const experience = {
     {
       company: "Matrix Power",
       icon: "power",
-      role: "AI Research Intern — Agent Systems",
+      role: "AI Research Intern",
       period: "Jun 2026 — Present",
       summary:
-        "Built and deployed an always-on B2B agent system as sole engineer, with sandboxing, approval gates, retries, spend controls, and audit logs.",
+        "Built a FastAPI/PostgreSQL AI sales platform with human-reviewed outreach drafts and HubSpot integration, reducing manual prospect preparation by an estimated 80%. A live-call voice assistant reduced lookup time by 70%; worker leases, bounded retries, and a transactional outbox supported crash recovery and guarded against duplicate actions.",
+    },
+    {
+      company: "Google",
+      icon: "google",
+      role: "Software Engineer (Contract)",
+      period: "Jan 2026 — May 2026",
+      summary:
+        "Built a Python/FastAPI and Next.js math tutor with exact-arithmetic checks and resilient PostgreSQL writes. Deterministic checks recorded zero false acceptances and false corrections across 85,942 generated cases evaluated against SymPy; maintained 2,600+ tests in GitHub Actions.",
     },
     {
       company: "AfterQuery",
       icon: "afterquery",
       badge: "YC W25",
-      role: "Generative AI Engineer -- Financial Reasoning (Contract)",
+      role: "Generative AI Engineer (Contract)",
       period: "Dec 2025 — Mar 2026",
       summary:
-        "Built LLM evaluation infrastructure across roughly 35 financial-reasoning benchmarks and used failure patterns to redirect data collection.",
+        "Built a Python/LangChain evaluation harness running 35 financial-reasoning benchmarks per model checkpoint. Numerical and schema validators reduced manual scoring effort by an estimated 40% while retaining expert rubric review; failure analysis redirected data collection toward eight underperforming categories.",
     },
     {
       company: "Haas Business Student Association",
@@ -101,7 +109,7 @@ export const experience = {
       role: "Software Engineering & Finance Intern",
       period: "Dec 2024 — Jul 2025",
       summary:
-        "Built financial-data infrastructure that unified three custodian export formats and reduced reporting preparation by approximately 40%.",
+        "Built a Python ETL pipeline unifying three custodian export formats, cutting report preparation by approximately 40% across 75+ portfolios. Developed a LangChain pipeline that translated daily U.S. and Japanese news and mapped events to portfolio holdings.",
     },
   ],
 };
@@ -112,6 +120,45 @@ export const projects = {
   items: [
     {
       idx: "01",
+      title: "Government Workflows",
+      tagline: "Auditable AI finance workflows built for West Covina’s finance department.",
+      overview:
+        "Built a finance workflow platform for West Covina’s finance department to address untracked AI public-records risk. A fail-closed pipeline combines deterministic finance logic, source-linked LLM drafts, and audit logs. Eight finance workflows and natural-language Tyler/Munis export search cut ERP lookup time by 60%.",
+      tech: ["Python", "FastAPI", "React", "TypeScript", "SQLite", "Pydantic"],
+      features: [
+        "Eight finance workflows for recurring municipal tasks",
+        "Natural-language Tyler/Munis export search — 60% less ERP lookup time",
+        "Deterministic finance logic with fail-closed AI validation",
+        "Source-linked LLM drafts for human review",
+        "Audit logs that preserve an accountable record of each run",
+      ],
+      repo: "https://github.com/codysj/Government-Workflows",
+      image: "/projects/government-workflows.svg",
+      imageAlt: "Government Workflows preview — auditable, source-linked finance workflows",
+    },
+    {
+      idx: "02",
+      title: "College Explorer",
+      tagline: "Co-founded an AWS-deployed college decision platform serving 7,600 unique users.",
+      overview:
+        "Co-founded College Explorer with a three-person team and deployed it on AWS, serving 7,600 unique users. Natural-language college search combines PostgreSQL full-text retrieval, structured filters, and reranking. A weighted ranker compares colleges across six fit dimensions, with data-coverage confidence and sensitivity analysis to make tradeoffs clear.",
+      tech: ["Next.js", "React", "TypeScript", "FastAPI", "PostgreSQL", "pgvector", "Redis", "AWS"],
+      features: [
+        "Co-founded with a three-person team; serving 7,600 unique users",
+        "AWS deployment with PostgreSQL, pgvector, and Redis",
+        "Natural-language search with full-text retrieval, filters, and reranking",
+        "Weighted college rankings across six fit dimensions",
+        "Data-coverage confidence and sensitivity analysis",
+      ],
+      repo: "https://github.com/codysj/College-Explorer",
+      image: "/projects/college-explorer-poster.png",
+      imagePoster: "/projects/college-explorer-poster.png",
+      imageSprite: "/projects/college-explorer-demo-sprite.webp",
+      imageSpriteFrames: 9,
+      imageAlt: "College Explorer onboarding demo — transparent, deterministic rankings",
+    },
+    {
+      idx: "03",
       title: "AI Backtest Lab",
       tagline: "AI-assisted, event-driven backtesting platform with a natural-language strategy builder.",
       overview:
@@ -132,7 +179,7 @@ export const projects = {
       imageAlt: "AI Backtest Lab dashboard showing a single backtest run with equity curve and metrics",
     },
     {
-      idx: "02",
+      idx: "04",
       title: "Vantage",
       tagline: "Prediction-market intelligence dashboard correlating price, sentiment, and whale activity.",
       overview:
@@ -153,28 +200,7 @@ export const projects = {
       imageAlt: "Vantage dashboard demo — price, sentiment, and whale-flow correlation",
     },
     {
-      idx: "03",
-      title: "College Explorer",
-      tagline: "Full-stack college decision platform with transparent, deterministic rankings.",
-      overview:
-        "A web app that lets students search and compare colleges through structured filters and semantic search, receive explainable rankings tuned to their preferences, and generate shareable decision reports. Ranking logic, cache behavior, and data limits are made explicit rather than hidden behind opaque recommendations.",
-      tech: ["Next.js", "React", "TypeScript", "FastAPI", "PostgreSQL", "pgvector", "Redis", "Docker"],
-      features: [
-        "Deterministic ranking engine scoring fit against preferences",
-        "pgvector-backed semantic search with deterministic fallback",
-        "Cost/value calculator with four-year estimates and repayment scenarios",
-        "Sensitivity analysis with category-weight sliders",
-        "Shareable decision reports with methodology notes",
-      ],
-      repo: "https://github.com/codysj/College-Explorer",
-      image: "/projects/college-explorer-poster.png",
-      imagePoster: "/projects/college-explorer-poster.png",
-      imageSprite: "/projects/college-explorer-demo-sprite.webp",
-      imageSpriteFrames: 9,
-      imageAlt: "College Explorer onboarding demo — transparent, deterministic rankings",
-    },
-    {
-      idx: "04",
+      idx: "05",
       title: "CombatRL",
       tagline: "Deterministic tactical-arena simulator for reinforcement-learning research.",
       overview:
@@ -194,23 +220,24 @@ export const projects = {
       imageSpriteFrames: 24,
       imageAlt: "CombatRL demo — a PPO agent winning a 2v2 elimination match",
     },
+  ],
+};
+
+export const openSource = {
+  tag: "Community",
+  title: "Open Source",
+  items: [
     {
-      idx: "05",
-      title: "Municipal Finance AI",
-      tagline: "Local-first AI workflow tool that turns recurring municipal finance tasks into auditable, source-linked review workflows.",
-      overview:
-        "A controlled workflow runner — not a chatbot — for small-city finance teams. Every calculation is deterministic Python; the model only explains, summarizes, and flags, and a validation layer rejects any invented number or reference. Each run is logged with source-row evidence and exported for human review.",
-      tech: ["Python", "FastAPI", "Pydantic", "React", "TypeScript", "Vite", "Streamlit"],
-      features: [
-        "Deterministic Python core — every calculation reproducible and auditable",
-        "Model limited to language tasks; validation layer rejects invented numbers/references",
-        "Source-row tracking so every claim links back to its evidence",
-        "Bank reconciliation, budget variance, and AP duplicate-review workflows",
-        "Full run ledger and audit log, exportable for human review",
-      ],
-      repo: "https://github.com/codysj/Government-Workflows",
-      image: "/projects/government-workflows.svg",
-      imageAlt: "Municipal Finance AI preview — auditable, source-linked finance workflows",
+      name: "Ponytail",
+      repo: "https://github.com/DietrichGebert/ponytail",
+      summary:
+        "Merged POSIX process-group cleanup into agent benchmarks, stopping timed-out process trees.",
+    },
+    {
+      name: "PixelRAG",
+      repo: "https://github.com/StarTrail-org/PixelRAG",
+      summary:
+        "Merged auto/MPS CLI overrides into the visual index builder, with pytest coverage for Apple Silicon.",
     },
   ],
 };
@@ -219,10 +246,12 @@ export const about = {
   tag: "Profile",
   title: "About",
   body:
-    "I’m a Computer Science and Business student at UC Berkeley focused on reliable software for intelligent, data-intensive systems. " +
-    "At Matrix Power, I built and deployed an always-on agent system as the sole engineer, with sandboxing, approval gates, retries, spend controls, and audit logs. " +
-    "Previously, I built financial-reasoning evaluation infrastructure at AfterQuery and led product engineering for Berkeley platforms serving more than 6,000 users. " +
+    "I’m a Computer Science and Business student at UC Berkeley building reliable AI applications and data-intensive software. " +
+    "At Matrix Power, I built AI sales workflows and a live-call voice assistant. As a software engineer on contract with Google, I built a math tutor that pairs an LLM with deterministic checks. " +
+    "I’ve also built financial-reasoning evaluation infrastructure at AfterQuery and co-founded College Explorer, an AWS-deployed platform serving 7,600 unique users. " +
     "I care about rigorous evaluation, explicit failure boundaries, and turning ambiguous problems into software people can trust.",
+  education:
+    "Pursuing a B.A. in Computer Science and a B.S. in Business Administration at UC Berkeley and the Haas School of Business. GPA: 3.96.",
 };
 
 export const footer = {

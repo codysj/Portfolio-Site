@@ -4,6 +4,7 @@ import Atmosphere from "@/components/hero/Atmosphere";
 import HeroContent from "@/components/hero/HeroContent";
 import ExperienceSection from "@/components/hero/sections/ExperienceSection";
 import ProjectsSection from "@/components/hero/sections/ProjectsSection";
+import OpenSourceSection from "@/components/hero/sections/OpenSourceSection";
 import AboutSection from "@/components/hero/sections/AboutSection";
 import SiteFooter from "@/components/hero/sections/SiteFooter";
 
@@ -16,6 +17,7 @@ export default function HeroPage() {
       <HeroContent />
       <ExperienceSection />
       <ProjectsSection />
+      <OpenSourceSection />
       <AboutSection />
       <SiteFooter />
     </div>
