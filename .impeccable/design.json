@@ -1,0 +1,650 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-16T18:16:55.065Z",
+  "title": "Design System: Cody Jung Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "page-floor": {
+        "role": "neutral",
+        "displayName": "Page Floor",
+        "canonical": "oklch(14.1% 0.006 174.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 174.7)",
+          "oklch(26.4% 0.006 174.7)",
+          "oklch(37.9% 0.006 174.7)",
+          "oklch(49.3% 0.006 174.7)",
+          "oklch(60.7% 0.006 174.7)",
+          "oklch(72.1% 0.006 174.7)",
+          "oklch(83.6% 0.006 174.7)",
+          "oklch(95.0% 0.006 174.7)"
+        ]
+      },
+      "forest-night": {
+        "role": "neutral",
+        "displayName": "Forest Night",
+        "canonical": "oklch(17.3% 0.013 177.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.013 177.5)",
+          "oklch(26.4% 0.013 177.5)",
+          "oklch(37.9% 0.013 177.5)",
+          "oklch(49.3% 0.013 177.5)",
+          "oklch(60.7% 0.013 177.5)",
+          "oklch(72.1% 0.013 177.5)",
+          "oklch(83.6% 0.013 177.5)",
+          "oklch(95.0% 0.013 177.5)"
+        ]
+      },
+      "moss-shadow": {
+        "role": "neutral",
+        "displayName": "Moss Shadow",
+        "canonical": "oklch(21.0% 0.018 170.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.018 170.0)",
+          "oklch(26.4% 0.018 170.0)",
+          "oklch(37.9% 0.018 170.0)",
+          "oklch(49.3% 0.018 170.0)",
+          "oklch(60.7% 0.018 170.0)",
+          "oklch(72.1% 0.018 170.0)",
+          "oklch(83.6% 0.018 170.0)",
+          "oklch(95.0% 0.018 170.0)"
+        ]
+      },
+      "moonlit-paper": {
+        "role": "neutral",
+        "displayName": "Moonlit Paper",
+        "canonical": "oklch(93.6% 0.011 95.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.011 95.2)",
+          "oklch(26.4% 0.011 95.2)",
+          "oklch(37.9% 0.011 95.2)",
+          "oklch(49.3% 0.011 95.2)",
+          "oklch(60.7% 0.011 95.2)",
+          "oklch(72.1% 0.011 95.2)",
+          "oklch(83.6% 0.011 95.2)",
+          "oklch(95.0% 0.011 95.2)"
+        ]
+      },
+      "lichen": {
+        "role": "neutral",
+        "displayName": "Lichen",
+        "canonical": "oklch(74.3% 0.018 151.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.018 151.0)",
+          "oklch(26.4% 0.018 151.0)",
+          "oklch(37.9% 0.018 151.0)",
+          "oklch(49.3% 0.018 151.0)",
+          "oklch(60.7% 0.018 151.0)",
+          "oklch(72.1% 0.018 151.0)",
+          "oklch(83.6% 0.018 151.0)",
+          "oklch(95.0% 0.018 151.0)"
+        ]
+      },
+      "branch": {
+        "role": "neutral",
+        "displayName": "Branch",
+        "canonical": "oklch(57.4% 0.030 155.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.030 155.5)",
+          "oklch(26.4% 0.030 155.5)",
+          "oklch(37.9% 0.030 155.5)",
+          "oklch(49.3% 0.030 155.5)",
+          "oklch(60.7% 0.030 155.5)",
+          "oklch(72.1% 0.030 155.5)",
+          "oklch(83.6% 0.030 155.5)",
+          "oklch(95.0% 0.030 155.5)"
+        ]
+      },
+      "lamplight": {
+        "role": "secondary",
+        "displayName": "Lamplight",
+        "canonical": "oklch(88.1% 0.045 89.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.045 89.9)",
+          "oklch(26.4% 0.045 89.9)",
+          "oklch(37.9% 0.045 89.9)",
+          "oklch(49.3% 0.045 89.9)",
+          "oklch(60.7% 0.045 89.9)",
+          "oklch(72.1% 0.045 89.9)",
+          "oklch(83.6% 0.045 89.9)",
+          "oklch(95.0% 0.045 89.9)"
+        ]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Sage",
+        "canonical": "oklch(72.5% 0.047 152.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.047 152.1)",
+          "oklch(26.4% 0.047 152.1)",
+          "oklch(37.9% 0.047 152.1)",
+          "oklch(49.3% 0.047 152.1)",
+          "oklch(60.7% 0.047 152.1)",
+          "oklch(72.1% 0.047 152.1)",
+          "oklch(83.6% 0.047 152.1)",
+          "oklch(95.0% 0.047 152.1)"
+        ]
+      },
+      "pale-sage": {
+        "role": "primary",
+        "displayName": "Pale Sage",
+        "canonical": "oklch(82.0% 0.041 148.6)",
+        "tonalRamp": [
+          "oklch(15.0% 0.041 148.6)",
+          "oklch(26.4% 0.041 148.6)",
+          "oklch(37.9% 0.041 148.6)",
+          "oklch(49.3% 0.041 148.6)",
+          "oklch(60.7% 0.041 148.6)",
+          "oklch(72.1% 0.041 148.6)",
+          "oklch(83.6% 0.041 148.6)",
+          "oklch(95.0% 0.041 148.6)"
+        ]
+      },
+      "moonlit-leaf": {
+        "role": "primary",
+        "displayName": "Moonlit Leaf",
+        "canonical": "oklch(84.5% 0.062 136.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.062 136.3)",
+          "oklch(26.4% 0.062 136.3)",
+          "oklch(37.9% 0.062 136.3)",
+          "oklch(49.3% 0.062 136.3)",
+          "oklch(60.7% 0.062 136.3)",
+          "oklch(72.1% 0.062 136.3)",
+          "oklch(83.6% 0.062 136.3)",
+          "oklch(95.0% 0.062 136.3)"
+        ]
+      },
+      "sage-wash": {
+        "role": "primary",
+        "displayName": "Sage Wash",
+        "canonical": "oklch(81.8% 0.077 157.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.077 157.3)",
+          "oklch(26.4% 0.077 157.3)",
+          "oklch(37.9% 0.077 157.3)",
+          "oklch(49.3% 0.077 157.3)",
+          "oklch(60.7% 0.077 157.3)",
+          "oklch(72.1% 0.077 157.3)",
+          "oklch(83.6% 0.077 157.3)",
+          "oklch(95.0% 0.077 157.3)"
+        ]
+      },
+      "tile-sage": {
+        "role": "tertiary",
+        "displayName": "Tile Sage",
+        "canonical": "oklch(78.2% 0.029 155.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.029 155.1)",
+          "oklch(26.4% 0.029 155.1)",
+          "oklch(37.9% 0.029 155.1)",
+          "oklch(49.3% 0.029 155.1)",
+          "oklch(60.7% 0.029 155.1)",
+          "oklch(72.1% 0.029 155.1)",
+          "oklch(83.6% 0.029 155.1)",
+          "oklch(95.0% 0.029 155.1)"
+        ]
+      },
+      "tile-opened": {
+        "role": "tertiary",
+        "displayName": "Tile Opened",
+        "canonical": "oklch(33.2% 0.030 185.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.030 185.9)",
+          "oklch(26.4% 0.030 185.9)",
+          "oklch(37.9% 0.030 185.9)",
+          "oklch(49.3% 0.030 185.9)",
+          "oklch(60.7% 0.030 185.9)",
+          "oklch(72.1% 0.030 185.9)",
+          "oklch(83.6% 0.030 185.9)",
+          "oklch(95.0% 0.030 185.9)"
+        ]
+      },
+      "voxel-wall": {
+        "role": "tertiary",
+        "displayName": "Voxel Wall",
+        "canonical": "oklch(22.1% 0.020 173.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.020 173.2)",
+          "oklch(26.4% 0.020 173.2)",
+          "oklch(37.9% 0.020 173.2)",
+          "oklch(49.3% 0.020 173.2)",
+          "oklch(60.7% 0.020 173.2)",
+          "oklch(72.1% 0.020 173.2)",
+          "oklch(83.6% 0.020 173.2)",
+          "oklch(95.0% 0.020 173.2)"
+        ]
+      },
+      "wall-glow": {
+        "role": "tertiary",
+        "displayName": "Wall Glow",
+        "canonical": "oklch(70.6% 0.068 154.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.068 154.0)",
+          "oklch(26.4% 0.068 154.0)",
+          "oklch(37.9% 0.068 154.0)",
+          "oklch(49.3% 0.068 154.0)",
+          "oklch(60.7% 0.068 154.0)",
+          "oklch(72.1% 0.068 154.0)",
+          "oklch(83.6% 0.068 154.0)",
+          "oklch(95.0% 0.068 154.0)"
+        ]
+      },
+      "coral-flag": {
+        "role": "tertiary",
+        "displayName": "Coral Flag",
+        "canonical": "oklch(58.2% 0.169 28.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.169 28.2)",
+          "oklch(26.4% 0.169 28.2)",
+          "oklch(37.9% 0.169 28.2)",
+          "oklch(49.3% 0.169 28.2)",
+          "oklch(60.7% 0.169 28.2)",
+          "oklch(72.1% 0.169 28.2)",
+          "oklch(83.6% 0.169 28.2)",
+          "oklch(95.0% 0.169 28.2)"
+        ]
+      },
+      "buddy-yellow": {
+        "role": "tertiary",
+        "displayName": "Buddy Yellow",
+        "canonical": "oklch(87.6% 0.169 91.4)",
+        "tonalRamp": [
+          "oklch(15.0% 0.169 91.4)",
+          "oklch(26.4% 0.169 91.4)",
+          "oklch(37.9% 0.169 91.4)",
+          "oklch(49.3% 0.169 91.4)",
+          "oklch(60.7% 0.169 91.4)",
+          "oklch(72.1% 0.169 91.4)",
+          "oklch(83.6% 0.169 91.4)",
+          "oklch(95.0% 0.169 91.4)"
+        ]
+      },
+      "counter-brass": {
+        "role": "tertiary",
+        "displayName": "Counter Brass",
+        "canonical": "oklch(84.0% 0.095 87.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.095 87.2)",
+          "oklch(26.4% 0.095 87.2)",
+          "oklch(37.9% 0.095 87.2)",
+          "oklch(49.3% 0.095 87.2)",
+          "oklch(60.7% 0.095 87.2)",
+          "oklch(72.1% 0.095 87.2)",
+          "oklch(83.6% 0.095 87.2)",
+          "oklch(95.0% 0.095 87.2)"
+        ]
+      },
+      "yc-orange": {
+        "role": "tertiary",
+        "displayName": "YC Orange (borrowed brand)",
+        "canonical": "oklch(69.6% 0.204 43.5)",
+        "tonalRamp": [
+          "oklch(15.0% 0.204 43.5)",
+          "oklch(26.4% 0.204 43.5)",
+          "oklch(37.9% 0.204 43.5)",
+          "oklch(49.3% 0.204 43.5)",
+          "oklch(60.7% 0.204 43.5)",
+          "oklch(72.1% 0.204 43.5)",
+          "oklch(83.6% 0.204 43.5)",
+          "oklch(95.0% 0.204 43.5)"
+        ]
+      },
+      "number-1": {
+        "role": "tertiary",
+        "displayName": "Number 1 Sky",
+        "canonical": "oklch(85.1% 0.068 231.1)",
+        "tonalRamp": [
+          "oklch(15.0% 0.068 231.1)",
+          "oklch(26.4% 0.068 231.1)",
+          "oklch(37.9% 0.068 231.1)",
+          "oklch(49.3% 0.068 231.1)",
+          "oklch(60.7% 0.068 231.1)",
+          "oklch(72.1% 0.068 231.1)",
+          "oklch(83.6% 0.068 231.1)",
+          "oklch(95.0% 0.068 231.1)"
+        ]
+      },
+      "number-2": {
+        "role": "tertiary",
+        "displayName": "Number 2 Mint",
+        "canonical": "oklch(81.2% 0.097 152.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.097 152.2)",
+          "oklch(26.4% 0.097 152.2)",
+          "oklch(37.9% 0.097 152.2)",
+          "oklch(49.3% 0.097 152.2)",
+          "oklch(60.7% 0.097 152.2)",
+          "oklch(72.1% 0.097 152.2)",
+          "oklch(83.6% 0.097 152.2)",
+          "oklch(95.0% 0.097 152.2)"
+        ]
+      },
+      "number-3": {
+        "role": "tertiary",
+        "displayName": "Number 3 Coral",
+        "canonical": "oklch(76.6% 0.110 34.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.110 34.9)",
+          "oklch(26.4% 0.110 34.9)",
+          "oklch(37.9% 0.110 34.9)",
+          "oklch(49.3% 0.110 34.9)",
+          "oklch(60.7% 0.110 34.9)",
+          "oklch(72.1% 0.110 34.9)",
+          "oklch(83.6% 0.110 34.9)",
+          "oklch(95.0% 0.110 34.9)"
+        ]
+      },
+      "number-4": {
+        "role": "tertiary",
+        "displayName": "Number 4 Lilac",
+        "canonical": "oklch(79.0% 0.085 299.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.085 299.2)",
+          "oklch(26.4% 0.085 299.2)",
+          "oklch(37.9% 0.085 299.2)",
+          "oklch(49.3% 0.085 299.2)",
+          "oklch(60.7% 0.085 299.2)",
+          "oklch(72.1% 0.085 299.2)",
+          "oklch(83.6% 0.085 299.2)",
+          "oklch(95.0% 0.085 299.2)"
+        ]
+      },
+      "number-5": {
+        "role": "tertiary",
+        "displayName": "Number 5 Apricot",
+        "canonical": "oklch(82.8% 0.094 69.0)",
+        "tonalRamp": [
+          "oklch(15.0% 0.094 69.0)",
+          "oklch(26.4% 0.094 69.0)",
+          "oklch(37.9% 0.094 69.0)",
+          "oklch(49.3% 0.094 69.0)",
+          "oklch(60.7% 0.094 69.0)",
+          "oklch(72.1% 0.094 69.0)",
+          "oklch(83.6% 0.094 69.0)",
+          "oklch(95.0% 0.094 69.0)"
+        ]
+      },
+      "number-6": {
+        "role": "tertiary",
+        "displayName": "Number 6 Aqua",
+        "canonical": "oklch(85.0% 0.084 185.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.084 185.2)",
+          "oklch(26.4% 0.084 185.2)",
+          "oklch(37.9% 0.084 185.2)",
+          "oklch(49.3% 0.084 185.2)",
+          "oklch(60.7% 0.084 185.2)",
+          "oklch(72.1% 0.084 185.2)",
+          "oklch(83.6% 0.084 185.2)",
+          "oklch(95.0% 0.084 185.2)"
+        ]
+      },
+      "number-7": {
+        "role": "tertiary",
+        "displayName": "Number 7 Parchment",
+        "canonical": "oklch(88.8% 0.048 88.3)",
+        "tonalRamp": [
+          "oklch(15.0% 0.048 88.3)",
+          "oklch(26.4% 0.048 88.3)",
+          "oklch(37.9% 0.048 88.3)",
+          "oklch(49.3% 0.048 88.3)",
+          "oklch(60.7% 0.048 88.3)",
+          "oklch(72.1% 0.048 88.3)",
+          "oklch(83.6% 0.048 88.3)",
+          "oklch(95.0% 0.048 88.3)"
+        ]
+      },
+      "number-8": {
+        "role": "tertiary",
+        "displayName": "Number 8 Mist",
+        "canonical": "oklch(87.8% 0.008 228.9)",
+        "tonalRamp": [
+          "oklch(15.0% 0.008 228.9)",
+          "oklch(26.4% 0.008 228.9)",
+          "oklch(37.9% 0.008 228.9)",
+          "oklch(49.3% 0.008 228.9)",
+          "oklch(60.7% 0.008 228.9)",
+          "oklch(72.1% 0.008 228.9)",
+          "oklch(83.6% 0.008 228.9)",
+          "oklch(95.0% 0.008 228.9)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero and 404 headline only; one italic Lamplight word allowed."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project, company, and open-source names."
+      },
+      "body-lead": {
+        "displayName": "Body Lead",
+        "purpose": "Hero sub paragraph."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Summaries, overviews, contribution text; monospaced on purpose."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase tracked section tags, eyebrow, top bar, footer."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Uppercase button and card-link labels."
+      }
+    },
+    "shadows": [
+      {
+        "name": "hover-glow",
+        "value": "0 0 26px rgba(154,211,176,0.22)",
+        "purpose": "Primary button hover only."
+      },
+      {
+        "name": "status-pip",
+        "value": "0 0 10px #bad6ae",
+        "purpose": "Live status dot in the top bar."
+      },
+      {
+        "name": "counter-lift",
+        "value": "0 2px 12px #050a08",
+        "purpose": "text-shadow keeping brass counters legible over the voxel wall."
+      },
+      {
+        "name": "logo-ring",
+        "value": "0 0 0 1px rgba(236,234,226,0.1)",
+        "purpose": "Edges dark brand logo tiles."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-reveal",
+        "value": "cubic-bezier(.2,.7,.2,1)",
+        "purpose": "Entrance fade-up (0.9s, staggered delays) and the card toggle (0.35s)."
+      },
+      {
+        "name": "hover-fast",
+        "value": "0.2s ease",
+        "purpose": "Link and icon color, 1px lift."
+      },
+      {
+        "name": "hover-standard",
+        "value": "0.25s ease",
+        "purpose": "Buttons, card borders, arrow slide."
+      },
+      {
+        "name": "scroll-cue",
+        "value": "2.4s ease-in-out infinite",
+        "purpose": "Scroll bar pulse; disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "grid-2",
+        "value": "560px"
+      },
+      {
+        "name": "phone",
+        "value": "600px"
+      },
+      {
+        "name": "card-split",
+        "value": "760px"
+      },
+      {
+        "name": "grid-4",
+        "value": "920px"
+      },
+      {
+        "name": "card-inset",
+        "value": "960px"
+      },
+      {
+        "name": "hero-stack",
+        "value": "1000px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main hero CTA; a lit sage edge, never a solid slab.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">View Selected Work <span class=\"ds-arrow\">→</span></a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 18px;border-radius:2px;background:rgba(154,211,176,0.12);color:#b3ccb6;border:1px solid rgba(154,211,176,0.45);transition:all .25s ease;}.ds-btn-primary:hover{background:rgba(154,211,176,0.2);border-color:#bad6ae;box-shadow:0 0 26px rgba(154,211,176,0.22);transform:translateY(-1px);}.ds-btn-primary:focus-visible{outline:2px solid #bad6ae;outline-offset:3px;}.ds-btn-primary .ds-arrow{transition:transform .25s ease;}.ds-btn-primary:hover .ds-arrow{transform:translateX(3px);}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary CTA such as View Résumé.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">View Résumé</a>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 18px;border-radius:2px;background:transparent;color:#a4afa6;border:1px solid rgba(236,234,226,0.16);transition:all .25s ease;}.ds-btn-ghost:hover{color:#eceae2;border-color:rgba(236,234,226,0.4);transform:translateY(-1px);}.ds-btn-ghost:focus-visible{outline:2px solid #bad6ae;outline-offset:3px;}"
+    },
+    {
+      "name": "Tech Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Static stack label inside an expanded project card.",
+      "html": "<span class=\"ds-chip\">FastAPI</span> <span class=\"ds-chip\">PostgreSQL</span>",
+      "css": ".ds-chip{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;color:#b3ccb6;border:1px solid rgba(154,211,176,0.28);border-radius:2px;padding:5px 10px;background:rgba(154,211,176,0.06);white-space:nowrap;}"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "project-card",
+      "description": "Collapsed expandable project card; the whole header is a button.",
+      "html": "<article class=\"ds-card\"><button class=\"ds-card-head\"><span class=\"ds-idx\">01</span><span class=\"ds-toggle\"></span><h3>Government Workflows</h3><p>Auditable AI finance workflows built for West Covina’s finance department.</p></button></article>",
+      "css": ".ds-card{position:relative;max-width:300px;border:1px solid rgba(236,234,226,0.1);border-radius:3px;padding:26px;background:#0a1210 linear-gradient(rgba(255,255,255,0.012),rgba(255,255,255,0.012));color:#eceae2;font-family:'IBM Plex Mono',ui-monospace,monospace;transition:border-color .25s ease;}.ds-card:hover{border-color:rgba(154,211,176,0.4);}.ds-card-head{display:block;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;position:relative;}.ds-card-head:focus-visible{outline:2px solid #bad6ae;outline-offset:6px;}.ds-idx{color:#91af98;font-size:12px;letter-spacing:.2em;}.ds-card h3{font-family:Newsreader,Georgia,serif;font-weight:400;font-size:1.35rem;margin:14px 0 10px;}.ds-card p{color:#a4afa6;font-size:.9rem;line-height:1.7;margin:0;}.ds-toggle{position:absolute;top:2px;right:0;width:18px;height:18px;}.ds-toggle::before,.ds-toggle::after{content:'';position:absolute;left:50%;top:50%;width:13px;height:1.5px;background:#91af98;transform:translate(-50%,-50%);transition:transform .35s cubic-bezier(.2,.7,.2,1);}.ds-toggle::after{transform:translate(-50%,-50%) rotate(90deg);}"
+    },
+    {
+      "name": "Card Link",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Underlined uppercase repo link inside an expanded card.",
+      "html": "<a class=\"ds-card-link\" href=\"#\">View on GitHub <span class=\"ds-arrow\">→</span></a>",
+      "css": ".ds-card-link{display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#b3ccb6;text-decoration:none;border-bottom:1px solid rgba(154,211,176,0.4);padding-bottom:3px;transition:color .25s ease,border-color .25s ease;}.ds-card-link:hover{color:#bad6ae;border-color:#bad6ae;}.ds-card-link:focus-visible{outline:2px solid #bad6ae;outline-offset:4px;}.ds-card-link .ds-arrow{transition:transform .25s ease;}.ds-card-link:hover .ds-arrow{transform:translateX(3px);}"
+    },
+    {
+      "name": "Card Nav Arrow",
+      "kind": "button",
+      "refersTo": "card-nav",
+      "description": "Circular prev/next control in the gutters of an open card.",
+      "html": "<button class=\"ds-card-nav\" aria-label=\"Next project\">›</button>",
+      "css": ".ds-card-nav{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(11,17,14,0.66);border:1px solid rgba(154,211,176,0.3);color:#b3ccb6;font-size:24px;line-height:1;cursor:pointer;backdrop-filter:blur(4px);transition:background .2s ease,border-color .2s ease,color .2s ease;}.ds-card-nav:hover{background:rgba(11,17,14,0.85);border-color:#bad6ae;color:#bad6ae;}.ds-card-nav:focus-visible{outline:2px solid #bad6ae;outline-offset:2px;}"
+    },
+    {
+      "name": "Experience Row",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Hairline-divided role entry: serif company, mono role, uppercase period.",
+      "html": "<div class=\"ds-exp\"><div><h3>Google</h3><p class=\"ds-role\">Software Engineer (Contract)</p></div><p class=\"ds-sum\">Built a Python/FastAPI and Next.js math tutor with exact-arithmetic checks.</p><span class=\"ds-period\">Jan 2026 — May 2026</span></div>",
+      "css": ".ds-exp{display:grid;grid-template-columns:.9fr 1.45fr auto;column-gap:32px;padding:28px 0;border-top:1px solid rgba(236,234,226,0.1);border-bottom:1px solid rgba(236,234,226,0.1);font-family:'IBM Plex Mono',ui-monospace,monospace;color:#eceae2;}.ds-exp h3{font-family:Newsreader,Georgia,serif;font-size:1.28rem;font-weight:400;line-height:1.2;margin:0 0 8px;}.ds-role{color:#91af98;font-size:.78rem;line-height:1.55;margin:0;}.ds-sum{color:#a4afa6;font-size:.9rem;line-height:1.75;margin:0;}.ds-period{color:#6b7e71;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}"
+    },
+    {
+      "name": "Section Heading",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Mono section tag over a light serif headline.",
+      "html": "<div class=\"ds-section\"><p class=\"ds-tag\">Selected Work</p><h2>Projects</h2></div>",
+      "css": ".ds-section{font-family:'IBM Plex Mono',ui-monospace,monospace;color:#eceae2;}.ds-tag{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#91af98;margin:0 0 26px;}.ds-section h2{font-family:Newsreader,Georgia,serif;font-weight:300;font-size:clamp(1.9rem,4vw,3rem);margin:0;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Moonlit Workbench",
+    "overview": "The site is a workbench seen at night: built, tactile objects lit by soft moonlight and one warm lamp. The hero is the workbench itself, a finite sage Minesweeper board set into a dark green voxel wall. Visitors can press it, flag it and reset it, and they can also ignore it and keep scrolling. Everything below the hero is the bench's notebook: quiet serif headings, monospaced annotations, hairline rules and measured numbers.\n\nThe craft is meant to be visible but never loud. Depth and material belong to the 3D scene (beveled solid geometry, warm diffuse light, restrained shadows). The HTML layer stays flat, dark and translucent, so it reads like light falling on the bench, not like objects competing with it. Color is almost all moonlit green-gray. Warmth comes in small, deliberate doses: the italic accent word, the brass counters, the yellow buddy disc and the coral flags.\n\nDensity is low and the pace is calm. Sections breathe on generous fluid padding, text measures stay between 48 and 68 characters, and motion is limited to short entrances, small lifts on hover and the game's own feedback.",
+    "keyCharacteristics": [
+      "Dark only. A deep forest-night gradient runs from the hero down to the page floor.",
+      "Newsreader light serif for anything that is named; IBM Plex Mono for everything that is read or labeled.",
+      "Sage-tinted translucent fills with hairline borders. No solid UI color blocks.",
+      "Nearly square corners (2–3px). Circles are reserved for objects you press (the buddy disc, card arrows, the status dot).",
+      "One tactile 3D object (the board) carries all the depth; the HTML stays flat."
+    ],
+    "rules": [
+      {
+        "name": "The Moonlight Rule",
+        "body": "HTML UI color is sage-tinted and translucent. Fills are `rgba(154,211,176, ≤0.2)` over the dark ground, never a saturated or solid block. Bright color lives only inside the 3D scene.",
+        "section": "colors"
+      },
+      {
+        "name": "The Lamp Rule",
+        "body": "Warm color (Lamplight, Counter Brass, Buddy Yellow, Coral Flag) is rationed: one italic accent word per headline in HTML, and game-state objects in the scene. It is never used for decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Borrowed Brand Rule",
+        "body": "Third-party brand colors (YC orange `yc-orange`, AfterQuery's black tile, the Mastercard and Google marks) appear only inside their own logo or badge, at logo size.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Newsreader is for names (people, sections, companies, projects). Plex Mono is for everything else, including long-form body copy. Never set a button, label or number in the serif, and never set a heading in mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Wide Label Rule",
+        "body": "Every uppercase label is tracked out (minimum 0.08em) and kept at 12px or below. Uppercase is never used for sentences.",
+        "section": "typography"
+      },
+      {
+        "name": "The Measure Rule",
+        "body": "Text never runs full width: 16ch for display, 48–68ch for body. Wide viewports get more air, not longer lines.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-Page Rule",
+        "body": "HTML surfaces have no drop shadows at rest. A shadow or glow appears only as a response to state (hover, live status) or to keep scene-overlaid text legible.",
+        "section": "elevation"
+      },
+      {
+        "name": "The One Object Rule",
+        "body": "The board is the only object with physical depth. New UI never imitates it with fake bevels or 3D effects in CSS.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do keep HTML fills to Sage Wash at 0.2 alpha or less, with 1px hairline borders (the Moonlight Rule).",
+      "Do set names in Newsreader 300/400 and everything else in IBM Plex Mono (the Two Voices Rule).",
+      "Do give every interactive element a 2px Moonlit Leaf `:focus-visible` outline.",
+      "Do keep hover feedback small: a 1px lift, a 3px arrow slide, or a border brightening over 0.2–0.25s.",
+      "Do keep the HTML content stable while the scene's effects run, and keep native page scrolling (including one-finger drag) available over the hero.",
+      "Do keep all game-state feedback under `prefers-reduced-motion`, and turn off reveals, the scroll-bar pulse and sprite previews there.",
+      "Do keep the game playable without a mouse, through the single-entry keyboard grid."
+    ],
+    "donts": [
+      "Don't introduce bright, saturated, or solid color blocks in the HTML UI. Saturated color belongs to the 3D scene and to third-party logos at logo size.",
+      "Don't add continuous orbiting, flashing overlays, or decorative motion that competes with reading.",
+      "Don't give the HTML layer drop shadows, fake bevels, or CSS 3D. The board is the one physical object.",
+      "Don't add labels to the hero counters or extra controls above the board.",
+      "Don't introduce a second game input system without preserving the single-entry keyboard grid.",
+      "Don't pass the hidden mine layout to the renderer or the companion."
+    ]
+  }
+}
