@@ -1,0 +1,164 @@
+/* ------------------------------------------------------------------------
+   /home-v2 shared shell — one white relief world.
+   Every class is prefixed hv-; page-level overrides are scoped with
+   :has(.hv-root) so nothing leaks to /. Light comes from the upper left, so
+   every shadow falls down and to the right with an offset and a soft blur.
+   ------------------------------------------------------------------------ */
+
+html:has(.hv-root) {
+  color-scheme: light;
+  background: #eef0ee;
+  scrollbar-color: #a3aca9 #eef0ee;
+}
+html:has(.hv-root) body { background: #eef0ee; margin: 0; }
+
+.hv-root {
+  /* palette */
+  --hv-ground: #eef0ee;      /* page ground, matches the wall's far field */
+  --hv-tile: #f7f8f7;        /* raised tile face */
+  --hv-paper: #ffffff;       /* highest surface */
+  --hv-well: #e4e8e6;        /* recessed / revealed */
+  --hv-ink: #15191a;         /* 15.5:1 on ground */
+  --hv-ink-2: #3b4342;       /* secondary text, 8.9:1 on ground */
+  --hv-ink-3: #5a6361;       /* tertiary text, 5.4:1 on ground */
+  --hv-line: rgb(21 25 26 / .12);
+  --hv-line-strong: rgb(21 25 26 / .22);
+  --hv-accent: #0b6e5a;      /* the one live-state accent, 5.4:1 on ground */
+  --hv-accent-wash: #d3e8e0;
+  --hv-coral: #e0533f;       /* game semantics: flags, loss */
+  --hv-yellow: #ffd12f;      /* game semantics: reset disc */
+  --hv-shade: 32 40 44;      /* cool grey shadow tone, use as rgb(var(--hv-shade) / a) */
+
+  /* depth: raised surfaces under an upper-left light */
+  --hv-lift-1: 1px 1px 2px rgb(var(--hv-shade) / .14), 2px 4px 10px rgb(var(--hv-shade) / .08);
+  --hv-lift-2: 1px 2px 3px rgb(var(--hv-shade) / .16), 4px 10px 22px rgb(var(--hv-shade) / .12);
+  --hv-lift-3: 2px 3px 6px rgb(var(--hv-shade) / .16), 10px 22px 48px rgb(var(--hv-shade) / .16);
+  --hv-press: inset 1px 2px 3px rgb(var(--hv-shade) / .18);
+
+  /* motion */
+  --hv-ease: cubic-bezier(.16, 1, .3, 1);   /* exponential ease-out */
+  --hv-ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --hv-fast: 180ms;
+  --hv-med: 420ms;
+  --hv-slow: 760ms;
+
+  /* layout */
+  --hv-gutter: clamp(16px, 4.5vw, 86px);
+  --hv-peek: 76px;           /* how much of the instrument shows at the fold */
+  --hv-max: 1320px;
+
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow-x: clip;
+  background: var(--hv-ground);
+  color: var(--hv-ink);
+  font-family: var(--hv-font), "Albert Sans", system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--hv-accent);
+}
+.hv-root *, .hv-root *::before, .hv-root *::after { box-sizing: border-box; }
+.hv-root ::selection { background: var(--hv-accent-wash); color: var(--hv-ink); }
+.hv-root :focus-visible { outline: 2px solid var(--hv-accent); outline-offset: 3px; border-radius: 2px; }
+.hv-root a { text-underline-offset: .22em; text-decoration-thickness: 1px; }
+
+/* ------------------------------- hero ---------------------------------- */
+.hv-hero {
+  position: relative; z-index: 3; overflow: hidden;
+  display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.25fr);
+  gap: clamp(26px, 3vw, 58px); align-items: center;
+  min-height: calc(100svh - var(--hv-peek));
+  padding: 100px var(--hv-gutter) 56px;
+}
+.hv-topbar {
+  position: absolute; z-index: 2; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: clamp(18px, 3vw, 30px) var(--hv-gutter);
+  font-size: 14px; font-weight: 600; color: var(--hv-ink);
+}
+.hv-topbar > span:last-child { font-weight: 500; color: var(--hv-ink-2); }
+.hv-dot {
+  display: inline-block; width: 7px; height: 7px; margin-right: 9px; vertical-align: 1px;
+  background: var(--hv-accent); transform: rotate(45deg);
+}
+.hv-copy { position: relative; z-index: 5; min-width: 0; padding-bottom: 35px; }
+.hv-h1 {
+  margin: 0; max-width: 15ch;
+  font-size: clamp(2.5rem, 4.1vw, 4.3rem); font-weight: 600; line-height: 1.03;
+  letter-spacing: -0.035em; text-wrap: balance;
+}
+.hv-h1 em { font-style: italic; font-weight: 600; }
+.hv-h1-lead { display: block; }
+.hv-focus {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px;
+  margin: clamp(18px, 2.2vw, 26px) 0 0;
+  font-size: 15px; font-weight: 600; color: var(--hv-ink-2);
+}
+.hv-sep { display: inline-block; width: 5px; height: 5px; background: var(--hv-ink-3); transform: rotate(45deg); }
+.hv-sub {
+  margin: 14px 0 0; max-width: 48ch;
+  font-size: clamp(.95rem, 1.08vw, 1.04rem); line-height: 1.7; color: var(--hv-ink-2);
+}
+.hv-socials { display: flex; align-items: center; gap: 8px; margin-top: clamp(18px, 2.2vw, 26px); margin-left: -10px; }
+.hv-social-link {
+  display: inline-flex; width: 40px; height: 40px; padding: 10px; align-items: center; justify-content: center;
+  color: var(--hv-ink-2); border-radius: 4px;
+  transition: color var(--hv-fast) ease, transform var(--hv-med) var(--hv-ease), background var(--hv-fast) ease;
+}
+.hv-social-link svg { display: block; width: 100%; height: 100%; }
+.hv-social-link:hover { color: var(--hv-ink); background: rgb(var(--hv-shade) / .06); transform: translateY(-1px); }
+.hv-cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(18px, 2.4vw, 30px); }
+.hv-btn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px;
+  font: inherit; font-size: 15px; font-weight: 600; letter-spacing: -0.005em; text-decoration: none;
+  border-radius: 3px; cursor: pointer; border: 1px solid transparent;
+  box-shadow: var(--hv-lift-1);
+  transition: transform var(--hv-med) var(--hv-ease), box-shadow var(--hv-med) var(--hv-ease), background var(--hv-fast) ease;
+}
+.hv-btn:hover { transform: translateY(-2px); box-shadow: var(--hv-lift-2); }
+.hv-btn:active { transform: translateY(0); box-shadow: var(--hv-press); transition-duration: 80ms; }
+.hv-btn-primary { background: var(--hv-ink); color: var(--hv-paper); }
+.hv-btn-ghost { background: var(--hv-tile); color: var(--hv-ink); border-color: var(--hv-line); }
+.hv-arrow { width: 16px; height: 16px; transition: transform var(--hv-med) var(--hv-ease); }
+.hv-btn:hover .hv-arrow { transform: translateX(3px); }
+.hv-scroll {
+  position: absolute; z-index: 2; bottom: clamp(16px, 2.6vh, 28px); left: var(--hv-gutter);
+  display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: var(--hv-ink-3);
+}
+.hv-scroll-bar { display: block; width: 1px; height: 26px; background: linear-gradient(var(--hv-ink-3), transparent); animation: hv-drop 2.4s ease-in-out infinite; }
+
+/* ------------------------------ instrument slot ------------------------ */
+.hv-main { position: relative; z-index: 4; scroll-margin-top: 0; }
+
+/* ------------------------------- footer -------------------------------- */
+.hv-foot {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 24px;
+  max-width: var(--hv-max); margin: 0 auto; padding: 40px var(--hv-gutter) 88px;
+  border-top: 1px solid var(--hv-line); font-size: 15px; font-weight: 600;
+}
+.hv-foot nav { display: flex; flex-wrap: wrap; gap: 4px 20px; }
+.hv-foot a { color: var(--hv-ink-2); font-weight: 500; text-decoration: underline; text-decoration-color: transparent; transition: color var(--hv-fast) ease, text-decoration-color var(--hv-fast) ease; }
+.hv-foot a:hover { color: var(--hv-ink); text-decoration-color: currentColor; }
+
+/* ------------------------------- entrance ------------------------------ */
+.hv-reveal { opacity: 0; animation: hv-fadeup .9s var(--hv-ease) forwards; }
+@keyframes hv-fadeup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes hv-drop { 0%, 100% { transform: scaleY(.3); opacity: .35; } 50% { transform: scaleY(1); opacity: 1; } }
+
+@media (max-width: 1000px) {
+  .hv-hero { display: block; min-height: 0; padding-top: 112px; padding-bottom: 72px; }
+  .hv-copy { max-width: 720px; margin: auto; padding-bottom: 0; }
+  .hv-h1 { font-size: clamp(2.4rem, 6.5vw, 4rem); }
+  .hv-sub { max-width: 57ch; }
+}
+@media (max-width: 600px) {
+  .hv-topbar { font-size: 13px; }
+  .hv-h1 { font-size: clamp(2.2rem, 9.4vw, 3rem); }}
+@media (prefers-reduced-motion: reduce) {
+  .hv-reveal { animation: none; opacity: 1; }
+  .hv-scroll-bar { animation: none; }
+  .hv-btn, .hv-arrow, .hv-social-link { transition-duration: 0s; }
+}
