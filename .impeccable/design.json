@@ -1,251 +1,206 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-16T18:16:55.065Z",
-  "title": "Design System: Cody Jung Portfolio",
+  "generatedAt": "2026-10-21T02:40:15.853Z",
+  "title": "Design System: Cody Jung Portfolio, White Relief",
   "extensions": {
     "colorMeta": {
-      "page-floor": {
+      "ground": {
         "role": "neutral",
-        "displayName": "Page Floor",
-        "canonical": "oklch(14.1% 0.006 174.7)",
+        "displayName": "Ground",
+        "canonical": "oklch(95.3% 0.003 145.5)",
         "tonalRamp": [
-          "oklch(15.0% 0.006 174.7)",
-          "oklch(26.4% 0.006 174.7)",
-          "oklch(37.9% 0.006 174.7)",
-          "oklch(49.3% 0.006 174.7)",
-          "oklch(60.7% 0.006 174.7)",
-          "oklch(72.1% 0.006 174.7)",
-          "oklch(83.6% 0.006 174.7)",
-          "oklch(95.0% 0.006 174.7)"
+          "oklch(15.0% 0.003 145.5)",
+          "oklch(26.4% 0.003 145.5)",
+          "oklch(37.9% 0.003 145.5)",
+          "oklch(49.3% 0.003 145.5)",
+          "oklch(60.7% 0.003 145.5)",
+          "oklch(72.1% 0.003 145.5)",
+          "oklch(83.6% 0.003 145.5)",
+          "oklch(95.0% 0.003 145.5)"
         ]
       },
-      "forest-night": {
+      "tile": {
         "role": "neutral",
-        "displayName": "Forest Night",
-        "canonical": "oklch(17.3% 0.013 177.5)",
+        "displayName": "Tile Face",
+        "canonical": "oklch(97.8% 0.002 145.6)",
         "tonalRamp": [
-          "oklch(15.0% 0.013 177.5)",
-          "oklch(26.4% 0.013 177.5)",
-          "oklch(37.9% 0.013 177.5)",
-          "oklch(49.3% 0.013 177.5)",
-          "oklch(60.7% 0.013 177.5)",
-          "oklch(72.1% 0.013 177.5)",
-          "oklch(83.6% 0.013 177.5)",
-          "oklch(95.0% 0.013 177.5)"
+          "oklch(15.0% 0.002 145.6)",
+          "oklch(26.4% 0.002 145.6)",
+          "oklch(37.9% 0.002 145.6)",
+          "oklch(49.3% 0.002 145.6)",
+          "oklch(60.7% 0.002 145.6)",
+          "oklch(72.1% 0.002 145.6)",
+          "oklch(83.6% 0.002 145.6)",
+          "oklch(95.0% 0.002 145.6)"
         ]
       },
-      "moss-shadow": {
+      "paper": {
         "role": "neutral",
-        "displayName": "Moss Shadow",
-        "canonical": "oklch(21.0% 0.018 170.0)",
+        "displayName": "Paper",
+        "canonical": "oklch(100.0% 0.000 0.0)",
         "tonalRamp": [
-          "oklch(15.0% 0.018 170.0)",
-          "oklch(26.4% 0.018 170.0)",
-          "oklch(37.9% 0.018 170.0)",
-          "oklch(49.3% 0.018 170.0)",
-          "oklch(60.7% 0.018 170.0)",
-          "oklch(72.1% 0.018 170.0)",
-          "oklch(83.6% 0.018 170.0)",
-          "oklch(95.0% 0.018 170.0)"
+          "oklch(15.0% 0.000 0.0)",
+          "oklch(26.4% 0.000 0.0)",
+          "oklch(37.9% 0.000 0.0)",
+          "oklch(49.3% 0.000 0.0)",
+          "oklch(60.7% 0.000 0.0)",
+          "oklch(72.1% 0.000 0.0)",
+          "oklch(83.6% 0.000 0.0)",
+          "oklch(95.0% 0.000 0.0)"
         ]
       },
-      "moonlit-paper": {
+      "well": {
         "role": "neutral",
-        "displayName": "Moonlit Paper",
-        "canonical": "oklch(93.6% 0.011 95.2)",
+        "displayName": "Recessed Well",
+        "canonical": "oklch(92.7% 0.005 165.0)",
         "tonalRamp": [
-          "oklch(15.0% 0.011 95.2)",
-          "oklch(26.4% 0.011 95.2)",
-          "oklch(37.9% 0.011 95.2)",
-          "oklch(49.3% 0.011 95.2)",
-          "oklch(60.7% 0.011 95.2)",
-          "oklch(72.1% 0.011 95.2)",
-          "oklch(83.6% 0.011 95.2)",
-          "oklch(95.0% 0.011 95.2)"
+          "oklch(15.0% 0.005 165.0)",
+          "oklch(26.4% 0.005 165.0)",
+          "oklch(37.9% 0.005 165.0)",
+          "oklch(49.3% 0.005 165.0)",
+          "oklch(60.7% 0.005 165.0)",
+          "oklch(72.1% 0.005 165.0)",
+          "oklch(83.6% 0.005 165.0)",
+          "oklch(95.0% 0.005 165.0)"
         ]
       },
-      "lichen": {
+      "ink": {
         "role": "neutral",
-        "displayName": "Lichen",
-        "canonical": "oklch(74.3% 0.018 151.0)",
+        "displayName": "Graphite Ink",
+        "canonical": "oklch(21.0% 0.006 214.4)",
         "tonalRamp": [
-          "oklch(15.0% 0.018 151.0)",
-          "oklch(26.4% 0.018 151.0)",
-          "oklch(37.9% 0.018 151.0)",
-          "oklch(49.3% 0.018 151.0)",
-          "oklch(60.7% 0.018 151.0)",
-          "oklch(72.1% 0.018 151.0)",
-          "oklch(83.6% 0.018 151.0)",
-          "oklch(95.0% 0.018 151.0)"
+          "oklch(15.0% 0.006 214.4)",
+          "oklch(26.4% 0.006 214.4)",
+          "oklch(37.9% 0.006 214.4)",
+          "oklch(49.3% 0.006 214.4)",
+          "oklch(60.7% 0.006 214.4)",
+          "oklch(72.1% 0.006 214.4)",
+          "oklch(83.6% 0.006 214.4)",
+          "oklch(95.0% 0.006 214.4)"
         ]
       },
-      "branch": {
+      "ink-secondary": {
         "role": "neutral",
-        "displayName": "Branch",
-        "canonical": "oklch(57.4% 0.030 155.5)",
+        "displayName": "Slate",
+        "canonical": "oklch(37.5% 0.011 187.6)",
         "tonalRamp": [
-          "oklch(15.0% 0.030 155.5)",
-          "oklch(26.4% 0.030 155.5)",
-          "oklch(37.9% 0.030 155.5)",
-          "oklch(49.3% 0.030 155.5)",
-          "oklch(60.7% 0.030 155.5)",
-          "oklch(72.1% 0.030 155.5)",
-          "oklch(83.6% 0.030 155.5)",
-          "oklch(95.0% 0.030 155.5)"
+          "oklch(15.0% 0.011 187.6)",
+          "oklch(26.4% 0.011 187.6)",
+          "oklch(37.9% 0.011 187.6)",
+          "oklch(49.3% 0.011 187.6)",
+          "oklch(60.7% 0.011 187.6)",
+          "oklch(72.1% 0.011 187.6)",
+          "oklch(83.6% 0.011 187.6)",
+          "oklch(95.0% 0.011 187.6)"
         ]
       },
-      "lamplight": {
-        "role": "secondary",
-        "displayName": "Lamplight",
-        "canonical": "oklch(88.1% 0.045 89.9)",
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Pewter",
+        "canonical": "oklch(49.1% 0.012 181.0)",
         "tonalRamp": [
-          "oklch(15.0% 0.045 89.9)",
-          "oklch(26.4% 0.045 89.9)",
-          "oklch(37.9% 0.045 89.9)",
-          "oklch(49.3% 0.045 89.9)",
-          "oklch(60.7% 0.045 89.9)",
-          "oklch(72.1% 0.045 89.9)",
-          "oklch(83.6% 0.045 89.9)",
-          "oklch(95.0% 0.045 89.9)"
+          "oklch(15.0% 0.012 181.0)",
+          "oklch(26.4% 0.012 181.0)",
+          "oklch(37.9% 0.012 181.0)",
+          "oklch(49.3% 0.012 181.0)",
+          "oklch(60.7% 0.012 181.0)",
+          "oklch(72.1% 0.012 181.0)",
+          "oklch(83.6% 0.012 181.0)",
+          "oklch(95.0% 0.012 181.0)"
         ]
       },
-      "sage": {
-        "role": "secondary",
-        "displayName": "Sage",
-        "canonical": "oklch(72.5% 0.047 152.1)",
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(21.0% 0.006 214.4 / 0.12)",
         "tonalRamp": [
-          "oklch(15.0% 0.047 152.1)",
-          "oklch(26.4% 0.047 152.1)",
-          "oklch(37.9% 0.047 152.1)",
-          "oklch(49.3% 0.047 152.1)",
-          "oklch(60.7% 0.047 152.1)",
-          "oklch(72.1% 0.047 152.1)",
-          "oklch(83.6% 0.047 152.1)",
-          "oklch(95.0% 0.047 152.1)"
+          "oklch(15.0% 0.006 214.4)",
+          "oklch(26.4% 0.006 214.4)",
+          "oklch(37.9% 0.006 214.4)",
+          "oklch(49.3% 0.006 214.4)",
+          "oklch(60.7% 0.006 214.4)",
+          "oklch(72.1% 0.006 214.4)",
+          "oklch(83.6% 0.006 214.4)",
+          "oklch(95.0% 0.006 214.4)"
         ]
       },
-      "pale-sage": {
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Hairline Strong",
+        "canonical": "oklch(21.0% 0.006 214.4 / 0.22)",
+        "tonalRamp": [
+          "oklch(15.0% 0.006 214.4)",
+          "oklch(26.4% 0.006 214.4)",
+          "oklch(37.9% 0.006 214.4)",
+          "oklch(49.3% 0.006 214.4)",
+          "oklch(60.7% 0.006 214.4)",
+          "oklch(72.1% 0.006 214.4)",
+          "oklch(83.6% 0.006 214.4)",
+          "oklch(95.0% 0.006 214.4)"
+        ]
+      },
+      "accent": {
         "role": "primary",
-        "displayName": "Pale Sage",
-        "canonical": "oklch(82.0% 0.041 148.6)",
+        "displayName": "Deep Lagoon Teal",
+        "canonical": "oklch(48.2% 0.089 173.9)",
         "tonalRamp": [
-          "oklch(15.0% 0.041 148.6)",
-          "oklch(26.4% 0.041 148.6)",
-          "oklch(37.9% 0.041 148.6)",
-          "oklch(49.3% 0.041 148.6)",
-          "oklch(60.7% 0.041 148.6)",
-          "oklch(72.1% 0.041 148.6)",
-          "oklch(83.6% 0.041 148.6)",
-          "oklch(95.0% 0.041 148.6)"
+          "oklch(15.0% 0.089 173.9)",
+          "oklch(26.4% 0.089 173.9)",
+          "oklch(37.9% 0.089 173.9)",
+          "oklch(49.3% 0.089 173.9)",
+          "oklch(60.7% 0.089 173.9)",
+          "oklch(72.1% 0.089 173.9)",
+          "oklch(83.6% 0.089 173.9)",
+          "oklch(95.0% 0.089 173.9)"
         ]
       },
-      "moonlit-leaf": {
+      "accent-wash": {
         "role": "primary",
-        "displayName": "Moonlit Leaf",
-        "canonical": "oklch(84.5% 0.062 136.3)",
+        "displayName": "Teal Wash",
+        "canonical": "oklch(91.3% 0.025 170.9)",
         "tonalRamp": [
-          "oklch(15.0% 0.062 136.3)",
-          "oklch(26.4% 0.062 136.3)",
-          "oklch(37.9% 0.062 136.3)",
-          "oklch(49.3% 0.062 136.3)",
-          "oklch(60.7% 0.062 136.3)",
-          "oklch(72.1% 0.062 136.3)",
-          "oklch(83.6% 0.062 136.3)",
-          "oklch(95.0% 0.062 136.3)"
+          "oklch(15.0% 0.025 170.9)",
+          "oklch(26.4% 0.025 170.9)",
+          "oklch(37.9% 0.025 170.9)",
+          "oklch(49.3% 0.025 170.9)",
+          "oklch(60.7% 0.025 170.9)",
+          "oklch(72.1% 0.025 170.9)",
+          "oklch(83.6% 0.025 170.9)",
+          "oklch(95.0% 0.025 170.9)"
         ]
       },
-      "sage-wash": {
-        "role": "primary",
-        "displayName": "Sage Wash",
-        "canonical": "oklch(81.8% 0.077 157.3)",
+      "shade": {
+        "role": "neutral",
+        "displayName": "Shadow Tone",
+        "canonical": "oklch(27.1% 0.014 229.5)",
         "tonalRamp": [
-          "oklch(15.0% 0.077 157.3)",
-          "oklch(26.4% 0.077 157.3)",
-          "oklch(37.9% 0.077 157.3)",
-          "oklch(49.3% 0.077 157.3)",
-          "oklch(60.7% 0.077 157.3)",
-          "oklch(72.1% 0.077 157.3)",
-          "oklch(83.6% 0.077 157.3)",
-          "oklch(95.0% 0.077 157.3)"
+          "oklch(15.0% 0.014 229.5)",
+          "oklch(26.4% 0.014 229.5)",
+          "oklch(37.9% 0.014 229.5)",
+          "oklch(49.3% 0.014 229.5)",
+          "oklch(60.7% 0.014 229.5)",
+          "oklch(72.1% 0.014 229.5)",
+          "oklch(83.6% 0.014 229.5)",
+          "oklch(95.0% 0.014 229.5)"
         ]
       },
-      "tile-sage": {
-        "role": "tertiary",
-        "displayName": "Tile Sage",
-        "canonical": "oklch(78.2% 0.029 155.1)",
+      "coral": {
+        "role": "game",
+        "displayName": "Signal Coral",
+        "canonical": "oklch(62.8% 0.180 30.8)",
         "tonalRamp": [
-          "oklch(15.0% 0.029 155.1)",
-          "oklch(26.4% 0.029 155.1)",
-          "oklch(37.9% 0.029 155.1)",
-          "oklch(49.3% 0.029 155.1)",
-          "oklch(60.7% 0.029 155.1)",
-          "oklch(72.1% 0.029 155.1)",
-          "oklch(83.6% 0.029 155.1)",
-          "oklch(95.0% 0.029 155.1)"
-        ]
-      },
-      "tile-opened": {
-        "role": "tertiary",
-        "displayName": "Tile Opened",
-        "canonical": "oklch(33.2% 0.030 185.9)",
-        "tonalRamp": [
-          "oklch(15.0% 0.030 185.9)",
-          "oklch(26.4% 0.030 185.9)",
-          "oklch(37.9% 0.030 185.9)",
-          "oklch(49.3% 0.030 185.9)",
-          "oklch(60.7% 0.030 185.9)",
-          "oklch(72.1% 0.030 185.9)",
-          "oklch(83.6% 0.030 185.9)",
-          "oklch(95.0% 0.030 185.9)"
-        ]
-      },
-      "voxel-wall": {
-        "role": "tertiary",
-        "displayName": "Voxel Wall",
-        "canonical": "oklch(22.1% 0.020 173.2)",
-        "tonalRamp": [
-          "oklch(15.0% 0.020 173.2)",
-          "oklch(26.4% 0.020 173.2)",
-          "oklch(37.9% 0.020 173.2)",
-          "oklch(49.3% 0.020 173.2)",
-          "oklch(60.7% 0.020 173.2)",
-          "oklch(72.1% 0.020 173.2)",
-          "oklch(83.6% 0.020 173.2)",
-          "oklch(95.0% 0.020 173.2)"
-        ]
-      },
-      "wall-glow": {
-        "role": "tertiary",
-        "displayName": "Wall Glow",
-        "canonical": "oklch(70.6% 0.068 154.0)",
-        "tonalRamp": [
-          "oklch(15.0% 0.068 154.0)",
-          "oklch(26.4% 0.068 154.0)",
-          "oklch(37.9% 0.068 154.0)",
-          "oklch(49.3% 0.068 154.0)",
-          "oklch(60.7% 0.068 154.0)",
-          "oklch(72.1% 0.068 154.0)",
-          "oklch(83.6% 0.068 154.0)",
-          "oklch(95.0% 0.068 154.0)"
-        ]
-      },
-      "coral-flag": {
-        "role": "tertiary",
-        "displayName": "Coral Flag",
-        "canonical": "oklch(58.2% 0.169 28.2)",
-        "tonalRamp": [
-          "oklch(15.0% 0.169 28.2)",
-          "oklch(26.4% 0.169 28.2)",
-          "oklch(37.9% 0.169 28.2)",
-          "oklch(49.3% 0.169 28.2)",
-          "oklch(60.7% 0.169 28.2)",
-          "oklch(72.1% 0.169 28.2)",
-          "oklch(83.6% 0.169 28.2)",
-          "oklch(95.0% 0.169 28.2)"
+          "oklch(15.0% 0.180 30.8)",
+          "oklch(26.4% 0.180 30.8)",
+          "oklch(37.9% 0.180 30.8)",
+          "oklch(49.3% 0.180 30.8)",
+          "oklch(60.7% 0.180 30.8)",
+          "oklch(72.1% 0.180 30.8)",
+          "oklch(83.6% 0.180 30.8)",
+          "oklch(95.0% 0.180 30.8)"
         ]
       },
       "buddy-yellow": {
-        "role": "tertiary",
+        "role": "game",
         "displayName": "Buddy Yellow",
         "canonical": "oklch(87.6% 0.169 91.4)",
         "tonalRamp": [
@@ -259,255 +214,392 @@
           "oklch(95.0% 0.169 91.4)"
         ]
       },
-      "counter-brass": {
-        "role": "tertiary",
-        "displayName": "Counter Brass",
-        "canonical": "oklch(84.0% 0.095 87.2)",
+      "scrollbar-thumb": {
+        "role": "neutral",
+        "displayName": "Scrollbar Thumb",
+        "canonical": "oklch(73.6% 0.011 174.1)",
         "tonalRamp": [
-          "oklch(15.0% 0.095 87.2)",
-          "oklch(26.4% 0.095 87.2)",
-          "oklch(37.9% 0.095 87.2)",
-          "oklch(49.3% 0.095 87.2)",
-          "oklch(60.7% 0.095 87.2)",
-          "oklch(72.1% 0.095 87.2)",
-          "oklch(83.6% 0.095 87.2)",
-          "oklch(95.0% 0.095 87.2)"
+          "oklch(15.0% 0.011 174.1)",
+          "oklch(26.4% 0.011 174.1)",
+          "oklch(37.9% 0.011 174.1)",
+          "oklch(49.3% 0.011 174.1)",
+          "oklch(60.7% 0.011 174.1)",
+          "oklch(72.1% 0.011 174.1)",
+          "oklch(83.6% 0.011 174.1)",
+          "oklch(95.0% 0.011 174.1)"
         ]
       },
-      "yc-orange": {
-        "role": "tertiary",
-        "displayName": "YC Orange (borrowed brand)",
-        "canonical": "oklch(69.6% 0.204 43.5)",
+      "scene-clear": {
+        "role": "scene",
+        "displayName": "Scene Clear",
+        "canonical": "oklch(94.0% 0.004 157.2)",
         "tonalRamp": [
-          "oklch(15.0% 0.204 43.5)",
-          "oklch(26.4% 0.204 43.5)",
-          "oklch(37.9% 0.204 43.5)",
-          "oklch(49.3% 0.204 43.5)",
-          "oklch(60.7% 0.204 43.5)",
-          "oklch(72.1% 0.204 43.5)",
-          "oklch(83.6% 0.204 43.5)",
-          "oklch(95.0% 0.204 43.5)"
+          "oklch(15.0% 0.004 157.2)",
+          "oklch(26.4% 0.004 157.2)",
+          "oklch(37.9% 0.004 157.2)",
+          "oklch(49.3% 0.004 157.2)",
+          "oklch(60.7% 0.004 157.2)",
+          "oklch(72.1% 0.004 157.2)",
+          "oklch(83.6% 0.004 157.2)",
+          "oklch(95.0% 0.004 157.2)"
         ]
       },
-      "number-1": {
-        "role": "tertiary",
-        "displayName": "Number 1 Sky",
-        "canonical": "oklch(85.1% 0.068 231.1)",
+      "scene-tile": {
+        "role": "scene",
+        "displayName": "Relief Albedo",
+        "canonical": "oklch(97.1% 0.002 165.1)",
         "tonalRamp": [
-          "oklch(15.0% 0.068 231.1)",
-          "oklch(26.4% 0.068 231.1)",
-          "oklch(37.9% 0.068 231.1)",
-          "oklch(49.3% 0.068 231.1)",
-          "oklch(60.7% 0.068 231.1)",
-          "oklch(72.1% 0.068 231.1)",
-          "oklch(83.6% 0.068 231.1)",
-          "oklch(95.0% 0.068 231.1)"
+          "oklch(15.0% 0.002 165.1)",
+          "oklch(26.4% 0.002 165.1)",
+          "oklch(37.9% 0.002 165.1)",
+          "oklch(49.3% 0.002 165.1)",
+          "oklch(60.7% 0.002 165.1)",
+          "oklch(72.1% 0.002 165.1)",
+          "oklch(83.6% 0.002 165.1)",
+          "oklch(95.0% 0.002 165.1)"
         ]
       },
-      "number-2": {
-        "role": "tertiary",
-        "displayName": "Number 2 Mint",
-        "canonical": "oklch(81.2% 0.097 152.2)",
+      "scene-socket": {
+        "role": "scene",
+        "displayName": "Flag Socket",
+        "canonical": "oklch(65.5% 0.011 174.1)",
         "tonalRamp": [
-          "oklch(15.0% 0.097 152.2)",
-          "oklch(26.4% 0.097 152.2)",
-          "oklch(37.9% 0.097 152.2)",
-          "oklch(49.3% 0.097 152.2)",
-          "oklch(60.7% 0.097 152.2)",
-          "oklch(72.1% 0.097 152.2)",
-          "oklch(83.6% 0.097 152.2)",
-          "oklch(95.0% 0.097 152.2)"
+          "oklch(15.0% 0.011 174.1)",
+          "oklch(26.4% 0.011 174.1)",
+          "oklch(37.9% 0.011 174.1)",
+          "oklch(49.3% 0.011 174.1)",
+          "oklch(60.7% 0.011 174.1)",
+          "oklch(72.1% 0.011 174.1)",
+          "oklch(83.6% 0.011 174.1)",
+          "oklch(95.0% 0.011 174.1)"
         ]
       },
-      "number-3": {
-        "role": "tertiary",
-        "displayName": "Number 3 Coral",
-        "canonical": "oklch(76.6% 0.110 34.9)",
+      "loss-cell": {
+        "role": "game",
+        "displayName": "Loss Blush",
+        "canonical": "oklch(87.3% 0.053 31.3)",
         "tonalRamp": [
-          "oklch(15.0% 0.110 34.9)",
-          "oklch(26.4% 0.110 34.9)",
-          "oklch(37.9% 0.110 34.9)",
-          "oklch(49.3% 0.110 34.9)",
-          "oklch(60.7% 0.110 34.9)",
-          "oklch(72.1% 0.110 34.9)",
-          "oklch(83.6% 0.110 34.9)",
-          "oklch(95.0% 0.110 34.9)"
+          "oklch(15.0% 0.053 31.3)",
+          "oklch(26.4% 0.053 31.3)",
+          "oklch(37.9% 0.053 31.3)",
+          "oklch(49.3% 0.053 31.3)",
+          "oklch(60.7% 0.053 31.3)",
+          "oklch(72.1% 0.053 31.3)",
+          "oklch(83.6% 0.053 31.3)",
+          "oklch(95.0% 0.053 31.3)"
         ]
       },
-      "number-4": {
-        "role": "tertiary",
-        "displayName": "Number 4 Lilac",
-        "canonical": "oklch(79.0% 0.085 299.2)",
+      "wrong-mark": {
+        "role": "game",
+        "displayName": "Wrong-flag Red",
+        "canonical": "oklch(60.1% 0.187 31.9)",
         "tonalRamp": [
-          "oklch(15.0% 0.085 299.2)",
-          "oklch(26.4% 0.085 299.2)",
-          "oklch(37.9% 0.085 299.2)",
-          "oklch(49.3% 0.085 299.2)",
-          "oklch(60.7% 0.085 299.2)",
-          "oklch(72.1% 0.085 299.2)",
-          "oklch(83.6% 0.085 299.2)",
-          "oklch(95.0% 0.085 299.2)"
+          "oklch(15.0% 0.187 31.9)",
+          "oklch(26.4% 0.187 31.9)",
+          "oklch(37.9% 0.187 31.9)",
+          "oklch(49.3% 0.187 31.9)",
+          "oklch(60.7% 0.187 31.9)",
+          "oklch(72.1% 0.187 31.9)",
+          "oklch(83.6% 0.187 31.9)",
+          "oklch(95.0% 0.187 31.9)"
         ]
       },
-      "number-5": {
-        "role": "tertiary",
-        "displayName": "Number 5 Apricot",
-        "canonical": "oklch(82.8% 0.094 69.0)",
+      "count-1": {
+        "role": "game",
+        "displayName": "Count 1 Ink",
+        "canonical": "oklch(50.6% 0.123 249.5)",
         "tonalRamp": [
-          "oklch(15.0% 0.094 69.0)",
-          "oklch(26.4% 0.094 69.0)",
-          "oklch(37.9% 0.094 69.0)",
-          "oklch(49.3% 0.094 69.0)",
-          "oklch(60.7% 0.094 69.0)",
-          "oklch(72.1% 0.094 69.0)",
-          "oklch(83.6% 0.094 69.0)",
-          "oklch(95.0% 0.094 69.0)"
+          "oklch(15.0% 0.123 249.5)",
+          "oklch(26.4% 0.123 249.5)",
+          "oklch(37.9% 0.123 249.5)",
+          "oklch(49.3% 0.123 249.5)",
+          "oklch(60.7% 0.123 249.5)",
+          "oklch(72.1% 0.123 249.5)",
+          "oklch(83.6% 0.123 249.5)",
+          "oklch(95.0% 0.123 249.5)"
         ]
       },
-      "number-6": {
-        "role": "tertiary",
-        "displayName": "Number 6 Aqua",
-        "canonical": "oklch(85.0% 0.084 185.2)",
+      "count-2": {
+        "role": "game",
+        "displayName": "Count 2 Ink",
+        "canonical": "oklch(53.3% 0.120 153.3)",
         "tonalRamp": [
-          "oklch(15.0% 0.084 185.2)",
-          "oklch(26.4% 0.084 185.2)",
-          "oklch(37.9% 0.084 185.2)",
-          "oklch(49.3% 0.084 185.2)",
-          "oklch(60.7% 0.084 185.2)",
-          "oklch(72.1% 0.084 185.2)",
-          "oklch(83.6% 0.084 185.2)",
-          "oklch(95.0% 0.084 185.2)"
+          "oklch(15.0% 0.120 153.3)",
+          "oklch(26.4% 0.120 153.3)",
+          "oklch(37.9% 0.120 153.3)",
+          "oklch(49.3% 0.120 153.3)",
+          "oklch(60.7% 0.120 153.3)",
+          "oklch(72.1% 0.120 153.3)",
+          "oklch(83.6% 0.120 153.3)",
+          "oklch(95.0% 0.120 153.3)"
         ]
       },
-      "number-7": {
-        "role": "tertiary",
-        "displayName": "Number 7 Parchment",
-        "canonical": "oklch(88.8% 0.048 88.3)",
+      "count-3": {
+        "role": "game",
+        "displayName": "Count 3 Ink",
+        "canonical": "oklch(56.8% 0.173 31.6)",
         "tonalRamp": [
-          "oklch(15.0% 0.048 88.3)",
-          "oklch(26.4% 0.048 88.3)",
-          "oklch(37.9% 0.048 88.3)",
-          "oklch(49.3% 0.048 88.3)",
-          "oklch(60.7% 0.048 88.3)",
-          "oklch(72.1% 0.048 88.3)",
-          "oklch(83.6% 0.048 88.3)",
-          "oklch(95.0% 0.048 88.3)"
+          "oklch(15.0% 0.173 31.6)",
+          "oklch(26.4% 0.173 31.6)",
+          "oklch(37.9% 0.173 31.6)",
+          "oklch(49.3% 0.173 31.6)",
+          "oklch(60.7% 0.173 31.6)",
+          "oklch(72.1% 0.173 31.6)",
+          "oklch(83.6% 0.173 31.6)",
+          "oklch(95.0% 0.173 31.6)"
         ]
       },
-      "number-8": {
-        "role": "tertiary",
-        "displayName": "Number 8 Mist",
-        "canonical": "oklch(87.8% 0.008 228.9)",
+      "count-4": {
+        "role": "game",
+        "displayName": "Count 4 Ink",
+        "canonical": "oklch(46.1% 0.168 289.3)",
         "tonalRamp": [
-          "oklch(15.0% 0.008 228.9)",
-          "oklch(26.4% 0.008 228.9)",
-          "oklch(37.9% 0.008 228.9)",
-          "oklch(49.3% 0.008 228.9)",
-          "oklch(60.7% 0.008 228.9)",
-          "oklch(72.1% 0.008 228.9)",
-          "oklch(83.6% 0.008 228.9)",
-          "oklch(95.0% 0.008 228.9)"
+          "oklch(15.0% 0.168 289.3)",
+          "oklch(26.4% 0.168 289.3)",
+          "oklch(37.9% 0.168 289.3)",
+          "oklch(49.3% 0.168 289.3)",
+          "oklch(60.7% 0.168 289.3)",
+          "oklch(72.1% 0.168 289.3)",
+          "oklch(83.6% 0.168 289.3)",
+          "oklch(95.0% 0.168 289.3)"
+        ]
+      },
+      "count-5": {
+        "role": "game",
+        "displayName": "Count 5 Ink",
+        "canonical": "oklch(54.9% 0.129 56.8)",
+        "tonalRamp": [
+          "oklch(15.0% 0.129 56.8)",
+          "oklch(26.4% 0.129 56.8)",
+          "oklch(37.9% 0.129 56.8)",
+          "oklch(49.3% 0.129 56.8)",
+          "oklch(60.7% 0.129 56.8)",
+          "oklch(72.1% 0.129 56.8)",
+          "oklch(83.6% 0.129 56.8)",
+          "oklch(95.0% 0.129 56.8)"
+        ]
+      },
+      "count-6": {
+        "role": "game",
+        "displayName": "Count 6 Ink",
+        "canonical": "oklch(52.4% 0.088 188.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.088 188.7)",
+          "oklch(26.4% 0.088 188.7)",
+          "oklch(37.9% 0.088 188.7)",
+          "oklch(49.3% 0.088 188.7)",
+          "oklch(60.7% 0.088 188.7)",
+          "oklch(72.1% 0.088 188.7)",
+          "oklch(83.6% 0.088 188.7)",
+          "oklch(95.0% 0.088 188.7)"
+        ]
+      },
+      "count-7": {
+        "role": "game",
+        "displayName": "Count 7 Ink",
+        "canonical": "oklch(47.4% 0.066 88.7)",
+        "tonalRamp": [
+          "oklch(15.0% 0.066 88.7)",
+          "oklch(26.4% 0.066 88.7)",
+          "oklch(37.9% 0.066 88.7)",
+          "oklch(49.3% 0.066 88.7)",
+          "oklch(60.7% 0.066 88.7)",
+          "oklch(72.1% 0.066 88.7)",
+          "oklch(83.6% 0.066 88.7)",
+          "oklch(95.0% 0.066 88.7)"
+        ]
+      },
+      "count-8": {
+        "role": "game",
+        "displayName": "Count 8 Ink",
+        "canonical": "oklch(43.6% 0.013 226.2)",
+        "tonalRamp": [
+          "oklch(15.0% 0.013 226.2)",
+          "oklch(26.4% 0.013 226.2)",
+          "oklch(37.9% 0.013 226.2)",
+          "oklch(49.3% 0.013 226.2)",
+          "oklch(60.7% 0.013 226.2)",
+          "oklch(72.1% 0.013 226.2)",
+          "oklch(83.6% 0.013 226.2)",
+          "oklch(95.0% 0.013 226.2)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Hero and 404 headline only; one italic Lamplight word allowed."
+        "purpose": "The hero h1 only."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section titles."
+        "purpose": "Section h2 in the stacked layout."
+      },
+      "section-label": {
+        "displayName": "Section Label",
+        "purpose": "The section h2 on the pinned stage, demoted to a quiet slate label."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Project, company, and open-source names."
+        "purpose": "Company name in an Experience detail on the stage."
       },
-      "body-lead": {
-        "displayName": "Body Lead",
-        "purpose": "Hero sub paragraph."
+      "title-project": {
+        "displayName": "Project Title",
+        "purpose": "Project names and the Open Source heading."
+      },
+      "item-title": {
+        "displayName": "Item Title",
+        "purpose": "Open-source project names."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Experience summaries on the stage; About body runs larger."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Summaries, overviews, contribution text; monospaced on purpose."
+        "purpose": "Root text: role lines, taglines."
       },
-      "label": {
-        "displayName": "Label",
-        "purpose": "Uppercase tracked section tags, eyebrow, top bar, footer."
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Project overviews and open-source summaries."
+      },
+      "row": {
+        "displayName": "Row",
+        "purpose": "Company and project names in the Stage list well."
       },
       "button": {
         "displayName": "Button",
-        "purpose": "Uppercase button and card-link labels."
+        "purpose": "Hero CTAs and buttons."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Rail tabs, topbar, periods, counters, spine labels."
+      },
+      "chip": {
+        "displayName": "Chip",
+        "purpose": "Tech chips and the company badge."
+      },
+      "counter": {
+        "displayName": "Counter",
+        "purpose": "HTML fallback for the board's mine and time counters."
       }
     },
     "shadows": [
       {
-        "name": "hover-glow",
-        "value": "0 0 26px rgba(154,211,176,0.22)",
-        "purpose": "Primary button hover only."
+        "name": "lift-1",
+        "value": "1px 1px 2px rgb(32 40 44 / .14), 2px 4px 10px rgb(32 40 44 / .08)",
+        "purpose": "Resting raised controls: buttons, step buttons, logo tiles, the list indicator."
       },
       {
-        "name": "status-pip",
-        "value": "0 0 10px #bad6ae",
-        "purpose": "Live status dot in the top bar."
+        "name": "lift-2",
+        "value": "1px 2px 3px rgb(32 40 44 / .16), 4px 10px 22px rgb(32 40 44 / .12)",
+        "purpose": "Hover on raised controls, panels, resting stage plates, project media."
       },
       {
-        "name": "counter-lift",
-        "value": "0 2px 12px #050a08",
-        "purpose": "text-shadow keeping brass counters legible over the voxel wall."
+        "name": "plate-in-flight",
+        "value": "1px 2px 3px rgb(32 40 44 / .16), 12px 18px 44px rgb(32 40 44 / .19)",
+        "purpose": "Peak of the engine-written plate shadow mid-slide (Lift 2 at rest)."
       },
       {
-        "name": "logo-ring",
-        "value": "0 0 0 1px rgba(236,234,226,0.1)",
-        "purpose": "Edges dark brand logo tiles."
+        "name": "press",
+        "value": "inset 1px 2px 3px rgb(32 40 44 / .18)",
+        "purpose": "Button :active, list wells, the education callout."
+      },
+      {
+        "name": "rail-band",
+        "value": "0 10px 14px -14px rgb(32 40 44 / .5)",
+        "purpose": "Under the stacked sticky rail."
+      },
+      {
+        "name": "marker",
+        "value": "1px 2px 3px rgb(32 40 44 / .3)",
+        "purpose": "The current rail tab's teal diamond."
+      },
+      {
+        "name": "lift-3",
+        "value": "2px 3px 6px rgb(32 40 44 / .16), 10px 22px 48px rgb(32 40 44 / .16)",
+        "purpose": "Defined on the root, currently unused on the home page."
       }
     ],
     "motion": [
       {
-        "name": "ease-reveal",
-        "value": "cubic-bezier(.2,.7,.2,1)",
-        "purpose": "Entrance fade-up (0.9s, staggered delays) and the card toggle (0.35s)."
+        "name": "ease",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Exponential ease-out for hover lifts, arrows and the entrance."
       },
       {
-        "name": "hover-fast",
-        "value": "0.2s ease",
-        "purpose": "Link and icon color, 1px lift."
+        "name": "ease-in-out",
+        "value": "cubic-bezier(.65, 0, .35, 1)",
+        "purpose": "Symmetric ease token."
       },
       {
-        "name": "hover-standard",
-        "value": "0.25s ease",
-        "purpose": "Buttons, card borders, arrow slide."
+        "name": "fast",
+        "value": "180ms",
+        "purpose": "Color and background changes."
       },
       {
-        "name": "scroll-cue",
-        "value": "2.4s ease-in-out infinite",
-        "purpose": "Scroll bar pulse; disabled under reduced motion."
+        "name": "med",
+        "value": "420ms",
+        "purpose": "Transform and shadow changes on controls."
+      },
+      {
+        "name": "slow",
+        "value": "760ms",
+        "purpose": "Long transitions."
+      },
+      {
+        "name": "press",
+        "value": "80ms",
+        "purpose": "Button :active press."
+      },
+      {
+        "name": "fadeup",
+        "value": "0.9s, 14px rise, delays .05s to .8s",
+        "purpose": "Hero entrance stagger."
+      },
+      {
+        "name": "stage-spring",
+        "value": "stiffness 170, damping 26",
+        "purpose": "Scroll Stage chasing native scroll."
+      },
+      {
+        "name": "stage-jump",
+        "value": "min(900ms, 380ms + 150ms x sqrt(units)), cubic in-out",
+        "purpose": "Clicked jumps on the Scroll Stage."
+      },
+      {
+        "name": "cap-spring",
+        "value": "stiffness 145, damping 20",
+        "purpose": "Board cap and wall voxel hover lift."
       }
     ],
     "breakpoints": [
-      {
-        "name": "grid-2",
-        "value": "560px"
-      },
       {
         "name": "phone",
         "value": "600px"
       },
       {
-        "name": "card-split",
-        "value": "760px"
+        "name": "scene-mobile",
+        "value": "700px"
       },
       {
-        "name": "grid-4",
-        "value": "920px"
+        "name": "two-col-project",
+        "value": "720px"
       },
       {
-        "name": "card-inset",
-        "value": "960px"
+        "name": "rail-equal",
+        "value": "900px"
       },
       {
         "name": "hero-stack",
         "value": "1000px"
+      },
+      {
+        "name": "stage",
+        "value": "1024px x 680px"
+      },
+      {
+        "name": "stage-compact",
+        "value": "1400px or 860px tall"
       }
     ]
   },
@@ -516,135 +608,139 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Main hero CTA; a lit sage edge, never a solid slab.",
-      "html": "<a class=\"ds-btn-primary\" href=\"#\">View Selected Work <span class=\"ds-arrow\">→</span></a>",
-      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 18px;border-radius:2px;background:rgba(154,211,176,0.12);color:#b3ccb6;border:1px solid rgba(154,211,176,0.45);transition:all .25s ease;}.ds-btn-primary:hover{background:rgba(154,211,176,0.2);border-color:#bad6ae;box-shadow:0 0 26px rgba(154,211,176,0.22);transform:translateY(-1px);}.ds-btn-primary:focus-visible{outline:2px solid #bad6ae;outline-offset:3px;}.ds-btn-primary .ds-arrow{transition:transform .25s ease;}.ds-btn-primary:hover .ds-arrow{transform:translateX(3px);}"
+      "description": "Graphite CTA with a sliding arrow; hero 'View Selected Work' and the About resume link.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">View Selected Work<svg class=\"ds-arrow\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h9.5M8.5 4l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px;font-family:'Albert Sans',system-ui,sans-serif;font-size:15px;font-weight:600;letter-spacing:-0.005em;border-radius:3px;border:1px solid transparent;cursor:pointer;box-shadow:1px 1px 2px rgb(32 40 44/.14),2px 4px 10px rgb(32 40 44/.08);transition:transform 420ms cubic-bezier(.16,1,.3,1),box-shadow 420ms cubic-bezier(.16,1,.3,1),background 180ms ease}.ds-btn:hover{transform:translateY(-2px);box-shadow:1px 2px 3px rgb(32 40 44/.16),4px 10px 22px rgb(32 40 44/.12)}.ds-btn:active{transform:none;box-shadow:inset 1px 2px 3px rgb(32 40 44/.18);transition-duration:80ms}.ds-btn:focus-visible{outline:2px solid #0b6e5a;outline-offset:3px}.ds-btn-primary{background:#15191a;color:#fff}.ds-arrow{width:16px;height:16px;transition:transform 420ms cubic-bezier(.16,1,.3,1)}.ds-btn:hover .ds-arrow{transform:translateX(3px)}"
     },
     {
       "name": "Ghost Button",
       "kind": "button",
       "refersTo": "button-ghost",
-      "description": "Secondary CTA such as View Résumé.",
-      "html": "<a class=\"ds-btn-ghost\" href=\"#\">View Résumé</a>",
-      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:14px 18px;border-radius:2px;background:transparent;color:#a4afa6;border:1px solid rgba(236,234,226,0.16);transition:all .25s ease;}.ds-btn-ghost:hover{color:#eceae2;border-color:rgba(236,234,226,0.4);transform:translateY(-1px);}.ds-btn-ghost:focus-visible{outline:2px solid #bad6ae;outline-offset:3px;}"
+      "description": "Tile-face secondary action with a hairline; the hero resume link.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Resume</a>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;min-height:48px;padding:0 20px;font-family:'Albert Sans',system-ui,sans-serif;font-size:15px;font-weight:600;color:#15191a;text-decoration:none;background:#f7f8f7;border:1px solid rgb(21 25 26/.12);border-radius:3px;box-shadow:1px 1px 2px rgb(32 40 44/.14),2px 4px 10px rgb(32 40 44/.08);transition:transform 420ms cubic-bezier(.16,1,.3,1),box-shadow 420ms cubic-bezier(.16,1,.3,1)}.ds-btn-ghost:hover{transform:translateY(-2px);box-shadow:1px 2px 3px rgb(32 40 44/.16),4px 10px 22px rgb(32 40 44/.12)}.ds-btn-ghost:active{transform:none;box-shadow:inset 1px 2px 3px rgb(32 40 44/.18);transition-duration:80ms}.ds-btn-ghost:focus-visible{outline:2px solid #0b6e5a;outline-offset:3px}"
     },
     {
-      "name": "Tech Chip",
+      "name": "Repo Button",
+      "kind": "button",
+      "refersTo": "button-repo",
+      "description": "44px ghost button with GitHub mark and trailing arrow for outbound repo links.",
+      "html": "<a class=\"ds-repo\" href=\"#\"><svg class=\"ds-gh\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 .7A11.5 11.5 0 0 0 8.36 23.1c.58.1.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.41-1.27.74-1.56-2.57-.29-5.27-1.28-5.27-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.75 0c2.19-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.71 5.39-5.29 5.68.42.36.79 1.06.79 2.14v3.26c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .7Z\"/></svg>View on GitHub<svg class=\"ds-chev\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h9.5M8.5 4l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></a>",
+      "css": ".ds-repo{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;font-family:'Albert Sans',system-ui,sans-serif;font-size:14px;font-weight:600;color:#15191a;text-decoration:none;background:#f7f8f7;border:1px solid rgb(21 25 26/.12);border-radius:3px;box-shadow:1px 1px 2px rgb(32 40 44/.14),2px 4px 10px rgb(32 40 44/.08);transition:transform 420ms cubic-bezier(.16,1,.3,1),box-shadow 420ms cubic-bezier(.16,1,.3,1)}.ds-repo:hover{transform:translateY(-2px);box-shadow:1px 2px 3px rgb(32 40 44/.16),4px 10px 22px rgb(32 40 44/.12)}.ds-repo:focus-visible{outline:2px solid #0b6e5a;outline-offset:3px}.ds-gh{width:17px;height:17px}.ds-chev{width:15px;height:15px;transition:transform 420ms cubic-bezier(.16,1,.3,1)}.ds-repo:hover .ds-chev{transform:translateX(3px)}"
+    },
+    {
+      "name": "Section Rail",
+      "kind": "nav",
+      "refersTo": "rail-tab",
+      "description": "Three tabs on one hairline; fill bars track progress, teal diamond marks the current section.",
+      "html": "<nav class=\"ds-rail\" aria-label=\"Sections\"><button class=\"ds-tab\" data-state=\"past\"><span class=\"ds-sq\"></span>Experience<span class=\"ds-line\"><span class=\"ds-fill\" style=\"transform:scaleX(1)\"></span></span></button><button class=\"ds-tab\" data-state=\"on\" aria-current=\"true\"><span class=\"ds-sq\"></span>Projects &amp; Open Source<span class=\"ds-line\"><span class=\"ds-fill\" style=\"transform:scaleX(.45)\"></span></span></button><button class=\"ds-tab\"><span class=\"ds-sq\"></span>About<span class=\"ds-line\"><span class=\"ds-fill\"></span></span></button></nav>",
+      "css": ".ds-rail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));background:#eef0ee;font-family:'Albert Sans',system-ui,sans-serif}.ds-tab{position:relative;display:flex;align-items:center;gap:11px;min-height:50px;padding:4px 12px 8px 0;font:inherit;font-size:14px;font-weight:600;text-align:left;color:#5a6361;background:none;border:0;cursor:pointer;transition:color 180ms ease}.ds-tab:hover,.ds-tab[data-state=on]{color:#15191a}.ds-tab:focus-visible{outline:2px solid #0b6e5a;outline-offset:3px}.ds-sq{flex:none;width:9px;height:9px;border:1.5px solid currentColor;transition:transform 420ms cubic-bezier(.16,1,.3,1),background 180ms ease}.ds-tab[data-state=past] .ds-sq{background:#5a6361;border-color:#5a6361}.ds-tab[data-state=on] .ds-sq{background:#0b6e5a;border-color:#0b6e5a;transform:rotate(45deg);box-shadow:1px 2px 3px rgb(32 40 44/.3)}.ds-line{position:absolute;left:0;right:0;bottom:0;height:1px;overflow:hidden;background:rgb(21 25 26/.22)}.ds-fill{position:absolute;inset:0;background:#15191a;transform-origin:left;transform:scaleX(0)}.ds-tab[data-state=on] .ds-fill{background:#0b6e5a}"
+    },
+    {
+      "name": "List Well",
+      "kind": "custom",
+      "refersTo": "list-well",
+      "description": "Recessed well of rows; a paper indicator cap rides under the live row.",
+      "html": "<div class=\"ds-well\"><span class=\"ds-ind\"></span><button class=\"ds-row\" data-on><strong>Matrix Power</strong><small>Jun 2026 — Present</small></button><button class=\"ds-row\"><strong>Google</strong><small>Jan 2026 — May 2026</small></button><button class=\"ds-row\"><strong>AfterQuery</strong><small>Dec 2025 — Mar 2026</small></button></div>",
+      "css": ".ds-well{position:relative;display:flex;flex-direction:column;width:280px;padding:6px;background:#e4e8e6;border-radius:4px;box-shadow:inset 1px 2px 3px rgb(32 40 44/.18);font-family:'Albert Sans',system-ui,sans-serif}.ds-ind{position:absolute;top:6px;left:6px;right:6px;height:56px;background:#fff;border-radius:3px;box-shadow:1px 1px 2px rgb(32 40 44/.14),2px 4px 10px rgb(32 40 44/.08)}.ds-row{position:relative;z-index:1;display:grid;min-height:56px;padding:7px 12px;font:inherit;text-align:left;color:#3b4342;background:none;border:0;border-radius:3px;cursor:pointer;transition:color 180ms ease}.ds-row:hover,.ds-row[data-on]{color:#15191a}.ds-row:focus-visible{outline:2px solid #0b6e5a;outline-offset:3px}.ds-row strong{font-size:14.5px;font-weight:600;line-height:1.25}.ds-row small{font-size:12.5px;font-weight:500;color:#5a6361}"
+    },
+    {
+      "name": "Stage Plate and Spine",
+      "kind": "card",
+      "refersTo": "stage-plate",
+      "description": "Paper plate with Lift 2; a covered plate folds to a 56px tile spine with a vertical label.",
+      "html": "<div class=\"ds-deck\"><section class=\"ds-plate\"><h2>Experience</h2><p>Plate content sits on the highest surface.</p></section><button class=\"ds-spine\"><span class=\"ds-sq\"></span><span class=\"ds-label\">Projects &amp; Open Source</span></button></div>",
+      "css": ".ds-deck{display:flex;height:220px;font-family:'Albert Sans',system-ui,sans-serif}.ds-plate{flex:1;position:relative;z-index:2;padding:22px 28px;background:#fff;border-radius:4px;box-shadow:1px 2px 3px rgb(32 40 44/.16),4px 10px 22px rgb(32 40 44/.12)}.ds-plate h2{margin:0 0 12px;font-size:1.25rem;font-weight:600;letter-spacing:-0.01em;color:#3b4342}.ds-plate p{margin:0;font-size:16px;line-height:1.6;color:#15191a}.ds-spine{display:flex;flex-direction:column;align-items:center;gap:16px;width:56px;padding:26px 0;font:inherit;color:#3b4342;background:#f7f8f7;border:0;border-right:1px solid rgb(21 25 26/.12);border-radius:0 4px 4px 0;cursor:pointer;transition:color 180ms ease,background 180ms ease}.ds-spine:hover{color:#15191a;background:#fff}.ds-spine:focus-visible{outline:2px solid #0b6e5a;outline-offset:3px}.ds-sq{width:9px;height:9px;background:currentColor;transform:rotate(45deg)}.ds-label{writing-mode:vertical-rl;font-size:14px;font-weight:600;letter-spacing:.01em;white-space:nowrap}"
+    },
+    {
+      "name": "Step Button",
+      "kind": "button",
+      "refersTo": "button-step",
+      "description": "Previous / Next stage controls; flat and pewter when disabled.",
+      "html": "<div class=\"ds-steps\"><button class=\"ds-step\" disabled>Previous</button><button class=\"ds-step\">Next</button></div>",
+      "css": ".ds-steps{display:flex;gap:10px}.ds-step{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;font-family:'Albert Sans',system-ui,sans-serif;font-size:14px;font-weight:600;color:#15191a;background:#f7f8f7;border:1px solid rgb(21 25 26/.12);border-radius:3px;box-shadow:1px 1px 2px rgb(32 40 44/.14),2px 4px 10px rgb(32 40 44/.08);cursor:pointer;transition:transform 420ms cubic-bezier(.16,1,.3,1),box-shadow 420ms cubic-bezier(.16,1,.3,1)}.ds-step:hover:not(:disabled){transform:translateY(-1px);box-shadow:1px 2px 3px rgb(32 40 44/.16),4px 10px 22px rgb(32 40 44/.12)}.ds-step:active:not(:disabled){transform:none;box-shadow:inset 1px 2px 3px rgb(32 40 44/.18);transition-duration:80ms}.ds-step:focus-visible{outline:2px solid #0b6e5a;outline-offset:3px}.ds-step:disabled{color:#5a6361;background:transparent;box-shadow:none;cursor:default}"
+    },
+    {
+      "name": "Chip and Company Badge",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Static stack label inside an expanded project card.",
-      "html": "<span class=\"ds-chip\">FastAPI</span> <span class=\"ds-chip\">PostgreSQL</span>",
-      "css": ".ds-chip{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.06em;color:#b3ccb6;border:1px solid rgba(154,211,176,0.28);border-radius:2px;padding:5px 10px;background:rgba(154,211,176,0.06);white-space:nowrap;}"
+      "description": "Recessed tech chips; teal-wash company badge.",
+      "html": "<div class=\"ds-chips\"><span class=\"ds-badge\">YC W25</span><span class=\"ds-chip\">Python</span><span class=\"ds-chip\">TypeScript</span><span class=\"ds-chip\">PostgreSQL</span></div>",
+      "css": ".ds-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:'Albert Sans',system-ui,sans-serif}.ds-chip{padding:3px 9px;font-size:12.5px;font-weight:600;line-height:1.5;color:#3b4342;background:#e4e8e6;border-radius:3px}.ds-badge{padding:2px 8px;font-size:12px;font-weight:600;letter-spacing:.02em;line-height:1.5;color:#0b6e5a;background:#d3e8e0;border-radius:3px}"
     },
     {
-      "name": "Project Card",
+      "name": "Education Callout",
       "kind": "card",
-      "refersTo": "project-card",
-      "description": "Collapsed expandable project card; the whole header is a button.",
-      "html": "<article class=\"ds-card\"><button class=\"ds-card-head\"><span class=\"ds-idx\">01</span><span class=\"ds-toggle\"></span><h3>Government Workflows</h3><p>Auditable AI finance workflows built for West Covina’s finance department.</p></button></article>",
-      "css": ".ds-card{position:relative;max-width:300px;border:1px solid rgba(236,234,226,0.1);border-radius:3px;padding:26px;background:#0a1210 linear-gradient(rgba(255,255,255,0.012),rgba(255,255,255,0.012));color:#eceae2;font-family:'IBM Plex Mono',ui-monospace,monospace;transition:border-color .25s ease;}.ds-card:hover{border-color:rgba(154,211,176,0.4);}.ds-card-head{display:block;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;position:relative;}.ds-card-head:focus-visible{outline:2px solid #bad6ae;outline-offset:6px;}.ds-idx{color:#91af98;font-size:12px;letter-spacing:.2em;}.ds-card h3{font-family:Newsreader,Georgia,serif;font-weight:400;font-size:1.35rem;margin:14px 0 10px;}.ds-card p{color:#a4afa6;font-size:.9rem;line-height:1.7;margin:0;}.ds-toggle{position:absolute;top:2px;right:0;width:18px;height:18px;}.ds-toggle::before,.ds-toggle::after{content:'';position:absolute;left:50%;top:50%;width:13px;height:1.5px;background:#91af98;transform:translate(-50%,-50%);transition:transform .35s cubic-bezier(.2,.7,.2,1);}.ds-toggle::after{transform:translate(-50%,-50%) rotate(90deg);}"
-    },
-    {
-      "name": "Card Link",
-      "kind": "nav",
-      "refersTo": null,
-      "description": "Underlined uppercase repo link inside an expanded card.",
-      "html": "<a class=\"ds-card-link\" href=\"#\">View on GitHub <span class=\"ds-arrow\">→</span></a>",
-      "css": ".ds-card-link{display:inline-flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#b3ccb6;text-decoration:none;border-bottom:1px solid rgba(154,211,176,0.4);padding-bottom:3px;transition:color .25s ease,border-color .25s ease;}.ds-card-link:hover{color:#bad6ae;border-color:#bad6ae;}.ds-card-link:focus-visible{outline:2px solid #bad6ae;outline-offset:4px;}.ds-card-link .ds-arrow{transition:transform .25s ease;}.ds-card-link:hover .ds-arrow{transform:translateX(3px);}"
-    },
-    {
-      "name": "Card Nav Arrow",
-      "kind": "button",
-      "refersTo": "card-nav",
-      "description": "Circular prev/next control in the gutters of an open card.",
-      "html": "<button class=\"ds-card-nav\" aria-label=\"Next project\">›</button>",
-      "css": ".ds-card-nav{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(11,17,14,0.66);border:1px solid rgba(154,211,176,0.3);color:#b3ccb6;font-size:24px;line-height:1;cursor:pointer;backdrop-filter:blur(4px);transition:background .2s ease,border-color .2s ease,color .2s ease;}.ds-card-nav:hover{background:rgba(11,17,14,0.85);border-color:#bad6ae;color:#bad6ae;}.ds-card-nav:focus-visible{outline:2px solid #bad6ae;outline-offset:2px;}"
-    },
-    {
-      "name": "Experience Row",
-      "kind": "custom",
-      "refersTo": null,
-      "description": "Hairline-divided role entry: serif company, mono role, uppercase period.",
-      "html": "<div class=\"ds-exp\"><div><h3>Google</h3><p class=\"ds-role\">Software Engineer (Contract)</p></div><p class=\"ds-sum\">Built a Python/FastAPI and Next.js math tutor with exact-arithmetic checks.</p><span class=\"ds-period\">Jan 2026 — May 2026</span></div>",
-      "css": ".ds-exp{display:grid;grid-template-columns:.9fr 1.45fr auto;column-gap:32px;padding:28px 0;border-top:1px solid rgba(236,234,226,0.1);border-bottom:1px solid rgba(236,234,226,0.1);font-family:'IBM Plex Mono',ui-monospace,monospace;color:#eceae2;}.ds-exp h3{font-family:Newsreader,Georgia,serif;font-size:1.28rem;font-weight:400;line-height:1.2;margin:0 0 8px;}.ds-role{color:#91af98;font-size:.78rem;line-height:1.55;margin:0;}.ds-sum{color:#a4afa6;font-size:.9rem;line-height:1.75;margin:0;}.ds-period{color:#6b7e71;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}"
-    },
-    {
-      "name": "Section Heading",
-      "kind": "custom",
-      "refersTo": null,
-      "description": "Mono section tag over a light serif headline.",
-      "html": "<div class=\"ds-section\"><p class=\"ds-tag\">Selected Work</p><h2>Projects</h2></div>",
-      "css": ".ds-section{font-family:'IBM Plex Mono',ui-monospace,monospace;color:#eceae2;}.ds-tag{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:#91af98;margin:0 0 26px;}.ds-section h2{font-family:Newsreader,Georgia,serif;font-weight:300;font-size:clamp(1.9rem,4vw,3rem);margin:0;}"
+      "refersTo": "edu-callout",
+      "description": "Recessed well block for the About education line.",
+      "html": "<p class=\"ds-edu\">Pursuing a B.A. in Computer Science and a B.S. in Business Administration at UC Berkeley and the Haas School of Business. GPA: 3.96.</p>",
+      "css": ".ds-edu{margin:0;max-width:320px;padding:20px 22px;font-family:'Albert Sans',system-ui,sans-serif;font-size:15.5px;line-height:1.6;color:#3b4342;background:#e4e8e6;border-radius:3px;box-shadow:inset 1px 2px 3px rgb(32 40 44/.18)}"
     }
   ],
   "narrative": {
-    "northStar": "The Moonlit Workbench",
-    "overview": "The site is a workbench seen at night: built, tactile objects lit by soft moonlight and one warm lamp. The hero is the workbench itself, a finite sage Minesweeper board set into a dark green voxel wall. Visitors can press it, flag it and reset it, and they can also ignore it and keep scrolling. Everything below the hero is the bench's notebook: quiet serif headings, monospaced annotations, hairline rules and measured numbers.\n\nThe craft is meant to be visible but never loud. Depth and material belong to the 3D scene (beveled solid geometry, warm diffuse light, restrained shadows). The HTML layer stays flat, dark and translucent, so it reads like light falling on the bench, not like objects competing with it. Color is almost all moonlit green-gray. Warmth comes in small, deliberate doses: the italic accent word, the brass counters, the yellow buddy disc and the coral flags.\n\nDensity is low and the pace is calm. Sections breathe on generous fluid padding, text measures stay between 48 and 68 characters, and motion is limited to short entrances, small lifts on hover and the game's own feedback.",
+    "northStar": "The White Relief",
+    "overview": "The whole page is one matte white surface lit by a single lamp in the upper left. Things are told apart by height, not by color: the Minesweeper board is made of the same white tiles as the wall around it, so the only way you see the board is the relief and the shadows it casts. Everything below the hero follows the same rule. Controls sit raised like unrevealed tiles, the list of roles and projects is a recessed well like a revealed cell, the live row is a white cap riding in that well, and every shadow falls down and to the right.\n\nThe content is light and editorial: one sans family, cool graphite ink on cool off-white, plenty of room around it. Motion is physical and quiet. Values follow damped springs (`springStep` in `motion.js`), hover lifts are a pixel or two, and the one large moment, paper plates sliding out from their spines as you scroll, reuses the same one-light model. Color is held back. One deep teal marks live state. Coral and yellow appear only as game meaning (flags, loss, the reset smiley).\n\nExperience, Projects & Open Source, and About live in one instrument, the Scroll Stage, inside `main#work`. Native scroll drives it; it never captures the wheel. The brass, dark \"workbench\" look of the previous site was explicitly rejected and is not a reference.",
     "keyCharacteristics": [
-      "Dark only. A deep forest-night gradient runs from the hero down to the page floor.",
-      "Newsreader light serif for anything that is named; IBM Plex Mono for everything that is read or labeled.",
-      "Sage-tinted translucent fills with hairline borders. No solid UI color blocks.",
-      "Nearly square corners (2–3px). Circles are reserved for objects you press (the buddy disc, card arrows, the status dot).",
-      "One tactile 3D object (the board) carries all the depth; the HTML stays flat."
+      "A light, matte relief world: the hero's playable 16x16 board is lit white and sits flush in a white voxel wall.",
+      "One upper-left light source, shared by the Three.js key light and every CSS shadow.",
+      "Depth comes from relief: raised caps, recessed wells, pressed states. Fills and borders do very little.",
+      "A single teal accent for live state only. No gradients as decoration, no glow, no bloom.",
+      "Spring physics for every animated value, with a reduced-motion path that keeps the feedback and drops the motion."
     ],
     "rules": [
       {
-        "name": "The Moonlight Rule",
-        "body": "HTML UI color is sage-tinted and translucent. Fills are `rgba(154,211,176, ≤0.2)` over the dark ground, never a saturated or solid block. Bright color lives only inside the 3D scene.",
+        "name": "The One Teal Rule",
+        "body": "Teal means \"this is live or selected\" and nothing else. If it is not the current section, focus, the status dot, or the small company badge, it is not teal.",
         "section": "colors"
       },
       {
-        "name": "The Lamp Rule",
-        "body": "Warm color (Lamplight, Counter Brass, Buddy Yellow, Coral Flag) is rationed: one italic accent word per headline in HTML, and game-state objects in the scene. It is never used for decoration.",
+        "name": "The Seamless Board Rule",
+        "body": "Board caps and wall voxels share one albedo (`scene-tile`), one size (0.95) and one bevel (0.05). Caps never tint on hover. Lift and shadow carry the affordance. The only cap that changes color is a hit mine (coral).",
         "section": "colors"
       },
       {
-        "name": "The Borrowed Brand Rule",
-        "body": "Third-party brand colors (YC orange `yc-orange`, AfterQuery's black tile, the Mastercard and Google marks) appear only inside their own logo or badge, at logo size.",
+        "name": "The Cool Shadow Rule",
+        "body": "Every shadow is `rgb(var(--hv-shade) / a)` at 0.08 to 0.30 alpha. Never pure black, never warm.",
         "section": "colors"
       },
       {
-        "name": "The Two Voices Rule",
-        "body": "Newsreader is for names (people, sections, companies, projects). Plex Mono is for everything else, including long-form body copy. Never set a button, label or number in the serif, and never set a heading in mono.",
+        "name": "The No Kicker Rule",
+        "body": "No eyebrow label above a heading. The legacy `tag` metadata in `content.js` is never rendered. The hero focus areas sit *below* the headline, separated by small rotated squares.",
         "section": "typography"
       },
       {
-        "name": "The Wide Label Rule",
-        "body": "Every uppercase label is tracked out (minimum 0.08em) and kept at 12px or below. Uppercase is never used for sentences.",
+        "name": "The Sentence Case Rule",
+        "body": "Labels, tabs and buttons are sentence case at weight 600. Hierarchy comes from size and weight, not caps or tracking.",
         "section": "typography"
       },
       {
-        "name": "The Measure Rule",
-        "body": "Text never runs full width: 16ch for display, 48–68ch for body. Wide viewports get more air, not longer lines.",
-        "section": "layout"
-      },
-      {
-        "name": "The Flat-Page Rule",
-        "body": "HTML surfaces have no drop shadows at rest. A shadow or glow appears only as a response to state (hover, live status) or to keep scene-overlaid text legible.",
+        "name": "The Single Lamp Rule",
+        "body": "One light, upper left, everywhere: CSS shadow offsets are always zero or positive x and positive y, and the 3D key light is the only shadow caster.",
         "section": "elevation"
       },
       {
-        "name": "The One Object Rule",
-        "body": "The board is the only object with physical depth. New UI never imitates it with fake bevels or 3D effects in CSS.",
+        "name": "The Raised Means Available, Recessed Means Chosen Rule",
+        "body": "An actionable control is a raised cap (tile or paper with lift). The list that holds a choice is a recessed well, and the current choice is the white cap riding inside it. Selection is never a color fill alone.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do keep HTML fills to Sage Wash at 0.2 alpha or less, with 1px hairline borders (the Moonlight Rule).",
-      "Do set names in Newsreader 300/400 and everything else in IBM Plex Mono (the Two Voices Rule).",
-      "Do give every interactive element a 2px Moonlit Leaf `:focus-visible` outline.",
-      "Do keep hover feedback small: a 1px lift, a 3px arrow slide, or a border brightening over 0.2–0.25s.",
-      "Do keep the HTML content stable while the scene's effects run, and keep native page scrolling (including one-finger drag) available over the hero.",
-      "Do keep all game-state feedback under `prefers-reduced-motion`, and turn off reveals, the scroll-bar pulse and sprite previews there.",
-      "Do keep the game playable without a mouse, through the single-entry keyboard grid."
+      "Do take every shadow from the shared tokens (`--hv-lift-1`, `--hv-lift-2`, `--hv-press`) or build it on `rgb(var(--hv-shade) / a)` with positive x and y offsets.",
+      "Do show a choice as a raised white cap inside a recessed well, with teal only on small markers, fills and focus.",
+      "Do keep board caps and wall voxels the same albedo, size and bevel. Let lift and shadow carry hover.",
+      "Do animate with `springStep` / `runSpring`, and give every motion a reduced-motion path that keeps the end state.",
+      "Do read native scroll rather than capturing it, and fall back to stacked panels whenever content would not fit the stage.",
+      "Do write per-frame motion as inline styles on the elements that move, never as an inherited custom property on a large subtree.",
+      "Do prefix new classes `hv-` (Stage `hv-st-`), and scope page-level CSS with `:has(.hv-root)`.",
+      "Do route \"show me the work\" through the `hv:section` event."
     ],
     "donts": [
-      "Don't introduce bright, saturated, or solid color blocks in the HTML UI. Saturated color belongs to the 3D scene and to third-party logos at logo size.",
-      "Don't add continuous orbiting, flashing overlays, or decorative motion that competes with reading.",
-      "Don't give the HTML layer drop shadows, fake bevels, or CSS 3D. The board is the one physical object.",
-      "Don't add labels to the hero counters or extra controls above the board.",
-      "Don't introduce a second game input system without preserving the single-entry keyboard grid.",
-      "Don't pass the hidden mine layout to the renderer or the companion."
+      "Don't add bloom, glow or emissive highlights to the scene. On white they wash the tiles out (the loss ring at 0.2 opacity is the only emissive element).",
+      "Don't tint the board to set it apart from the wall, or tint caps on hover.",
+      "Don't use teal for decoration, headings or body links at rest. It means live or selected state.",
+      "Don't render the legacy `tag` as an eyebrow or kicker above a heading.",
+      "Don't use black shadows, shadows going up or to the left, or a second light direction.",
+      "Don't bring back the brass, dark \"workbench\" look of the previous site."
     ]
   }
 }
