@@ -25,8 +25,8 @@ npm start
 - `src/app/page.tsx`: the home page (`HomeV2Shell` + `ScrollStage`).
 - `src/components/home-v2/`: the shell, tokens (`home-v2.css`), motion helpers, and the white-relief Three.js hero (`hero/`).
 - `src/components/home-v2/directions/stage/`: the Scroll Stage that combines Experience, Projects & Open Source, and About.
-- `src/components/hero/minesweeper/game.mjs`: pure game rules shared by the hero. The rest of `src/components/hero/` is the previous dark home page, no longer routed; its stylesheet still styles the 404 page and its `ExperienceIcon` / `ProjectMedia` components are reused.
-- `src/lib/three/HighlightBloomPass.js`: shared selective-highlight bloom pass.
+- `src/components/hero/minesweeper/game.mjs`: pure game rules shared by the hero.
+- `src/components/hero/sections/`: `ExperienceIcon` and `ProjectMedia`, shared by the stage.
 - `tests/minesweeper.test.mjs`: independent game-rule checks.
 
 See [scene architecture and controls](docs/MINESWEEPER.md), [visual guidelines](docs/DESIGN.md), and [verification evidence](docs/minesweeper/REPORT.md).
