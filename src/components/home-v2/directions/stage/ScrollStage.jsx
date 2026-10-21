@@ -19,7 +19,15 @@ import "./stage.css";
    native scroll never comes to rest with two plates half-slid. Reduced motion
    keeps the stage but swaps plates and items instantly (no spring).
    Below 1024x680, or whenever a section would not fit the stage, the same DOM
-   becomes stacked panels under a sticky section rail. */
+   becomes stacked panels under a sticky section rail.
+
+   Performance contract: one engine owns every moving value. Each frame writes
+   inline styles on the dozen elements that move (only when a value changed),
+   never an inherited custom property on the deck, and React state commits
+   only when the motion comes to rest. Item details are scrubbed from the same
+   eased position as the list cap, so skipping many items stays continuous
+   instead of stacking interrupted CSS transitions. Clicked jumps run one
+   eased, time-capped scroll that crossfades straight from source to target. */
 
 const { projects, openSource } = projectsAndOpenSource;
 const COUNTS = [experienceSection.items.length, projects.items.length + 1, 1]; // projects + one open-source stop
@@ -89,7 +97,7 @@ export default function ScrollStage() {
   const listRefs = [useRef(null), useRef(null)];
   const indRefs = [useRef(null), useRef(null)];
   const panelRefs = useRef([]);
-  const geo = useRef({ unit: 1, rows: [[], []] });
+  const engineRef = useRef(null);
   const modeRef = useRef("stack");
   const viewRef = useRef({ sec: 0, items: [0, 0, 0] });
   const [mode, setMode] = useState("stack");
@@ -97,126 +105,290 @@ export default function ScrollStage() {
   const [stillMedia, setStillMedia] = useState(false); // server renders motion; switch after mount to avoid a hydration mismatch
   useEffect(() => setStillMedia(Boolean(reduced)), [reduced]);
 
-  /* Mode + geometry. Runs before paint so a section that would overflow the
-     stage falls back to stacked panels without a visible flash. */
+  /* The engine: geometry, scroll -> spring -> inline styles, and jumps. Runs
+     before paint so the first frame is already placed and a section that
+     would overflow the stage falls back to stacked panels without a flash. */
   useLayoutEffect(() => {
-    const root = rootRef.current;
+    const root = rootRef.current, track = trackRef.current, deck = deckRef.current, rail = railRef.current;
+    const html = document.documentElement;
     const mq = window.matchMedia(STAGE_MQ);
+    const panels = panelRefs.current;
+    const parts = panels.map((p) => ({
+      content: p.querySelector(".hv-st-content"),
+      sq: p.querySelector(".hv-st-spine .hv-st-sq"),
+      label: p.querySelector(".hv-st-spine-label"),
+      num: p.querySelector(".hv-st-num"),
+    }));
+    const arts = [0, 1].map((k) => [...panels[k].querySelectorAll(".hv-st-detail > article")].map((el) => ({ el, media: el.querySelector(".hv-st-media") })));
+    const rows = listRefs.map((r) => [...r.current.querySelectorAll(".hv-st-row")]);
+    const tabs = [...rail.querySelectorAll(".hv-st-tab")];
+    const fills = tabs.map((t) => t.querySelector(".hv-st-tab-fill"));
+    const geo = { unit: 1, spine: 56, width: 1, rows: [[], []] };
+
+    /* Write only what changed: a scrub frame touches a handful of styles. */
+    const cache = new Map();
+    const put = (el, prop, value) => {
+      let c = cache.get(el);
+      if (!c) cache.set(el, (c = {}));
+      if (c[prop] === value) return;
+      c[prop] = value;
+      el.style[prop] = value;
+    };
+    const attr = (el, name, value) => {
+      const key = `@${name}`;
+      let c = cache.get(el);
+      if (!c) cache.set(el, (c = {}));
+      if (c[key] === value) return;
+      c[key] = value;
+      if (value == null) el.removeAttribute(name); else el.setAttribute(name, value);
+    };
+    const clearInline = () => {
+      cache.forEach((_, el) => { el.removeAttribute("style"); el.removeAttribute("data-live"); el.removeAttribute("data-on"); });
+      cache.clear();
+    };
+
     const measure = () => {
       root.removeAttribute("data-fit");
+      clearInline();
       let next = "stack";
       if (mq.matches) {
-        const over = panelRefs.current.some((p) => {
+        const over = panels.some((p) => {
           const body = p.querySelector(".hv-st-body");
-          // each detail article on its own: a waiting article's 14px offset is not overflow
+          // each detail article on its own: a waiting article's offset is not overflow
           return [...body.querySelectorAll(":scope > :not(.hv-st-detail), .hv-st-detail > *")].some((c) => c.scrollHeight > body.clientHeight + 1);
         });
         if (over) root.setAttribute("data-fit", "no");
         else next = "stage";
       }
-      geo.current.unit = (trackRef.current.offsetHeight - stageRef.current.offsetHeight) / UNITS || 1;
-      geo.current.rows = listRefs.map((r) => [...r.current.querySelectorAll("button")].map((b) => [b.offsetTop, b.offsetHeight]));
+      geo.unit = (track.offsetHeight - stageRef.current.offsetHeight) / UNITS || 1;
+      geo.spine = parseFloat(getComputedStyle(root).getPropertyValue("--hv-st-spine")) || 56;
+      geo.width = deck.clientWidth || 1;
+      geo.rows = rows.map((list) => list.map((b) => [b.offsetTop, b.offsetHeight]));
       root.dataset.mode = next;
+      const changed = modeRef.current !== next;
       modeRef.current = next;
       setMode(next);
+      return changed;
     };
-    measure();
-    document.fonts?.ready.then(measure);
-    mq.addEventListener("change", measure);
-    window.addEventListener("resize", measure);
-    return () => { mq.removeEventListener("change", measure); window.removeEventListener("resize", measure); };
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- refs are stable
-  }, []);
 
-  /* Scroll -> spring -> CSS variables. React state only changes when the
-     active section or item does. */
-  useEffect(() => {
-    const deck = deckRef.current, rail = railRef.current;
-    const spring = { value: 0, velocity: 0 };
-    let target = 0, frame = 0, last = 0, live = false;
+    /* ---- painters ---- */
+    const paintDeck = (s) => {
+      const S = geo.spine, W = geo.width, span = W - 3 * S;
+      for (let i = 0; i < 3; i++) {
+        const t = clamp01(i - s), tn = clamp01(i + 1 - s);
+        const x = i * S + t * span;
+        const xn = i === 2 ? W : (i + 1) * S + tn * span;
+        const fly = i === 2 ? 0 : tn * (1 - tn) * 4; // 1 while this plate's edge is mid-flight
+        const away = clamp01(s - i);                   // 1 once a later plate has covered it
+        const p = panels[i], q = parts[i];
+        put(p, "transform", `translate3d(${x.toFixed(1)}px,0,0)`);
+        put(p, "width", `${(xn - x).toFixed(1)}px`);
+        put(p, "boxShadow", `1px 2px 3px rgb(var(--hv-shade) / .16), ${(4 + fly * 8).toFixed(1)}px ${(10 + fly * 8).toFixed(1)}px ${(22 + fly * 22).toFixed(1)}px rgb(var(--hv-shade) / ${(0.12 + fly * 0.07).toFixed(3)})`);
+        put(q.content, "opacity", Math.max(0, 1 - away * 1.6).toFixed(3));
+        put(q.content, "transform", away ? `translate3d(${(-away * 0.1 * W).toFixed(1)}px,0,0)` : "none");
+        put(q.sq, "transform", `rotate(${(45 * (1 - away)).toFixed(1)}deg)`);
+        put(q.label, "opacity", clamp01(Math.abs(i - s) * 2).toFixed(3));
+      }
+    };
+    const paintRail = (f, sec) => {
+      for (let k = 0; k < 3; k++) {
+        put(fills[k], "transform", `scaleX(${f[k].toFixed(4)})`);
+        attr(tabs[k], "data-state", k < sec ? "past" : k === sec ? "on" : "next");
+      }
+    };
+    const placeCap = (k, v) => {
+      const r = geo.rows[k], el = indRefs[k].current;
+      if (!r.length) return;
+      const a = Math.floor(v), b = Math.min(r.length - 1, a + 1), f = v - a;
+      put(el, "transform", `translate3d(0,${(r[a][0] + (r[b][0] - r[a][0]) * f).toFixed(1)}px,0)`);
+      put(el, "height", `${(r[a][1] + (r[b][1] - r[a][1]) * f).toFixed(1)}px`);
+    };
+    /* d: signed distance of an article from the live position (0 = resting
+       on it, >0 = already passed, <0 = still coming). Outgoing details rise
+       away and wipe from the top; incoming ones rise in and wipe down. */
+    const paintArt = ({ el, media }, d) => {
+      if (d == null || Math.abs(d) >= 1) {
+        put(el, "opacity", "0"); put(el, "visibility", "hidden"); attr(el, "data-live", null);
+        return;
+      }
+      if (reduced) d = Math.abs(d) < 0.5 ? 0 : d > 0 ? 1 : -1;
+      const op = d >= 0 ? 1 - smooth(d / 0.6) : smooth((0.7 + d) / 0.7);
+      const shown = op > 0.002;
+      put(el, "visibility", shown ? "visible" : "hidden");
+      put(el, "opacity", op.toFixed(3));
+      put(el, "transform", d ? `translate3d(0,${(-14 * d).toFixed(2)}px,0)` : "none");
+      if (media) put(media, "clipPath", d > 0 ? `inset(${(d * 100).toFixed(1)}% 0 0 0)` : d < 0 ? `inset(0 0 ${(-d * 100).toFixed(1)}% 0)` : "inset(0)");
+      attr(el, "data-live", shown ? "" : null);
+    };
+    const paintList = (k, e, jumpPair) => {
+      placeCap(k, e);
+      const on = Math.min(COUNTS[k] - 1, Math.round(e));
+      rows[k].forEach((r, i) => attr(r, "data-on", i === on ? "" : null));
+      const n = parts[k].num, label = pad(on + 1);
+      if (n.textContent !== label) n.textContent = label;
+      arts[k].forEach((a, i) => {
+        if (!jumpPair) return paintArt(a, e - i);
+        // a jump crossfades its source straight into its target; the items in between stay hidden
+        const [from, to, q] = jumpPair;
+        const dir = to > from ? 1 : -1;
+        paintArt(a, i === from ? dir * q : i === to ? dir * (q - 1) : null);
+      });
+      return on;
+    };
 
+    let shownItems = [0, 0];
+    let jump = null; // { t0, y0, y1, dur, top, from: [..], sec, item, fromSec, e }
+
+    const paint = (u) => {
+      const raw = sectionAt(u);
+      const s = reduced ? Math.round(raw) : raw;
+      paintDeck(s);
+      paintRail([0, 1, 2].map((k) => clamp01((u - STARTS[k]) / COUNTS[k])), Math.round(s));
+      shownItems = [0, 1].map((k) => {
+        if (jump) {
+          const from = jump.from[k];
+          if (k !== jump.sec) { paintList(k, from, null); return from; }
+          if (jump.fromSec !== k || from === jump.item) { paintList(k, jump.item, null); return jump.item; }
+          const e = from + (jump.item - from) * jump.e;
+          return paintList(k, e, [from, jump.item, jump.e]);
+        }
+        const x = listAt(k, u), base = Math.floor(x);
+        const e = reduced ? Math.min(COUNTS[k] - 1, Math.floor(x + 0.15)) : Math.min(COUNTS[k] - 1, base + smooth((x - base - 0.7) / 0.3));
+        return paintList(k, e, null);
+      });
+      return Math.round(s);
+    };
+
+    /* React state (aria-current, inert, the step buttons) follows only at rest. */
     const commit = (sec, items) => {
       const cur = viewRef.current;
       if (cur.sec === sec && cur.items.every((v, i) => v === items[i])) return;
       viewRef.current = { sec, items };
       setView(viewRef.current);
     };
-    const readU = () => Math.min(UNITS, Math.max(0, -trackRef.current.getBoundingClientRect().top / geo.current.unit));
-    const place = (k, v) => {
-      const rows = geo.current.rows[k], el = indRefs[k].current;
-      if (!rows.length) return;
-      const a = Math.floor(v), b = Math.min(rows.length - 1, a + 1), f = v - a;
-      el.style.transform = `translateY(${rows[a][0] + (rows[b][0] - rows[a][0]) * f}px)`;
-      el.style.height = `${rows[a][1] + (rows[b][1] - rows[a][1]) * f}px`;
-    };
-    const paint = (u) => {
-      const s = reduced ? Math.round(sectionAt(u)) : sectionAt(u);
-      deck.style.setProperty("--s", s.toFixed(4));
-      for (let k = 0; k < 3; k++) rail.style.setProperty(`--f${k}`, clamp01((u - STARTS[k]) / COUNTS[k]).toFixed(4));
-      const items = [0, 1].map((k) => {
-        const x = listAt(k, u), base = Math.floor(x), item = Math.min(COUNTS[k] - 1, Math.floor(x + 0.15));
-        place(k, reduced ? item : Math.min(COUNTS[k] - 1, base + smooth((x - base - 0.7) / 0.3)));
-        return item;
-      });
-      commit(Math.round(s), [...items, 0]);
-    };
+    const settle = (u) => commit(paint(u), [...shownItems, 0]);
+
     const paintStack = () => {
       const mid = window.innerHeight * 0.5;
       let sec = 0;
-      panelRefs.current.forEach((p, k) => {
+      panels.forEach((p, k) => {
         const r = p.getBoundingClientRect();
-        rail.style.setProperty(`--f${k}`, clamp01((mid - r.top) / r.height).toFixed(4));
+        put(fills[k], "transform", `scaleX(${clamp01((mid - r.top) / r.height).toFixed(4)})`);
         if (r.top <= mid) sec = k;
       });
+      tabs.forEach((t, k) => attr(t, "data-state", k < sec ? "past" : k === sec ? "on" : "next"));
       commit(sec, viewRef.current.items);
     };
+
+    /* ---- scroll -> spring ---- */
+    const spring = { value: 0, velocity: 0 };
+    let target = 0, frame = 0, last = 0, live = false;
+    const readU = () => Math.min(UNITS, Math.max(0, -track.getBoundingClientRect().top / geo.unit));
     const tick = (now) => {
       const dt = Math.min(last ? (now - last) / 1000 : 1 / 60, 1 / 30);
       last = now;
-      springStep(spring, target, dt, { stiffness: 150, damping: 22 });
+      springStep(spring, target, dt, { stiffness: 170, damping: 26 });
       if (Math.abs(target - spring.value) < 5e-4 && Math.abs(spring.velocity) < 5e-4) {
-        spring.value = target; spring.velocity = 0; live = false;
-        paint(target);
+        spring.value = target; spring.velocity = 0; live = false; frame = 0;
+        settle(target);
         return;
       }
       paint(spring.value);
       frame = requestAnimationFrame(tick);
     };
     const onScroll = () => {
+      if (jump) return; // the jump drives scroll and paint itself
       if (modeRef.current !== "stage") { paintStack(); return; }
       target = readU();
-      if (reduced) { paint(target); return; }
+      if (reduced) { spring.value = target; settle(target); return; }
       if (!live) { live = true; last = 0; frame = requestAnimationFrame(tick); }
     };
 
-    if (mode === "stage") { spring.value = target = readU(); paint(target); }
-    else paintStack();
+    /* ---- jumps: one eased scroll, time-capped however far it goes ---- */
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    const endJump = (finished) => {
+      if (!jump) return;
+      cancelAnimationFrame(jump.raf);
+      html.style.scrollSnapType = "";
+      removeEventListener("wheel", cancelJump);
+      removeEventListener("touchstart", cancelJump);
+      removeEventListener("keydown", cancelJump);
+      jump = null;
+      spring.value = target = readU(); spring.velocity = 0;
+      if (finished) settle(target); else paint(target);
+    };
+    function cancelJump() { endJump(false); }
+    const jumpStep = (now) => {
+      const p = Math.min(1, (now - jump.t0) / jump.dur);
+      jump.e = ease(p);
+      const y = jump.y0 + (jump.y1 - jump.y0) * jump.e;
+      window.scrollTo(0, y);
+      paint(Math.min(UNITS, Math.max(0, (y - jump.top) / geo.unit)));
+      if (p < 1) jump.raf = requestAnimationFrame(jumpStep);
+      else endJump(true);
+    };
+    const jumpTo = (sec, item = 0) => {
+      if (modeRef.current !== "stage") {
+        const p = panels[sec];
+        window.scrollTo({ top: p.getBoundingClientRect().top + window.scrollY - rail.offsetHeight + 1, behavior: reduced ? "auto" : "smooth" });
+        return;
+      }
+      endJump(false);
+      cancelAnimationFrame(frame); live = false; frame = 0;
+      const top = track.getBoundingClientRect().top + window.scrollY;
+      const y0 = window.scrollY, y1 = top + stopU(sec, item) * geo.unit;
+      if (reduced || Math.abs(y1 - y0) < 2) {
+        window.scrollTo(0, y1);
+        spring.value = target = readU(); spring.velocity = 0;
+        settle(target);
+        return;
+      }
+      const du = Math.abs(y1 - y0) / geo.unit;
+      jump = {
+        t0: performance.now(), y0, y1, top, e: 0,
+        dur: Math.min(900, 380 + 150 * Math.sqrt(du)),
+        from: [...shownItems], fromSec: Math.round(sectionAt(Math.min(UNITS, Math.max(0, (y0 - top) / geo.unit)))),
+        sec, item: sec < 2 ? item : 0, raf: 0,
+      };
+      if (jump.fromSec !== sec) jump.from = jump.from.map((v, k) => (k === sec ? item : v)); // arrive on the target, don't scrub to it
+      html.style.scrollSnapType = "none"; // proximity snap would fight the programmatic scroll
+      addEventListener("wheel", cancelJump, { passive: true });
+      addEventListener("touchstart", cancelJump, { passive: true });
+      addEventListener("keydown", cancelJump);
+      jump.raf = requestAnimationFrame(jumpStep);
+    };
+    engineRef.current = { jump: jumpTo };
+
+    /* ---- lifecycle ---- */
+    const relayout = () => {
+      endJump(false);
+      cancelAnimationFrame(frame); live = false; frame = 0;
+      measure();
+      if (modeRef.current === "stage") { spring.value = target = readU(); spring.velocity = 0; settle(target); }
+      else { clearInline(); paintStack(); }
+    };
+    relayout();
+    document.fonts?.ready.then(relayout);
+    mq.addEventListener("change", relayout);
+    window.addEventListener("resize", relayout);
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
     return () => {
+      endJump(false);
       cancelAnimationFrame(frame);
+      engineRef.current = null;
+      mq.removeEventListener("change", relayout);
+      window.removeEventListener("resize", relayout);
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- refs are stable
-  }, [mode, reduced]);
+  }, [reduced]);
 
   /* Only the active plate's content is in the tab order on the stage. */
   useEffect(() => {
     panelRefs.current.forEach((p, i) => { p.querySelector(".hv-st-content").inert = mode === "stage" && i !== view.sec; });
   }, [mode, view.sec]);
 
-  const jump = useCallback((sec, item = 0) => {
-    const behavior = reduced ? "auto" : "smooth";
-    if (modeRef.current === "stage") {
-      const u = stopU(sec, item);
-      const top = trackRef.current.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({ top: top + u * geo.current.unit, behavior });
-    } else {
-      const p = panelRefs.current[sec];
-      window.scrollTo({ top: p.getBoundingClientRect().top + window.scrollY - railRef.current.offsetHeight + 1, behavior });
-    }
-  }, [reduced]);
+  const jump = useCallback((sec, item = 0) => engineRef.current?.jump(sec, item), []);
 
   /* Hero "View Selected Work" asks for a section by id. */
   useEffect(() => {
@@ -237,7 +409,6 @@ export default function ScrollStage() {
         ref={(el) => { panelRefs.current[i] = el; }}
         id={`hv-st-${s.id}`}
         className="hv-st-panel"
-        style={{ "--i": i }}
         aria-labelledby={`hv-st-${s.id}-h`}
       >
         <div className="hv-st-inner">
@@ -250,7 +421,9 @@ export default function ScrollStage() {
               <h2 id={`hv-st-${s.id}-h`}>{title}</h2>
               {count > 1 && (
                 <span className="hv-st-count">
-                  <span className="hv-st-sr">Item </span>{pad(view.items[i] + 1)}<span aria-hidden="true"> / </span><span className="hv-st-sr"> of </span>{pad(count)}
+                  <span className="hv-st-sr">Item {view.items[i] + 1} of {count}</span>
+                  {/* the engine writes the live number into this childless span; React never renders its contents */}
+                  <span aria-hidden="true"><span className="hv-st-num" /> / {pad(count)}</span>
                 </span>
               )}
             </header>
@@ -282,7 +455,7 @@ export default function ScrollStage() {
       </div>
       <div className="hv-st-detail">
         {experienceSection.items.map((item, i) => (
-          <article key={`${item.company}-${item.role}`} id={`hv-st-exp-${i}`} className="hv-st-exp" data-pos={pos(0, i)}>
+          <article key={`${item.company}-${item.role}`} id={`hv-st-exp-${i}`} className="hv-st-exp">
             <div className="hv-st-exp-head">
               <span className="hv-st-logo"><ExperienceIcon icon={item.icon} /></span>
               <div>
@@ -338,7 +511,7 @@ export default function ScrollStage() {
       </div>
       <div className="hv-st-detail">
         {projects.items.map((p, i) => (
-          <article key={p.idx} id={`hv-st-proj-${i}`} className="hv-st-proj" data-pos={pos(1, i)}>
+          <article key={p.idx} id={`hv-st-proj-${i}`} className="hv-st-proj">
             <div className="hv-st-proj-text">
               <h3>{p.title}</h3>
               <p className="hv-st-tagline">{p.tagline}</p>
@@ -365,7 +538,7 @@ export default function ScrollStage() {
             </div>
           </article>
         ))}
-        <article id="hv-st-oss" className="hv-st-oss" data-pos={pos(1, projects.items.length)}>
+        <article id="hv-st-oss" className="hv-st-oss">
           <h3>{openSource.title}</h3>
           <ul className="hv-st-oss-list">
             {openSource.items.map((o) => (
@@ -418,8 +591,6 @@ export default function ScrollStage() {
                 className="hv-st-tab"
                 aria-label={s.label}
                 aria-current={view.sec === i ? "true" : undefined}
-                data-state={i < view.sec ? "past" : i === view.sec ? "on" : "next"}
-                style={{ "--f": `var(--f${i}, 0)` }}
                 onClick={() => jump(i)}
               >
                 <span className="hv-st-tab-sq" aria-hidden="true" />

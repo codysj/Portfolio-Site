@@ -29,14 +29,14 @@
   color: var(--hv-ink-3); background: none; border: 0; border-radius: 0; cursor: pointer;
   transition: color var(--hv-fast) ease;
 }
-.hv-st-tab:hover, .hv-st-tab[aria-current] { color: var(--hv-ink); }
+.hv-st-tab:hover, .hv-st-tab[data-state="on"] { color: var(--hv-ink); }
 .hv-st-tab-sq {
   flex: none; width: 9px; height: 9px;
   border: 1.5px solid currentColor; background: transparent;
   transition: transform var(--hv-med) var(--hv-ease), background var(--hv-fast) ease, border-color var(--hv-fast) ease, box-shadow var(--hv-med) var(--hv-ease);
 }
 .hv-st-tab[data-state="past"] .hv-st-tab-sq { background: var(--hv-ink-3); border-color: var(--hv-ink-3); }
-.hv-st-tab[aria-current] .hv-st-tab-sq {
+.hv-st-tab[data-state="on"] .hv-st-tab-sq {
   background: var(--hv-accent); border-color: var(--hv-accent); transform: rotate(45deg);
   box-shadow: 1px 2px 3px rgb(var(--hv-shade) / .3);
 }
@@ -46,8 +46,8 @@
   .hv-st-tab-short { display: inline; }
 }
 .hv-st-tab-line { position: absolute; left: 0; right: 0; bottom: 0; height: 1px; overflow: hidden; background: var(--hv-line-strong); }
-.hv-st-tab-fill { position: absolute; inset: 0; background: var(--hv-ink); transform-origin: left; transform: scaleX(var(--f)); }
-.hv-st-tab[aria-current] .hv-st-tab-fill { background: var(--hv-accent); }
+.hv-st-tab-fill { position: absolute; inset: 0; background: var(--hv-ink); transform-origin: left; transform: scaleX(0); }
+.hv-st-tab[data-state="on"] .hv-st-tab-fill { background: var(--hv-accent); }
 
 /* --------------------------------- deck -------------------------------- */
 .hv-st-deck { display: flex; flex-direction: column; gap: 20px; max-width: var(--hv-max); margin: 20px auto 0; padding-bottom: 72px; }
@@ -63,6 +63,8 @@
   line-height: 1.05; letter-spacing: -0.032em; text-wrap: balance;
 }
 .hv-st-count { font-size: 14px; font-weight: 600; color: var(--hv-ink-3); white-space: nowrap; }
+.hv-st-num { font-variant-numeric: tabular-nums; }
+.hv-st-num:empty::before { content: "01"; } /* before hydration; the engine fills it after */
 
 /* details: stacked in reading order here, layered in one cell on the stage */
 .hv-st-detail { display: flex; flex-direction: column; min-width: 0; }
@@ -212,32 +214,24 @@
   /* deck: three plates tiled edge to edge; the stair of z-order makes each
      plate cast its shadow onto the next one to its right */
   .hv-st:not([data-fit="no"]) .hv-st-deck {
-    --s: 0;
     position: relative; flex: 1; min-height: 0; width: 100%;
     margin: 14px auto 0; padding: 0; display: block;
     container-type: inline-size;
   }
+  /* The engine (ScrollStage.jsx) writes each plate's transform, width and
+     shadow inline every frame. These static values are the s = 0 rest state
+     so the first paint before hydration is already the composed stage. */
   .hv-st:not([data-fit="no"]) .hv-st-panel {
-    --span: calc(100cqw - 3 * var(--hv-st-spine));
-    --t: clamp(0, var(--i) - var(--s), 1);
-    --tn: clamp(0, var(--i) + 1 - var(--s), 1);
-    --x: calc(var(--i) * var(--hv-st-spine) + var(--t) * var(--span));
-    --xn: calc((var(--i) + 1) * var(--hv-st-spine) + var(--tn) * var(--span));
-    --fly: calc(var(--tn) * (1 - var(--tn)) * 4);  /* 1 while this plate's edge is mid-flight */
-    --away: clamp(0, var(--s) - var(--i), 1);       /* 1 once a later plate has covered it */
     position: absolute; top: 0; bottom: 0; left: 0;
-    z-index: calc(3 - var(--i));
-    width: calc(var(--xn) - var(--x));
-    transform: translateX(var(--x));
-    overflow: hidden; scroll-margin-top: 0;
-    box-shadow:
-      1px 2px 3px rgb(var(--hv-shade) / .16),
-      calc(4px + var(--fly) * 8px) calc(10px + var(--fly) * 8px) calc(22px + var(--fly) * 22px) rgb(var(--hv-shade) / calc(.12 + var(--fly) * .07));
+    overflow: hidden; scroll-margin-top: 0; contain: layout paint;
+    box-shadow: 1px 2px 3px rgb(var(--hv-shade) / .16), 4px 10px 22px rgb(var(--hv-shade) / .12);
   }
-  .hv-st:not([data-fit="no"]) .hv-st-panel:last-child { width: calc(100cqw - var(--x)); }
+  .hv-st:not([data-fit="no"]) .hv-st-panel:nth-child(1) { z-index: 3; width: calc(100cqw - 2 * var(--hv-st-spine)); }
+  .hv-st:not([data-fit="no"]) .hv-st-panel:nth-child(2) { z-index: 2; width: var(--hv-st-spine); transform: translateX(calc(100cqw - 2 * var(--hv-st-spine))); }
+  .hv-st:not([data-fit="no"]) .hv-st-panel:nth-child(3) { z-index: 1; width: var(--hv-st-spine); transform: translateX(calc(100cqw - var(--hv-st-spine))); }
   .hv-st:not([data-fit="no"]) .hv-st-inner {
     position: absolute; top: 0; bottom: 0; left: 0; display: flex;
-    width: calc(100cqw - 2 * var(--hv-st-spine));
+    width: calc(100cqw - 2 * var(--hv-st-spine)); contain: layout paint;
   }
 
   .hv-st:not([data-fit="no"]) .hv-st-spine {
@@ -249,17 +243,15 @@
     transition: color var(--hv-fast) ease, background var(--hv-fast) ease;
   }
   .hv-st:not([data-fit="no"]) .hv-st-spine:hover { color: var(--hv-ink); background: var(--hv-paper); }
-  .hv-st-sq { width: 9px; height: 9px; background: currentColor; transform: rotate(calc(45deg * (1 - var(--away)))); }
+  .hv-st-sq { width: 9px; height: 9px; background: currentColor; transform: rotate(45deg); }
   .hv-st-spine-label {
     writing-mode: vertical-rl; font-size: 14px; font-weight: 600; letter-spacing: .01em; white-space: nowrap;
-    opacity: clamp(0, max(var(--i) - var(--s), var(--s) - var(--i)) * 2, 1);
   }
+  .hv-st:not([data-fit="no"]) .hv-st-panel:nth-child(1) .hv-st-spine-label { opacity: 0; }
 
   .hv-st:not([data-fit="no"]) .hv-st-content {
     flex: 1; min-width: 0; display: flex; flex-direction: column;
     padding: clamp(22px, 3.4vh, 36px) clamp(28px, 3vw, 48px) clamp(20px, 3vh, 32px);
-    opacity: calc(1 - var(--away) * 1.6);
-    transform: translateX(calc(var(--away) * -10cqw));
   }
   .hv-st:not([data-fit="no"]) .hv-st-head { flex: none; margin-bottom: clamp(16px, 3vh, 30px); }
   /* the rail and spine already name the section: on the stage the h2 is a
@@ -277,7 +269,7 @@
      a raised white cap that springs between rows */
   .hv-st:not([data-fit="no"]) .hv-st-list {
     position: relative; display: flex; flex-direction: column;
-    max-height: 100%; padding: 6px;
+    max-height: 100%; padding: 6px; contain: layout paint;
     background: var(--hv-well); border-radius: 4px; box-shadow: var(--hv-press);
   }
   .hv-st-ind {
@@ -293,34 +285,29 @@
     background: none; border: 0; border-radius: 3px; cursor: pointer;
     transition: color var(--hv-fast) ease;
   }
-  .hv-st-row:hover, .hv-st-row[aria-current] { color: var(--hv-ink); }
+  .hv-st-row:hover, .hv-st-row[data-on] { color: var(--hv-ink); }
   .hv-st-row strong { min-width: 0; font-size: 14.5px; font-weight: 600; line-height: 1.25; }
   .hv-st-row small { grid-column: 2; font-size: 12.5px; font-weight: 500; line-height: 1.4; color: var(--hv-ink-3); }
   .hv-st-row-logo { display: grid; place-items: center; grid-row: span 2; color: var(--hv-ink); }
   .hv-st-row-logo svg { display: block; width: 20px; height: 20px; }
   .hv-st-icon { display: grid; place-items: center; grid-row: span 2; color: var(--hv-ink-3); transition: color var(--hv-fast) ease; }
-  .hv-st-row[aria-current] .hv-st-icon { color: var(--hv-ink); }
+  .hv-st-row[data-on] .hv-st-icon { color: var(--hv-ink); }
   .hv-st-icon svg { width: 16px; height: 16px; }
   .hv-st-mark { width: 8px; height: 8px; background: currentColor; }
   .hv-st-group { flex: none; display: block; padding: 10px 12px 4px; font-size: 12.5px; font-weight: 600; color: var(--hv-ink-3); }
   .hv-st-row + .hv-st-group { margin-top: 6px; border-top: 1px solid var(--hv-line); padding-top: 12px; }
 
-  /* the details share one cell; the active one rises in, the rest wait
-     above or below depending on direction */
+  /* the details share one cell. The engine scrubs opacity, rise and the
+     media wipe from the same eased position as the list cap (no CSS
+     transitions: skipping many items stays continuous). Pre-hydration, the
+     first item rests on. Sprite previews pause unless their detail shows. */
   .hv-st:not([data-fit="no"]) .hv-st-detail { display: grid; }
   .hv-st:not([data-fit="no"]) .hv-st-detail > * {
     grid-area: 1 / 1; margin: 0; padding: 0; border: 0;
-    opacity: 0; visibility: hidden; transform: translateY(14px);
-    transition: opacity var(--hv-fast) ease, transform var(--hv-med) var(--hv-ease), visibility 0s linear var(--hv-med);
+    opacity: 0; visibility: hidden;
   }
-  .hv-st:not([data-fit="no"]) .hv-st-detail > [data-pos="before"] { transform: translateY(-14px); }
-  .hv-st:not([data-fit="no"]) .hv-st-detail > [data-pos="on"] {
-    opacity: 1; visibility: visible; transform: none;
-    transition: opacity var(--hv-med) var(--hv-ease) 80ms, transform var(--hv-slow) var(--hv-ease) 40ms, visibility 0s;
-  }
-  .hv-st:not([data-fit="no"]) .hv-st-detail .hv-st-media { clip-path: inset(0 0 100% 0); transition: clip-path var(--hv-slow) var(--hv-ease); }
-  .hv-st:not([data-fit="no"]) .hv-st-detail [data-pos="before"] .hv-st-media { clip-path: inset(100% 0 0 0); }
-  .hv-st:not([data-fit="no"]) .hv-st-detail [data-pos="on"] .hv-st-media { clip-path: inset(0); }
+  .hv-st:not([data-fit="no"]) .hv-st-detail > :first-child { opacity: 1; visibility: visible; }
+  .hv-st[data-mode="stage"] .hv-st-detail > :not([data-live]) [data-media-kind="sprite-preview"] { animation-play-state: paused; }
 
   /* experience: head and summary up top, the dated hairline on the plate floor */
   .hv-st:not([data-fit="no"]) .hv-st-exp { display: flex; flex-direction: column; padding-top: 4px; }
@@ -378,7 +365,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hv-st-tab-sq, .hv-st-chev, .hv-st-contact a, .hv-st-icon, .hv-st-step { transition-duration: 0s; }
-  /* instant swaps on the stage: no rise-in, no wipe, no delays */
-  .hv-st .hv-st-detail > *, .hv-st .hv-st-detail .hv-st-media { transition: none !important; }
   .hv-st-media [data-media-kind="sprite-preview"] { animation: none; }
 }
