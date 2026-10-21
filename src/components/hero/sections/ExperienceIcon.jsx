@@ -71,7 +71,22 @@ const icons = {
   insurance: InsuranceIcon,
 };
 
+/* Raster marks for organizations whose logo is a picture, not a glyph.
+   Square, transparent PNGs cut from each brand's own logo. */
+const images = {
+  matrixpower: "/experience/matrix-power.png",
+  hbsa: "/experience/hbsa.png",
+};
+
 export default function ExperienceIcon({ icon }) {
+  if (images[icon]) {
+    return (
+      <span className={`ah-experience-logo ${icon}`} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element -- a 128px decorative mark; next/image adds nothing here */}
+        <img src={images[icon]} alt="" width="128" height="128" decoding="async" />
+      </span>
+    );
+  }
   const Icon = icons[icon] ?? PowerIcon;
 
   return (

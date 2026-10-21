@@ -79,7 +79,7 @@ html:has(.hv-root) body { background: #eef0ee; margin: 0; }
   padding: clamp(18px, 3vw, 30px) var(--hv-gutter);
   font-size: 14px; font-weight: 600; color: var(--hv-ink);
 }
-.hv-topbar > span:last-child { font-weight: 500; color: var(--hv-ink-2); }
+.hv-topbar > :last-child:not(:first-child) { font-weight: 500; color: var(--hv-ink-2); }
 .hv-dot {
   display: inline-block; width: 7px; height: 7px; margin-right: 9px; vertical-align: 1px;
   background: var(--hv-accent); transform: rotate(45deg);

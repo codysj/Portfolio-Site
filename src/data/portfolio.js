@@ -64,7 +64,7 @@ export const experience = {
   items: [
     {
       company: "Matrix Power",
-      icon: "power",
+      icon: "matrixpower",
       role: "AI Research Intern",
       period: "Jun 2026 — Present",
       summary:
@@ -89,7 +89,7 @@ export const experience = {
     },
     {
       company: "Haas Business Student Association",
-      icon: "education",
+      icon: "hbsa",
       role: "Director of Technology",
       period: "Sep 2025 — Present",
       summary:
