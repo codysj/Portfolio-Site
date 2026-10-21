@@ -23,6 +23,9 @@ function Face({ status }) {
 
 export default function Minesweeper() {
   const [game, setGame] = useState(() => newGame()), [ready, setReady] = useState(false);
+  // The HTML board is a fallback for a failed WebGL scene, never a loading placeholder:
+  // while the scene loads the field stays quiet, then the canvas fades in on its first frame.
+  const [failed, setFailed] = useState(false);
   const [active, setActive] = useState(119), [elapsed, setElapsed] = useState(0), [announcement, announce] = useState('First move is safe.');
   const state = useRef(game), scene = useRef(null), anchor = useRef(null), api = useRef(null), grid = useRef(null), buddy = useRef(null);
   const keyboardFocus = useRef(false);
@@ -48,10 +51,10 @@ export default function Minesweeper() {
       if (cancelled) return;
       try {
         api.current = mountWorld(scene.current, { anchor: anchor.current, buddy: buddy.current, action, pointer: () => { keyboardFocus.current = false; },
-          fail: () => { api.current = null; setReady(false); }, ready: () => setReady(true) });
+          fail: () => { api.current = null; setReady(false); setFailed(true); }, ready: () => { setFailed(false); setReady(true); } });
         api.current.apply(publicBoard(state.current), state.current.status, state.current.event, state.current.generation);
-      } catch { setReady(false); }
-    }).catch(() => { if (!cancelled) setReady(false); });
+      } catch { setReady(false); setFailed(true); }
+    }).catch(() => { if (!cancelled) { setReady(false); setFailed(true); } });
     return () => { cancelled = true; api.current?.dispose(); api.current = null; };
   }, [action]);
   useEffect(() => {
@@ -94,7 +97,7 @@ export default function Minesweeper() {
     e.preventDefault(); setActive(index); api.current?.focus(index);
   }
   const cells = publicBoard(game), remaining = MINES - game.flagged.filter(Boolean).length;
-  return <section className={`hv-ms-game${ready ? ' hv-ms-live' : ''}`} aria-label="Minesweeper">
+  return <section className={`hv-ms-game ${ready ? 'hv-ms-live' : failed ? 'hv-ms-fallback' : 'hv-ms-loading'}`} aria-label="Minesweeper">
     <div ref={scene} className="hv-ms-scene" aria-hidden="true" />
     <div className="hv-ms-shade" aria-hidden="true" />
     <div ref={anchor} className="hv-ms-anchor">
