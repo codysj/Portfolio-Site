@@ -1,282 +1,395 @@
 ---
-name: Cody Jung Portfolio
-description: A dark, moonlit single-page portfolio with a playable 3D Minesweeper workbench as its hero.
+name: Cody Jung Portfolio, White Relief
+description: A light, matte single-page portfolio. A playable 3D Minesweeper relief, lit white by one upper-left lamp, opens onto a Scroll Stage of sliding paper plates for Experience, Projects & Open Source and About.
 colors:
-  page-floor: "#070a09"
-  forest-night: "#0a1210"
-  moss-shadow: "#101b17"
-  moonlit-paper: "#eceae2"
-  lichen: "#a4afa6"
-  branch: "#6b7e71"
-  lamplight: "#e3d7b7"
-  sage: "#91af98"
-  pale-sage: "#b3ccb6"
-  moonlit-leaf: "#bad6ae"
-  sage-wash: "#9ad3b0"
-  tile-sage: "#aabeb0"
-  tile-opened: "#233b38"
-  voxel-wall: "#111e1a"
-  wall-glow: "#7fad8d"
-  coral-flag: "#cc483d"
+  ground: "#eef0ee"
+  tile: "#f7f8f7"
+  paper: "#ffffff"
+  well: "#e4e8e6"
+  ink: "#15191a"
+  ink-secondary: "#3b4342"
+  ink-muted: "#5a6361"
+  line: "rgba(21, 25, 26, 0.12)"
+  line-strong: "rgba(21, 25, 26, 0.22)"
+  accent: "#0b6e5a"
+  accent-wash: "#d3e8e0"
+  shade: "#20282c"
+  coral: "#e0533f"
   buddy-yellow: "#ffd12f"
-  counter-brass: "#e5c781"
-  yc-orange: "#ff6600"
-  number-1: "#a1d7f3"
-  number-2: "#91d4a3"
-  number-3: "#f09983"
-  number-4: "#c2afea"
-  number-5: "#efbc83"
-  number-6: "#8ce0d5"
-  number-7: "#e7d9b7"
-  number-8: "#d2d8db"
+  scrollbar-thumb: "#a3aca9"
+  scene-clear: "#e9ecea"
+  scene-tile: "#f4f6f5"
+  scene-socket: "#8a9390"
+  loss-cell: "#f6c9c0"
+  wrong-mark: "#d9472f"
+  count-1: "#1f68a8"
+  count-2: "#23804a"
+  count-3: "#c8432e"
+  count-4: "#5a3fae"
+  count-5: "#a85a0c"
+  count-6: "#0f7a74"
+  count-7: "#6b5a2e"
+  count-8: "#4a5357"
 typography:
   display:
-    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
+    fontFamily: "Albert Sans, system-ui, sans-serif"
     fontSize: "clamp(2.5rem, 4.1vw, 4.3rem)"
-    fontWeight: 300
-    lineHeight: 1.04
-    letterSpacing: "-0.015em"
+    fontWeight: 600
+    lineHeight: 1.03
+    letterSpacing: "-0.035em"
   headline:
-    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
-    fontSize: "clamp(1.9rem, 4vw, 3rem)"
-    fontWeight: 300
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "clamp(1.7rem, 2.3vw, 2.4rem)"
+    fontWeight: 600
+    lineHeight: 1.05
+    letterSpacing: "-0.032em"
+  section-label:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 600
+    lineHeight: 1.05
+    letterSpacing: "-0.01em"
   title:
-    fontFamily: "Newsreader, Georgia, 'Times New Roman', serif"
-    fontSize: "1.35rem"
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "clamp(1.6rem, 2.3vw, 2.2rem)"
+    fontWeight: 600
+    lineHeight: 1.12
+    letterSpacing: "-0.025em"
+  title-project:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "clamp(1.35rem, 1.8vw, 1.75rem)"
+    fontWeight: 600
+    lineHeight: 1.12
+    letterSpacing: "-0.025em"
+  item-title:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "18px"
+    fontWeight: 600
+    lineHeight: 1.3
+    letterSpacing: "-0.015em"
+  lead:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "clamp(1.2rem, .5rem + 1.6vh, 1.6rem)"
     fontWeight: 400
-    lineHeight: 1.2
-  body-lead:
-    fontFamily: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
-    fontSize: "clamp(0.84rem, 1.04vw, 0.97rem)"
-    fontWeight: 400
-    lineHeight: 1.85
+    lineHeight: 1.6
+    letterSpacing: "-0.008em"
   body:
-    fontFamily: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
-    fontSize: "0.9rem"
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "16px"
     fontWeight: 400
-    lineHeight: 1.75
-  label:
-    fontFamily: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
-    fontSize: "12px"
+    lineHeight: 1.6
+    fontFeature: "tnum"
+  body-small:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "15px"
     fontWeight: 400
-    letterSpacing: "0.3em"
+    lineHeight: 1.62
+  row:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "14.5px"
+    fontWeight: 600
+    lineHeight: 1.25
   button:
-    fontFamily: "'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace"
-    fontSize: "10px"
-    fontWeight: 400
-    letterSpacing: "0.12em"
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "15px"
+    fontWeight: 600
+    letterSpacing: "-0.005em"
+  label:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "14px"
+    fontWeight: 600
+    lineHeight: 1.25
+  chip:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "12.5px"
+    fontWeight: 600
+    lineHeight: 1.5
+  counter:
+    fontFamily: "Albert Sans, system-ui, sans-serif"
+    fontSize: "clamp(18px, 2vw, 29px)"
+    fontWeight: 600
+    letterSpacing: "0.06em"
+    fontFeature: "tnum"
 rounded:
   hairline: "2px"
-  card: "3px"
-  round: "50%"
+  sm: "3px"
+  md: "4px"
+  disc: "50%"
 spacing:
-  gutter: "clamp(24px, 7vw, 120px)"
-  section: "clamp(70px, 10vw, 150px)"
-  stack: "42px"
-  card: "26px"
-  grid-gap: "18px"
+  gutter: "clamp(16px, 4.5vw, 86px)"
+  peek: "76px"
+  max: "1320px"
+  spine: "56px"
+  scroll-unit: "50svh"
+  touch: "44px"
+  control: "48px"
 components:
   button-primary:
-    backgroundColor: "rgba(154, 211, 176, 0.12)"
-    textColor: "{colors.pale-sage}"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
     typography: "{typography.button}"
-    rounded: "{rounded.hairline}"
-    padding: "14px 18px"
-  button-primary-hover:
-    backgroundColor: "rgba(154, 211, 176, 0.2)"
+    rounded: "{rounded.sm}"
+    padding: "0 20px"
+    height: "48px"
   button-ghost:
-    backgroundColor: "transparent"
-    textColor: "{colors.lichen}"
+    backgroundColor: "{colors.tile}"
+    textColor: "{colors.ink}"
     typography: "{typography.button}"
-    rounded: "{rounded.hairline}"
-    padding: "14px 18px"
-  button-ghost-hover:
-    textColor: "{colors.moonlit-paper}"
+    rounded: "{rounded.sm}"
+    padding: "0 20px"
+    height: "48px"
+  button-repo:
+    backgroundColor: "{colors.tile}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.sm}"
+    padding: "0 16px"
+    height: "44px"
+  button-step:
+    backgroundColor: "{colors.tile}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.sm}"
+    padding: "0 16px"
+    height: "44px"
+  button-step-disabled:
+    textColor: "{colors.ink-muted}"
+  social-link:
+    textColor: "{colors.ink-secondary}"
+    rounded: "{rounded.md}"
+    padding: "10px"
+    size: "40px"
   chip:
-    backgroundColor: "rgba(154, 211, 176, 0.06)"
-    textColor: "{colors.pale-sage}"
-    rounded: "{rounded.hairline}"
-    padding: "5px 10px"
-  project-card:
-    backgroundColor: "rgba(255, 255, 255, 0.012)"
-    textColor: "{colors.moonlit-paper}"
-    rounded: "{rounded.card}"
-    padding: "{spacing.card}"
-  card-nav:
-    backgroundColor: "rgba(11, 17, 14, 0.66)"
-    textColor: "{colors.pale-sage}"
-    rounded: "{rounded.round}"
-    size: "42px"
-  company-badge:
-    backgroundColor: "{colors.yc-orange}"
-    textColor: "#ffffff"
-    rounded: "{rounded.hairline}"
-    height: "16px"
-  buddy:
-    backgroundColor: "{colors.buddy-yellow}"
-    rounded: "{rounded.round}"
-    size: "65px"
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink-secondary}"
+    typography: "{typography.chip}"
+    rounded: "{rounded.sm}"
+    padding: "3px 9px"
+  badge-company:
+    backgroundColor: "{colors.accent-wash}"
+    textColor: "{colors.accent}"
+    rounded: "{rounded.sm}"
+    padding: "2px 8px"
+  rail-tab:
+    textColor: "{colors.ink-muted}"
+    typography: "{typography.label}"
+    height: "50px"
+  rail-tab-current:
+    textColor: "{colors.ink}"
+  stage-plate:
+    backgroundColor: "{colors.paper}"
+    rounded: "{rounded.md}"
+  stage-spine:
+    backgroundColor: "{colors.tile}"
+    textColor: "{colors.ink-secondary}"
+    width: "56px"
+  stage-spine-hover:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+  list-well:
+    backgroundColor: "{colors.well}"
+    rounded: "{rounded.md}"
+    padding: "6px"
+  list-indicator:
+    backgroundColor: "{colors.paper}"
+    rounded: "{rounded.sm}"
+  list-row:
+    textColor: "{colors.ink-secondary}"
+    typography: "{typography.row}"
+    padding: "7px 12px"
+    height: "50px"
+  logo-tile:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    size: "48px"
+  edu-callout:
+    backgroundColor: "{colors.well}"
+    textColor: "{colors.ink-secondary}"
+    rounded: "{rounded.sm}"
+    padding: "20px 22px"
 ---
 
-# Design System: Cody Jung Portfolio
+# Design System: Cody Jung Portfolio, White Relief
+
+> **Scope.** This is the design system for the home page at `/`: `src/app/page.tsx` renders `HomeV2Shell` (`src/components/home-v2/`) with the white Three.js hero (`hero/`) and the Scroll Stage (`directions/stage/`). `/home-v2` now redirects to `/`. Classes are prefixed `hv-` (Stage: `hv-st-`, board: `hv-ms-`), and page-level overrides are scoped with `html:has(.hv-root)`. The 404 page still renders the retired dark `ah-` styles from `src/components/hero/hero.css`. It is not part of this system.
 
 ## Overview
 
-**Creative North Star: "The Moonlit Workbench"**
+**Creative North Star: "The White Relief"**
 
-The site is a workbench seen at night: built, tactile objects lit by soft moonlight and one warm lamp. The hero is the workbench itself, a finite sage Minesweeper board set into a dark green voxel wall. Visitors can press it, flag it and reset it, and they can also ignore it and keep scrolling. Everything below the hero is the bench's notebook: quiet serif headings, monospaced annotations, hairline rules and measured numbers.
+The whole page is one matte white surface lit by a single lamp in the upper left. Things are told apart by height, not by color: the Minesweeper board is made of the same white tiles as the wall around it, so the only way you see the board is the relief and the shadows it casts. Everything below the hero follows the same rule. Controls sit raised like unrevealed tiles, the list of roles and projects is a recessed well like a revealed cell, the live row is a white cap riding in that well, and every shadow falls down and to the right.
 
-The craft is meant to be visible but never loud. Depth and material belong to the 3D scene (beveled solid geometry, warm diffuse light, restrained shadows). The HTML layer stays flat, dark and translucent, so it reads like light falling on the bench, not like objects competing with it. Color is almost all moonlit green-gray. Warmth comes in small, deliberate doses: the italic accent word, the brass counters, the yellow buddy disc and the coral flags.
+The content is light and editorial: one sans family, cool graphite ink on cool off-white, plenty of room around it. Motion is physical and quiet. Values follow damped springs (`springStep` in `motion.js`), hover lifts are a pixel or two, and the one large moment, paper plates sliding out from their spines as you scroll, reuses the same one-light model. Color is held back. One deep teal marks live state. Coral and yellow appear only as game meaning (flags, loss, the reset smiley).
 
-Density is low and the pace is calm. Sections breathe on generous fluid padding, text measures stay between 48 and 68 characters, and motion is limited to short entrances, small lifts on hover and the game's own feedback.
+Experience, Projects & Open Source, and About live in one instrument, the Scroll Stage, inside `main#work`. Native scroll drives it; it never captures the wheel. The brass, dark "workbench" look of the previous site was explicitly rejected and is not a reference.
 
 **Key Characteristics:**
-- Dark only. A deep forest-night gradient runs from the hero down to the page floor.
-- Newsreader light serif for anything that is named; IBM Plex Mono for everything that is read or labeled.
-- Sage-tinted translucent fills with hairline borders. No solid UI color blocks.
-- Nearly square corners (2–3px). Circles are reserved for objects you press (the buddy disc, card arrows, the status dot).
-- One tactile 3D object (the board) carries all the depth; the HTML stays flat.
+- A light, matte relief world: the hero's playable 16x16 board is lit white and sits flush in a white voxel wall.
+- One upper-left light source, shared by the Three.js key light and every CSS shadow.
+- Depth comes from relief: raised caps, recessed wells, pressed states. Fills and borders do very little.
+- A single teal accent for live state only. No gradients as decoration, no glow, no bloom.
+- Spring physics for every animated value, with a reduced-motion path that keeps the feedback and drops the motion.
 
 ## Colors
 
-A low-chroma moonlit green-gray palette, with a few warm notes rationed to the hero and the game.
+The palette is cool, low-chroma neutrals graded by height, plus one teal for live state and a small set of game colors.
 
 ### Primary
-- **Pale Sage** (pale-sage): Interactive text: primary button labels, chips, card links, card-nav arrows, and the eyebrow line. If a piece of text can be clicked or is a stack/meta label, it's usually Pale Sage.
-- **Sage Wash** (sage-wash): Never solid. Used only at low alpha: button fill at 12% (20% on hover), button border at 45%, chip fill at 6% and border at 28%, card hover border at 40%, and the soft hover glow.
-- **Moonlit Leaf** (moonlit-leaf): The focus and "live" color: every `:focus-visible` outline, the status dot with its 10px glow, and hover states that reach full intensity (card link, card arrows).
+- **Deep Lagoon Teal** (`accent`): the only live-state color. It marks the current rail tab (its fill bar and rotated-square marker), focus rings, the 3D focus ring on the board, the topbar status dot, the caret, and the company badge text (for example "YC W25"). 5.4:1 on ground.
+- **Teal Wash** (`accent-wash`): text selection, and the company badge background.
 
-### Secondary
-- **Sage** (sage): Quiet structure: section tags, card indices, experience roles, education line, feature-list chevrons, and the card toggle cross.
-- **Lamplight** (lamplight): The only warm note in the HTML layer. Reserved for the italic `<em>` accent word in a display headline.
+### Neutral (graded by height, lowest to highest)
+- **Recessed Well** (`well`): revealed cells, the Stage list wells, chips, the education callout, the media letterbox.
+- **Ground** (`ground`): the page, the wall's far field, the browser scrollbar track, and the sticky rail band in the stacked layout, so pinned controls read as part of the floor.
+- **Tile Face** (`tile`): raised surfaces: ghost and repo buttons, step buttons, Stage spines, fallback board caps.
+- **Paper** (`paper`): the highest surface: Stage plates, the sliding list indicator, logo tiles, the spine on hover.
+- **Graphite Ink** (`ink`): headings, the primary button fill, past-section rail fills, 3D counter numerals. 15.5:1 on ground.
+- **Slate** (`ink-secondary`): body and secondary text, the quiet section label on the stage, flag poles. 8.9:1 on ground.
+- **Pewter** (`ink-muted`): periods, item counters, group labels, idle rail tabs, diamond bullets, the scroll cue. 5.4:1 on ground.
+- **Hairline / Hairline Strong** (`line`, `line-strong`): dividers, button and logo outlines, the rail track.
+- **Shadow Tone** (`shade`): never used as a fill. It is the RGB triplet (`--hv-shade: 32 40 44`) behind every shadow, used as `rgb(var(--hv-shade) / a)`, so shadows are cool grey, never black.
+- **Scrollbar Thumb** (`scrollbar-thumb`): the page scrollbar, over the ground track.
 
-### Tertiary (scene only)
-- **Tile Sage** (tile-sage) / **Tile Opened** (tile-opened): Unrevealed and revealed board tiles.
-- **Voxel Wall** (voxel-wall) with **Wall Glow** (wall-glow): The relief wall that fills the hero and the selective glow under the pointer.
-- **Coral Flag** (coral-flag): Flags, and the hit tile in the accessible fallback.
-- **Buddy Yellow** (buddy-yellow): The thick reset disc companion.
-- **Counter Brass** (counter-brass): Mine and time counters (tabular numbers, no labels).
-- **Number 1–8** (number-1 … number-8): Pastel adjacency numbers: sky, mint, coral, lilac, apricot, aqua, parchment, mist. They stay pastel so they read against Tile Opened without shouting.
-
-### Neutral
-- **Page Floor** (page-floor): The `body` background beneath everything, also the dark end of the section bridge gradient.
-- **Forest Night** (forest-night) / **Moss Shadow** (moss-shadow): The root gradient (Moss Shadow at the top fading to Forest Night by 70%). Moss Shadow also backs project media.
-- **Moonlit Paper** (moonlit-paper): Headings and hover-state text. As `rgba(236,234,226, 0.08–0.16)` it is every hairline divider and ghost border; at 0.72 it is the resting social icon.
-- **Lichen** (lichen): Body copy, summaries, ghost button labels, top bar.
-- **Branch** (branch): The dimmest readable tone: experience periods, the footer label, eyebrow separators.
+### Game semantics (the hero board only)
+- **Signal Coral** (`coral`): flags, the hit cap, loss fragments and the loss ring. **Wrong-flag Red** (`wrong-mark`) is the X on a wrong flag. **Loss Blush** (`loss-cell`) is the hit cell on the fallback board.
+- **Buddy Yellow** (`buddy-yellow`): the smiley reset disc, the only saturated object in the scene.
+- **Count inks** (`count-1` to `count-8`): classic Minesweeper number hues pushed dark enough to read on white, drawn into a canvas glyph atlas.
+- **Scene values** (`scene-clear`, `scene-tile`, `scene-socket`): the WebGL clear color, the cap and wall albedo, and the flag socket.
 
 ### Named Rules
-**The Moonlight Rule.** HTML UI color is sage-tinted and translucent. Fills are `rgba(154,211,176, ≤0.2)` over the dark ground, never a saturated or solid block. Bright color lives only inside the 3D scene.
+**The One Teal Rule.** Teal means "this is live or selected" and nothing else. If it is not the current section, focus, the status dot, or the small company badge, it is not teal.
 
-**The Lamp Rule.** Warm color (Lamplight, Counter Brass, Buddy Yellow, Coral Flag) is rationed: one italic accent word per headline in HTML, and game-state objects in the scene. It is never used for decoration.
+**The Seamless Board Rule.** Board caps and wall voxels share one albedo (`scene-tile`), one size (0.95) and one bevel (0.05). Caps never tint on hover. Lift and shadow carry the affordance. The only cap that changes color is a hit mine (coral).
 
-**The Borrowed Brand Rule.** Third-party brand colors (YC orange `yc-orange`, AfterQuery's black tile, the Mastercard and Google marks) appear only inside their own logo or badge, at logo size.
+**The Cool Shadow Rule.** Every shadow is `rgb(var(--hv-shade) / a)` at 0.08 to 0.30 alpha. Never pure black, never warm.
 
 ## Typography
 
-**Display Font:** Newsreader (with Georgia, Times New Roman), light 300 and regular 400, roman and italic, optical size 6–72
-**Body/Label Font:** IBM Plex Mono (with ui-monospace, SFMono-Regular, Menlo), 400 and 500
+**Display Font:** Albert Sans (via `next/font/google` in `src/app/page.tsx`, exposed as `--hv-font`, with `system-ui, sans-serif` fallback)
+**Body Font:** Albert Sans
+**Label/Mono Font:** none. Numbers use tabular figures (`font-variant-numeric: tabular-nums` on the root).
 
-**Character:** A literary light serif names things; a technical mono explains them. The pairing reads as a well-kept engineering notebook: warm in its headings, exact everywhere else. Running copy is monospaced on purpose, which is why it gets generous line height.
+**Character:** One geometric-grotesque family carries everything, with tight negative tracking at display sizes and plain, generous body text. Weight 600 does the work. Italic appears only as the `em` segment in the hero headline.
 
 ### Hierarchy
-- **Display** (300, clamp(2.5rem, 4.1vw, 4.3rem), 1.04, −0.015em): The hero headline and the 404 headline only. Max 16ch. One italic Lamplight word allowed. Below 1000px it becomes clamp(2.6rem, 6.5vw, 4.1rem); below 600px, clamp(2.25rem, 9vw, 3.1rem).
-- **Headline** (300, clamp(1.9rem, 4vw, 3rem)): Section titles (Selected Experience, Projects, Open Source, About).
-- **Title** (400, 1.35rem, 1.2): Project card names and open-source names. Experience company names use 1.28rem.
-- **Body Lead** (400, clamp(0.84rem, 1.04vw, 0.97rem), 1.85): The hero sub paragraph, max 48ch (57ch below 1000px). The About body uses a sibling style: 1.02rem, line height 1.85, max 62ch.
-- **Body** (400, 0.9rem, 1.75): Experience summaries (max 66ch), card overviews, contribution text (max 68ch). Feature bullets run tighter at 0.86rem / 1.55.
-- **Label** (400, 10–12px, uppercase, 0.12–0.32em tracking): Section tags (12px / 0.3em, Sage), eyebrow (10px / 0.19em, Pale Sage), top bar (10px / 0.18em), buttons and card links (10–12px / 0.12em), footer (12px / 0.16em), periods (0.74rem / 0.08em, Branch).
+- **Display** (`display`): the hero h1 only, max 15ch, balanced wrap, the greeting segment on its own line. Steps to `clamp(2.4rem, 6.5vw, 4rem)` at 1000px and below, and `clamp(2.2rem, 9.4vw, 3rem)` at 600px and below.
+- **Headline** (`headline`): the section h2 in the stacked layout.
+- **Section label** (`section-label`): the same h2 on the pinned stage, demoted to a quiet slate label because the rail and spines already name the section. Company and project names carry the display step there.
+- **Title** (`title`): the company name in an Experience detail on the stage (`clamp(1.35rem, 2vw, 1.9rem)` when stacked).
+- **Title, project** (`title-project`): project names and the Open Source heading. 1.4rem on compact stages.
+- **Item title** (`item-title`): open-source names (scaling to `clamp(1.3rem, .6rem + 1.3vh, 1.6rem)` on the stage).
+- **Lead** (`lead`): the Experience summary on the stage, max 52ch. The About body runs larger on the stage (`clamp(1.4rem, .7rem + 1.8vh, 2rem)`, 1.5). Stacked, both drop to about 1 to 1.3rem at 1.62 to 1.68. The hero subline is `clamp(.95rem, 1.08vw, 1.04rem)` at 1.7, max 48ch.
+- **Body** (`body`, `body-small`): role lines, taglines, overviews and feature lists at 14.5 to 16px, about 1.5 to 1.6, max 52 to 64ch.
+- **Row** (`row`): company and project names in the list well, with a 12.5px pewter period under each company.
+- **Label** (`label`): rail tabs, topbar, periods, item counter, spine labels (13 to 14px, 500 to 600). Never uppercase.
+- **Chip** (`chip`): tech chips and the company badge (12 to 12.5px).
+- **Counter** (`counter`): the HTML fallback for the mine and time counters. In WebGL these become extruded seven-segment numerals.
 
 ### Named Rules
-**The Two Voices Rule.** Newsreader is for names (people, sections, companies, projects). Plex Mono is for everything else, including long-form body copy. Never set a button, label or number in the serif, and never set a heading in mono.
+**The No Kicker Rule.** No eyebrow label above a heading. The legacy `tag` metadata in `content.js` is never rendered. The hero focus areas sit *below* the headline, separated by small rotated squares.
 
-**The Wide Label Rule.** Every uppercase label is tracked out (minimum 0.08em) and kept at 12px or below. Uppercase is never used for sentences.
+**The Sentence Case Rule.** Labels, tabs and buttons are sentence case at weight 600. Hierarchy comes from size and weight, not caps or tracking.
 
 ## Layout
 
-Single column of full-bleed sections on a fluid horizontal gutter (`spacing.gutter`, 24px → 120px). Sections stack with generous vertical padding (`spacing.section`, 70px → 150px). Lists and grids open with a 42px gap below the section heading (`spacing.stack`).
-
-- **Hero (≥1000px):** a two-column grid (0.85fr copy / 1.25fr board) with 26–58px column gap, full viewport height (`100svh`), padding 100px top and 75px bottom on a tighter 24px → 86px gutter. The voxel wall fills the entire header behind both columns, and a left-to-right shade keeps the copy legible.
-- **Hero (<1000px):** copy centered (max 720px), and the complete board below it (max 740px wide, height clamp(390px, 95vw, 730px)) with the shade turned vertical.
-- **Experience:** three-column rows (heading 0.9fr / summary 1.45fr / period auto) divided by hairlines. Below 920px they stack as heading → period → summary.
-- **Projects:** a card grid, 1 → 2 (≥560px) → 4 (≥920px) columns, 18px gap, `align-items: start` so collapsed cards never stretch. The open card spans the full row and jumps to the top (`order: -1`). From 760px up it splits media and details into two columns (1.12fr / 1fr, 40px gap).
-- **Open Source:** two-column rows (0.65fr / 1.35fr) on hairlines, stacking below 600px.
-- **Footer:** a single row with space-between, wrapping, above a hairline.
-
-**The Measure Rule.** Text never runs full width: 16ch for display, 48–68ch for body. Wide viewports get more air, not longer lines.
+- **Root tokens:** side gutter `gutter`, content max width `max`, and a `peek` of 76px. The hero is `100svh - 76px` tall, so the top of the instrument always shows at the fold.
+- **Hero:** a two-column grid (`.85fr` copy / `1.25fr` board), gap `clamp(26px, 3vw, 58px)`, top padding 100px for the absolute topbar (brand left, status right). The WebGL scene fills the whole header behind both columns. A left-to-right ground veil (0.94 to transparent by 72%, plus a bottom fade into the ground) keeps the copy at AA contrast over the wall. At 1000px and below it becomes a single column: copy (max 720px) above a board anchor of `clamp(390px, 95vw, 730px)`, and the veil turns vertical.
+- **Board anchor:** `clamp(470px, 100svh - 160px - peek, 740px)` tall. The camera fits the 16x16 board plus the counter row into it.
+- **Scroll Stage, pinned** (at least 1024 wide and 680 tall, when every section fits): a tall track of `100svh + units x scroll-unit` holds a sticky full-viewport stage. Inside it, top to bottom: the rail (three equal tabs on one hairline), the deck (flex 1, a size container), and a 76px foot with the step buttons on the left. The deck lays three plates edge to edge; inactive plates fold to 56px spines. Section bodies are two-column grids: a list well (`minmax(250px, 300px)` for Experience, `minmax(210px, 250px)` for Projects) beside the detail cell, gap `clamp(28px, 3.6vw, 64px)`. At 1400px wide or 860px tall and below, the stage compacts: shorter rail and foot (46px, 64px), tighter plate padding, a narrower project list and smaller project type.
+- **Scroll Stage, stacked** (below the threshold, or `data-fit="no"` when any detail would overflow its plate): the same DOM becomes paper panels 20px apart under a sticky rail on a ground band. The rail is `1fr / 1.7fr / .7fr` below 900px, equal thirds above, and "Projects & Open Source" shortens to "Projects" below 600px. Details stack in reading order with 28px hairline separators (24px at 600px and below). Projects reorder on phones (title and tagline, then media, then the long read) and become a two-column grid from 720px.
+- **Footer:** a hairline top border, max 1320px, 40px over 88px of padding.
+- **Breakpoints in use:** 600 (599), 700 (scene DPR and shadow size), 720, 900, 1000, 1024x680 (the stage threshold), and 1400 or 860-tall (stage compaction).
+- **Touch targets:** 44px minimum on rows, repo, step and contact links, 48px on hero CTAs, 40px on social icons, 50 to 52px on rail tabs.
 
 ## Elevation & Depth
 
-The HTML layer is flat. Depth comes from tonal layering (the root gradient, a 1.2% white wash on cards, Moss Shadow behind media) and from hairline borders. Real dimensionality belongs only to the 3D scene, which has softly beveled solid geometry, warm key/fill/ambient light (3.4 / 1.5 / 1.7, exposure 1.05) and restrained shadows. Glows exist but are small, sage-colored and appear only in response to state.
+This system uses real shadows with one direction of light. Light comes from the upper left, so every shadow is offset down and to the right with a soft blur, and a press is an inset shadow from the same direction. Surfaces step up from `well` to `ground` to `tile` to `paper`, and the shadows confirm the height.
 
 ### Shadow Vocabulary
-- **Hover glow** (`box-shadow: 0 0 26px rgba(154,211,176,0.22)`): The primary button on hover, and nowhere else.
-- **Status pip** (`box-shadow: 0 0 10px #bad6ae`): The 7px "Seeking Summer 2027" dot.
-- **Counter lift** (`text-shadow: 0 2px 12px #050a08`): Keeps the brass counters readable against the wall.
-- **Logo ring** (`box-shadow: 0 0 0 1px rgba(236,234,226,0.1)`): Edges dark logo tiles (AfterQuery) against the ground.
+- **Lift 1** (`--hv-lift-1`: `1px 1px 2px rgb(shade/.14), 2px 4px 10px rgb(shade/.08)`): resting raised controls: buttons, step buttons, logo tiles, the list indicator.
+- **Lift 2** (`--hv-lift-2`: `1px 2px 3px rgb(shade/.16), 4px 10px 22px rgb(shade/.12)`): hover on raised controls, stacked panels, resting stage plates, project media.
+- **Plate in flight** (engine-written): Lift 2 whose outer layer grows with `fly` (0 at rest, 1 mid-slide) to `12px 18px 44px` at 0.19 alpha, so a moving plate's edge throws a deeper shadow onto its neighbor.
+- **Press** (`--hv-press`: `inset 1px 2px 3px rgb(shade/.18)`): button `:active` (80ms), list wells, the education callout.
+- **Rail band** (`0 10px 14px -14px rgb(shade/.5)`): the stacked sticky rail, a thin shadow line under the floor-colored band.
+- **Marker** (`1px 2px 3px rgb(shade/.3)`): the current rail tab's teal diamond.
+- **Buddy** (`2px 3px 6px rgb(shade/.22), 6px 10px 22px rgb(shade/.14)`): the fallback smiley disc.
+- `--hv-lift-3` is defined on the root but not used on this page.
+
+### The hero scene (Three.js)
+The hero is a real-time WebGL relief (`hero/minesweeper/runtime.js`, `world.js`, `config.js`, `pipeline.js`):
+
+- **Renderer:** `WebGLRenderer`, sRGB output, **Neutral tone mapping** at exposure 1, clear color `scene-clear`. DPR is capped at 1.4 on desktop and 1.25 under 700px, with a 1.6M-pixel budget.
+- **Camera:** an orthographic camera at z=32 that always looks at the origin. Its position drifts with the pointer (parallax 2.5) and scroll (2.4) through an exponential ease, and is frozen under reduced motion or while the user is interacting with the board.
+- **Lights:**
+  - `HemisphereLight`, white sky over a cool grey ground (`#c3cbc8`), intensity 1.6: the ambient lift that keeps the white from going grey.
+  - Key `DirectionalLight` in warm white (`#fffaf2`), intensity 2.5, from `(-9, 11, 13)` normalized to distance 60. The upper-left lamp and the only shadow caster: map 2048 (1024 under 700px), `normalBias 0.02`, `bias -0.0004`, `radius 4`, **`shadow.intensity 0.82`** so shadows never go fully dark. The shadow frustum is resized to the visible wall on every resize.
+  - Fill `DirectionalLight` in cool `#e8eef2`, intensity 0.55, from the lower right `(9, -3, 10)`. No shadow; it only softens shadowed sides.
+- **Materials:** `MeshStandardMaterial`, roughness 0.7, metalness 0.025. Matte, no specular sheen.
+- **Geometry:** board caps are `RoundedBoxGeometry` (0.95 x 0.95 x 0.43, bevel 0.05). Revealed floors are thin recessed slabs (0.94 x 0.94 x 0.08) in `well`. The wall uses the same lattice: flush at the board edge, then relief builds outward through `smoothstep(..., 0, 4)` to up to 1.5 units of seeded depth, with a per-voxel shade of 0.975 to 1.0.
+- **Post:** `EffectComposer` with a RenderPass, then **SMAA only if MSAA (up to 4x) is unavailable**, then OutputPass. HalfFloat targets when `EXT_color_buffer_float` is available. **No bloom**: on a white field any halo washes the tiles out.
+- **Depth motion:** hovered caps lift 0.19 (neighbors 0.065) on a spring (stiffness 145, damping 20), and a press sinks 0.13. Wall voxels near the cursor rise up to 0.48. Reveals stagger outward from the clicked cell (up to 0.34s). Loss, win and reset send a radial wave (speed 10, width 1.4) through caps and wall; loss adds 48 coral fragments and a faint coral ring.
 
 ### Named Rules
-**The Flat-Page Rule.** HTML surfaces have no drop shadows at rest. A shadow or glow appears only as a response to state (hover, live status) or to keep scene-overlaid text legible.
+**The Single Lamp Rule.** One light, upper left, everywhere: CSS shadow offsets are always zero or positive x and positive y, and the 3D key light is the only shadow caster.
 
-**The One Object Rule.** The board is the only object with physical depth. New UI never imitates it with fake bevels or 3D effects in CSS.
+**The Raised Means Available, Recessed Means Chosen Rule.** An actionable control is a raised cap (tile or paper with lift). The list that holds a choice is a recessed well, and the current choice is the white cap riding inside it. Selection is never a color fill alone.
 
 ## Shapes
 
-Edges are nearly square. Buttons, chips and badges use a 2px hairline radius (`rounded.hairline`); cards and media frames use 3px (`rounded.card`). Full circles (`rounded.round`) are reserved for things you physically press or that signal life: the yellow buddy disc, the card prev/next arrows and the status pip. Borders are always 1px hairlines in Moonlit Paper or Sage Wash at low alpha. Card media clips to its 3px frame. Small marks carry the geometry: a "›" chevron for feature bullets, a 13 × 1.5px "+" that rotates into "×" for the card toggle, and a 1px fading bar for the scroll cue.
+The corners are small and squarish, like machined tiles: 2px for focus outlines and fallback board cells, 3px for buttons, chips, media, the list indicator and the education callout, and 4px for plates, logo tiles, list wells and social-link hovers. The only circle is the buddy disc. The recurring motif is the **rotated square**: the topbar status dot, the hero focus separators, diamond feature bullets, the spine marker (a diamond that flattens to a square as its plate is covered), and the rail marker (an outlined square, filled when past, a teal diamond when current). The board's 3D focus ring is a four-segment torus, the same diamond.
 
 ## Components
 
+### Shell (`HomeV2Shell`)
+*A quiet frame around one loud object.* It renders the hero, then `main#work` holding the Scroll Stage, then the footer. Root tokens live on `.hv-root` (`isolation: isolate`, `overflow-x: clip`). Focus is a 2px teal outline offset 3px. Links underline at 0.22em offset, 1px thick; footer and contact links reveal the underline on hover.
+
 ### Buttons
-Precise and quietly luminous: they are lit edges rather than solid slabs.
-- **Shape:** Hairline radius (2px), 1px border, inline-flex with a 10px icon gap. Labels are uppercase mono at 10px / 0.12em.
-- **Primary:** Sage Wash at 12% fill, 45% border, Pale Sage text, padding 14px 18px (13px 15px under 600px).
-- **Primary Hover:** Fill rises to 20%, border to Moonlit Leaf, the hover glow appears, and the button lifts 1px. A trailing arrow slides 3px right.
-- **Ghost:** Transparent with a 16% Moonlit Paper border and Lichen text. On hover the text turns Moonlit Paper, the border rises to 40% and the button lifts 1px.
-- **Focus:** A 2px Moonlit Leaf outline at 3px offset, on every button. Transitions run 0.25s ease.
+- **Shape:** gently squared (3px), 1px border, 48px tall in the hero, 44px in the stage.
+- **Primary:** graphite fill, white text, an arrow that slides 3px on hover. Used for "View Selected Work" in the hero and the resume link in About.
+- **Ghost / Repo:** tile face with a hairline border. Repo buttons carry a GitHub mark, "View on GitHub" and a trailing arrow.
+- **Hover / Active:** lift -2px to Lift 2 on hover; on `:active` they drop back and press (80ms). Transitions run 420ms on the exponential ease-out.
+- **Step (Previous / Next):** tile face, Lift 1, -1px and Lift 2 on hover with the arrow nudging 2px outward. Disabled steps go flat and pewter.
 
-### Chips
-- **Style:** Tech-stack chips: 11px mono / 0.06em, Pale Sage on a 6% Sage Wash fill with a 28% border, 2px radius, 5px 10px padding, no wrapping.
-- **State:** Static. Chips label things and are never interactive.
+### Chips and badge
+- **Chips:** `well` fill, slate text, 3px radius, 12.5px at 600.
+- **Company badge:** teal on teal wash, 12px, inline after the company name (for example "YC W25").
 
-### Cards / Containers (expandable project card)
-- **Corner Style:** 3px.
-- **Background:** A 1.2% white wash over the ground. Media sits on Moss Shadow inside its own 1px hairline frame.
-- **Shadow Strategy:** None (see the Flat-Page Rule).
-- **Border:** 1px hairline at 10% Moonlit Paper. It turns Sage Wash 40% on hover and while open.
-- **Internal Padding:** 26px.
-- **Behavior:** The whole header is a button. The open card spans the row, moves to the top, centers its body, and shows prev/next circular arrows (42px, 66% dark fill, slight 4px blur) in the side gutters. Framer Motion animates the size change. Collapsed cards keep a constant size so the reshuffle slides without stretching. Preview motion uses stepped sprite sheets, not GIFs, and stops under reduced motion.
+### Hero (`HeroContent`, `Minesweeper`)
+- **Copy:** brand and status topbar (status after a teal rotated-square dot), the h1, focus areas joined by rotated squares, the subline, a row of 40px social icons (hover: ink, a 6% shade wash, -1px), then CTAs. The entrance is a staggered `hv-fadeup` (14px rise, 0.9s, ease-out-expo) with delays from 0.05s to 0.8s, plus a pulsing scroll cue.
+- **CTAs:** the primary button scrolls to `#work` and fires the `hv:section` event with `"projects"`; the Stage jumps to Projects. The ghost button links to the resume.
+- **Board:** the WebGL scene described under Elevation. HTML `output` counters and the yellow smiley button are positioned over the projected 3D points and become transparent once the scene is live (`.hv-ms-live`). Game rules come unchanged from `game.mjs`. The fallback board (no WebGL) is CSS: tile caps with an inset highlight and a down-right shadow, revealed cells recessed in `well`, SVG marks. Keyboard: arrow keys, Home/End, Enter/Space, F. Touch: tap, hold to flag, two-finger pan or zoom.
 
-### Lists (experience and open-source rows)
-- Hairline-divided rows, never boxed. The heading cluster pairs a 28px logo slot (Pale Sage line icons, or a brand tile where the company requires it) with a serif company title and a Sage mono role. Periods are right-aligned uppercase in Branch. The YC badge is a 16px orange tag at 9px / 500 weight.
+### Scroll Stage (`ScrollStage`)
+*Scroll moves you through it, like a slide deck that lives in the page.*
+- **Timeline:** native scroll position is read, never captured, and mapped to units of half a viewport (`scroll-unit`). Each list item holds one unit (Projects counts Open Source as one more item), and each section change spends half a unit. A critically damped spring (stiffness 170, damping 26) chases the scroll target. One proximity scroll-snap point per stop gives every rest state a settled plate, never two plates half-slid.
+- **Engine:** one engine owns every moving value. Each frame it writes inline styles on only the dozen elements that move, and only when a value changed. It never writes an inherited custom property, so the deck is not restyled per frame. React state (`aria-current`, `inert`, step buttons) commits only when motion comes to rest. The live item number is written by the engine into a childless span.
+- **Deck:** three paper plates laid edge to edge in a descending z-order, so each plate casts its shadow onto its right-hand neighbor. Inactive plates fold to 56px spines (tile face, vertical label, a square marker). On a section change, the next plate slides out from its spine while the covered one fades and recedes 10% of the deck width. During the last item of a section, the next plate peeks out 6% as a hint. Clicking a spine jumps to that section.
+- **Rail:** three tabs on one hairline. Each fill bar scales with progress through its section, graphite for past sections and teal for the current one.
+- **List well:** a recessed well of rows. A paper indicator with Lift 1 interpolates top and height between rows, dwelling on each item and moving through the last 30% of its unit. Details share one grid cell and are **scrubbed**, not transitioned: opacity, a 14px rise and a `clip-path` media wipe all follow the same eased position as the indicator, so passing many items stays continuous. Sprite previews play only while their detail is live.
+- **Jumps:** a clicked rail tab, spine, row, step button or the hero CTA runs one eased (cubic in-out) scroll lasting `min(900ms, 380ms + 150ms x sqrt(units))`. Snap is suspended while it runs, the spring is bypassed, and wheel, touch or key input cancels it. A jump crossfades its source straight into its target; the items in between stay hidden.
+- **Details:** Experience shows a 56px logo tile, the company (`title`) with an optional badge, the role, a `lead` summary, and the period on a hairline at the plate floor. Projects show the text column beside a side column of 16:9 media in a `well` letterbox (Lift 2), chips and a repo button. Open Source is two hairline columns with repo buttons on the floor. About pairs the large body with a recessed education callout, the resume button and contact links.
+- **Accessibility:** only the active plate's content is in the tab order on the stage (`inert`). Rows set `aria-current` and `aria-controls`; the counter has a screen-reader "Item n of N".
+- **Reduced motion:** the stage stays. Plates, items and jumps land instantly, and every state change still shows. Sprite previews stop.
+- **Fallback:** the stacked layout under Layout, with the rail fill following each panel past mid-viewport and rail clicks smooth-scrolling to the panel.
 
-### Navigation
-- **Top bar:** Absolute across the hero. Uppercase Lichen 10px / 0.18em, the name on the left and the live status with its glowing pip on the right (8px / 0.1em under 600px).
-- **Social icons:** 21px line icons at 72% Moonlit Paper. On hover they turn full Moonlit Paper and lift 1px.
-- **Card link:** Uppercase Pale Sage 12px with a 1px underline border at 40% Sage Wash. On hover both turn Moonlit Leaf and the arrow slides.
-- **Footer:** Uppercase Branch label with Lichen links that turn Moonlit Paper on hover.
-- Every link gets a 2px Moonlit Leaf focus outline at 4px offset.
-
-### Minesweeper Hero (signature component)
-An optional, lazy-loaded Three.js playground: a finite 16 × 16 sage board set into a dark green voxel wall that fills the entire header. Above the board there are only unlabeled brass mine/time counters and the yellow reset disc. Flags are coral, numbers are pastel, and the companion is a thick yellow disc. Tiles lift softly under the pointer (with spring physics) and a ripple runs on reset.
-- At desktop widths the introduction holds the left side. Below 1000px the complete board sits beneath the introduction and supports in-place touch pan/zoom.
-- The game is controlled through a single-entry keyboard grid. A screen-reader grid mirrors the board, and a styled HTML grid is the non-WebGL fallback.
-- Scene parameters live in `src/components/hero/minesweeper/config.js`. Game rules (`game.mjs`) stay independent of presentation, and the renderer and companion never receive the hidden mine layout. See [implementation notes](MINESWEEPER.md) and [review evidence](minesweeper/REPORT.md).
+### Footer
+Footer text left, a links nav right, 15px. Links are slate at 500 and turn ink with an underline on hover.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** keep HTML fills to Sage Wash at 0.2 alpha or less, with 1px hairline borders (the Moonlight Rule).
-- **Do** set names in Newsreader 300/400 and everything else in IBM Plex Mono (the Two Voices Rule).
-- **Do** give every interactive element a 2px Moonlit Leaf `:focus-visible` outline.
-- **Do** keep hover feedback small: a 1px lift, a 3px arrow slide, or a border brightening over 0.2–0.25s.
-- **Do** keep the HTML content stable while the scene's effects run, and keep native page scrolling (including one-finger drag) available over the hero.
-- **Do** keep all game-state feedback under `prefers-reduced-motion`, and turn off reveals, the scroll-bar pulse and sprite previews there.
-- **Do** keep the game playable without a mouse, through the single-entry keyboard grid.
+- **Do** take every shadow from the shared tokens (`--hv-lift-1`, `--hv-lift-2`, `--hv-press`) or build it on `rgb(var(--hv-shade) / a)` with positive x and y offsets.
+- **Do** show a choice as a raised white cap inside a recessed well, with teal only on small markers, fills and focus.
+- **Do** keep board caps and wall voxels the same albedo, size and bevel. Let lift and shadow carry hover.
+- **Do** animate with `springStep` / `runSpring`, and give every motion a reduced-motion path that keeps the end state.
+- **Do** read native scroll rather than capturing it, and fall back to stacked panels whenever content would not fit the stage.
+- **Do** write per-frame motion as inline styles on the elements that move, never as an inherited custom property on a large subtree.
+- **Do** prefix new classes `hv-` (Stage `hv-st-`), and scope page-level CSS with `:has(.hv-root)`.
+- **Do** route "show me the work" through the `hv:section` event.
 
 ### Don't:
-- **Don't** introduce bright, saturated, or solid color blocks in the HTML UI. Saturated color belongs to the 3D scene and to third-party logos at logo size.
-- **Don't** add continuous orbiting, flashing overlays, or decorative motion that competes with reading.
-- **Don't** give the HTML layer drop shadows, fake bevels, or CSS 3D. The board is the one physical object.
-- **Don't** add labels to the hero counters or extra controls above the board.
-- **Don't** introduce a second game input system without preserving the single-entry keyboard grid.
-- **Don't** pass the hidden mine layout to the renderer or the companion.
+- **Don't** add bloom, glow or emissive highlights to the scene. On white they wash the tiles out (the loss ring at 0.2 opacity is the only emissive element).
+- **Don't** tint the board to set it apart from the wall, or tint caps on hover.
+- **Don't** use teal for decoration, headings or body links at rest. It means live or selected state.
+- **Don't** render the legacy `tag` as an eyebrow or kicker above a heading.
+- **Don't** use black shadows, shadows going up or to the left, or a second light direction.
+- **Don't** bring back the brass, dark "workbench" look of the previous site.
