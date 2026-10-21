@@ -79,6 +79,7 @@
 }
 .hv-st-logo > span, .hv-st-row-logo > span { display: grid; place-items: center; }
 .hv-st-logo svg { display: block; width: 24px; height: 24px; }
+.hv-st-logo img, .hv-st-row-logo img { display: block; width: 28px; height: 28px; object-fit: contain; }
 .hv-st-exp h3 {
   margin: 0; font-size: clamp(1.35rem, 2vw, 1.9rem); font-weight: 600;
   line-height: 1.12; letter-spacing: -0.025em;
@@ -294,6 +295,7 @@
   .hv-st-row small { grid-column: 2; font-size: 12.5px; font-weight: 500; line-height: 1.4; color: var(--hv-ink-3); }
   .hv-st-row-logo { display: grid; place-items: center; grid-row: span 2; color: var(--hv-ink); }
   .hv-st-row-logo svg { display: block; width: 20px; height: 20px; }
+  .hv-st-row-logo img { width: 22px; height: 22px; }
   .hv-st-icon { display: grid; place-items: center; grid-row: span 2; color: var(--hv-ink-3); transition: color var(--hv-fast) ease; }
   .hv-st-row[data-on] .hv-st-icon { color: var(--hv-ink); }
   .hv-st-icon svg { width: 16px; height: 16px; }
@@ -317,6 +319,7 @@
   .hv-st:not([data-fit="no"]) .hv-st-exp { display: flex; flex-direction: column; padding-top: 4px; }
   .hv-st:not([data-fit="no"]) .hv-st-exp .hv-st-logo { width: 56px; height: 56px; }
   .hv-st:not([data-fit="no"]) .hv-st-exp .hv-st-logo svg { width: 28px; height: 28px; }
+  .hv-st:not([data-fit="no"]) .hv-st-exp .hv-st-logo img { width: 34px; height: 34px; }
   .hv-st:not([data-fit="no"]) .hv-st-exp h3 { font-size: clamp(1.6rem, 2.3vw, 2.2rem); }
   .hv-st:not([data-fit="no"]) .hv-st-period { order: 2; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--hv-line); }
   .hv-st:not([data-fit="no"]) .hv-st-exp .hv-st-summary {

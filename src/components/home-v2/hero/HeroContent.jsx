@@ -11,7 +11,6 @@ export default function HeroContent() {
     <header className="hv-hero">
       <div className="hv-topbar hv-reveal" style={{ animationDelay: ".05s" }}>
         <span>{hero.brand}</span>
-        <span><span className="hv-dot" />{hero.status}</span>
       </div>
 
       <div className="hv-copy">
