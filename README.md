@@ -1,6 +1,6 @@
 # Cody Portfolio Site
 
-A Next.js portfolio with an optional, playable 3D Minesweeper hero. The introduction, navigation, project gallery, and contact links remain ordinary HTML. The Three.js scene loads separately. Résumé links use `/resume`, which redirects to the current PDF at `/resume.pdf`.
+A Next.js portfolio with a playable 3D Minesweeper hero, re-lit as a white relief, and one scroll-driven stage that moves through Experience, Projects & Open Source, and About. The introduction, sections, and contact links remain ordinary HTML. The Three.js scene loads separately. Résumé links use `/resume`, which redirects to the current PDF at `/resume.pdf`.
 
 ## Local development
 
@@ -22,9 +22,10 @@ npm start
 ## Structure
 
 - `src/data/portfolio.js`: portfolio content and links.
-- `src/components/hero/HeroPage.jsx`: page composition.
-- `src/components/hero/hero.css`: layout, typography, and shared palette.
-- `src/components/hero/minesweeper/`: pure game rules, accessible React controls, and the lazy-loaded Three.js scene.
+- `src/app/page.tsx`: the home page (`HomeV2Shell` + `ScrollStage`).
+- `src/components/home-v2/`: the shell, tokens (`home-v2.css`), motion helpers, and the white-relief Three.js hero (`hero/`).
+- `src/components/home-v2/directions/stage/`: the Scroll Stage that combines Experience, Projects & Open Source, and About.
+- `src/components/hero/minesweeper/game.mjs`: pure game rules shared by the hero. The rest of `src/components/hero/` is the previous dark home page, no longer routed; its stylesheet still styles the 404 page and its `ExperienceIcon` / `ProjectMedia` components are reused.
 - `src/lib/three/HighlightBloomPass.js`: shared selective-highlight bloom pass.
 - `tests/minesweeper.test.mjs`: independent game-rule checks.
 
