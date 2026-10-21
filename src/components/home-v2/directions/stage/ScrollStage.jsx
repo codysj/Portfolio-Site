@@ -198,8 +198,9 @@ export default function ScrollStage() {
     };
     const placeCap = (k, v) => {
       const r = geo.rows[k], el = indRefs[k].current;
-      if (!r.length) return;
-      const a = Math.floor(v), b = Math.min(r.length - 1, a + 1), f = v - a;
+      if (!r.length || !Number.isFinite(v)) return;
+      // clamp: a throw here inside the rAF loop would strand a jump mid-flight
+      const a = Math.min(r.length - 1, Math.max(0, Math.floor(v))), b = Math.min(r.length - 1, a + 1), f = Math.min(1, Math.max(0, v - a));
       put(el, "transform", `translate3d(0,${(r[a][0] + (r[b][0] - r[a][0]) * f).toFixed(1)}px,0)`);
       put(el, "height", `${(r[a][1] + (r[b][1] - r[a][1]) * f).toFixed(1)}px`);
     };
@@ -240,7 +241,9 @@ export default function ScrollStage() {
     let jump = null; // { t0, y0, y1, dur, top, from: [..], sec, item, fromSec, e }
 
     const paint = (u) => {
-      const raw = sectionAt(u);
+      // during a jump the plates follow the clock, not the scroll distance, so a
+      // section change gets the whole duration instead of a sliver of the trip
+      const raw = jump ? jump.s0 + (jump.s1 - jump.s0) * jump.e : sectionAt(u);
       const s = reduced ? Math.round(raw) : raw;
       paintDeck(s);
       paintRail([0, 1, 2].map((k) => clamp01((u - STARTS[k]) / COUNTS[k])), Math.round(s));
@@ -304,8 +307,10 @@ export default function ScrollStage() {
       if (!live) { live = true; last = 0; frame = requestAnimationFrame(tick); }
     };
 
-    /* ---- jumps: one eased scroll, time-capped however far it goes ---- */
-    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    /* ---- jumps: one eased scroll; the visible motion is paced by time ----
+       Smootherstep (C2-continuous) starts and lands with zero acceleration, so
+       the plates ease out of rest and settle without a kick. */
+    const ease = (t) => t * t * t * (t * (t * 6 - 15) + 10);
     const endJump = (finished) => {
       if (!jump) return;
       cancelAnimationFrame(jump.raf);
@@ -343,11 +348,18 @@ export default function ScrollStage() {
         settle(target);
         return;
       }
-      const du = Math.abs(y1 - y0) / geo.unit;
+      const u0 = Math.min(UNITS, Math.max(0, (y0 - top) / geo.unit));
+      const s0 = sectionAt(u0), s1 = sectionAt(stopU(sec, item));
+      const fromSec = Math.round(s0);
+      const items = fromSec === sec && sec < 2 ? Math.abs(item - shownItems[sec]) : 0;
+      // ponytail: tuned by eye on a 1440x900 stage; one plate ~0.95s, two ~1.25s, items 0.55-0.8s
+      const dur = Math.abs(s1 - s0) > 0.01
+        ? 650 + 300 * Math.abs(s1 - s0)
+        : Math.min(800, 460 + 140 * Math.sqrt(Math.max(1, items)));
       jump = {
-        t0: performance.now(), y0, y1, top, e: 0,
-        dur: Math.min(900, 380 + 150 * Math.sqrt(du)),
-        from: [...shownItems], fromSec: Math.round(sectionAt(Math.min(UNITS, Math.max(0, (y0 - top) / geo.unit)))),
+        t0: performance.now(), y0, y1, top, e: 0, s0, s1,
+        dur: y0 < top - 1 ? Math.max(dur, 900) : dur, // from the hero there is also the hero to travel
+        from: [...shownItems], fromSec,
         sec, item: sec < 2 ? item : 0, raf: 0,
       };
       if (jump.fromSec !== sec) jump.from = jump.from.map((v, k) => (k === sec ? item : v)); // arrive on the target, don't scrub to it
@@ -369,10 +381,27 @@ export default function ScrollStage() {
     };
     relayout();
     document.fonts?.ready.then(relayout);
+
+    /* Warm the plates' images while idle. ProjectMedia lazy-loads, and a
+       folded plate only comes "near" the viewport mid-slide, so the first
+       slide onto Projects used to fetch, parse and lay out an image during
+       the animation. Load and decode them before anyone clicks. */
+    const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1200));
+    const warm = idle(() => {
+      deck.querySelectorAll("img").forEach((img) => {
+        img.loading = "eager";
+        img.decode?.().catch(() => {});
+      });
+      deck.querySelectorAll("[data-media-kind=\"sprite-preview\"]").forEach((el) => {
+        const url = /url\(["']?([^"')]+)/.exec(el.style.getPropertyValue("--sprite-url"))?.[1];
+        if (url) { const im = new Image(); im.src = url; im.decode?.().catch(() => {}); }
+      });
+    }, { timeout: 2500 });
     mq.addEventListener("change", relayout);
     window.addEventListener("resize", relayout);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
+      (window.cancelIdleCallback || clearTimeout)(warm);
       endJump(false);
       cancelAnimationFrame(frame);
       engineRef.current = null;

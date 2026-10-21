@@ -232,6 +232,10 @@
   .hv-st:not([data-fit="no"]) .hv-st-inner {
     position: absolute; top: 0; bottom: 0; left: 0; display: flex;
     width: calc(100cqw - 2 * var(--hv-st-spine)); contain: layout paint;
+    /* own compositor layer: a plate's content is rastered ahead of time
+       during idle, so a slide reveals ready tiles instead of painting a new
+       strip every frame (measured: first slide 2-4 long frames -> none) */
+    will-change: transform;
   }
 
   .hv-st:not([data-fit="no"]) .hv-st-spine {
