@@ -314,6 +314,8 @@
   }
   .hv-st:not([data-fit="no"]) .hv-st-detail > :first-child { opacity: 1; visibility: visible; }
   .hv-st[data-mode="stage"] .hv-st-detail > :not([data-live]) [data-media-kind="sprite-preview"] { animation-play-state: paused; }
+  /* a hidden detail does not fetch its sprite sheet (~700KB across projects); the engine prefetches them at idle */
+  .hv-st[data-mode="stage"] .hv-st-detail > :not([data-live]) .hv-st-media [data-media-kind="sprite-preview"] { background-image: none; }
 
   /* experience: head and summary up top, the dated hairline on the plate floor */
   .hv-st:not([data-fit="no"]) .hv-st-exp { display: flex; flex-direction: column; padding-top: 4px; }
