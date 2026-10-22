@@ -38,7 +38,15 @@ export default function Minesweeper() {
     setElapsed(0); setActive(119); announce('New game. 40 mines. First move is safe.'); api.current?.resetView();
   }, [publish]);
   const action = useCallback((type, index) => {
-    const next = act(state.current, type, index); if (next === state.current) return;
+    const next = act(state.current, type, index);
+    if (next === state.current) {
+      // a number clicked or chorded before its flags match: show why nothing opened
+      const v = publicBoard(state.current)[index];
+      if ((type === 'chord' || type === 'reveal') && typeof v === 'number' && v > 0 && state.current.status === 'playing') {
+        api.current?.nudge(index); announce(`Flags around this ${v} do not match it yet.`);
+      }
+      return;
+    }
     publish(next); setActive(index);
     if (keyboardFocus.current) api.current?.focus(index);
     announce(next.status === 'lost' ? 'Mine hit. Game over. Activate the smiley to reset.' : next.status === 'won' ? 'Field complete! Activate the smiley to play again.' :

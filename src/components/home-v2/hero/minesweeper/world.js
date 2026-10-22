@@ -4,8 +4,11 @@ import { SCENE } from './config';
 import { createBuddy } from './buddy';
 import { createCounters } from './counters';
 import { mulberry32 } from '@/lib/random';
+import { neighbors } from '@/components/hero/minesweeper/game.mjs';
 
 export const cellPosition = index => new THREE.Vector3(index % 16 - 7.5, 7.5 - Math.floor(index / 16), 0);
+// Per-frame code reads these instead of allocating a Vector3 per cell per frame.
+const POS = Array.from({ length: 256 }, (_, i) => ({ x: i % 16 - 7.5, y: 7.5 - Math.floor(i / 16) }));
 
 function glyphAtlas() {
   const canvas = document.createElement('canvas'); canvas.width = canvas.height = 512;
@@ -91,7 +94,9 @@ export function createWorld(scene, study = false) {
   let values = Array(256).fill('hidden'), status = 'ready', event = { type: 'reset', origin: 119, changed: [] }, eventTime = -20;
   const revealTimes = new Float32Array(256).fill(-20), flagValues = new Float32Array(256), lifts = new Float32Array(256), velocities = new Float32Array(256);
   let activeGeneration = -1, resetTime = -20;
-  const white = new THREE.Color('#ffffff'), lossColor = new THREE.Color('#e0533f');
+  const white = new THREE.Color('#ffffff'), lossColor = new THREE.Color('#e0533f'), tint = new THREE.Color();
+  let waveOrigin = POS[119];
+  const sunk = new Uint8Array(256); // cells depressed this frame: the pressed cell, or a chord preview
   const fragments = Array.from({ length: SCENE.ripple.fragments }, () => ({ x: (random() - 0.5) * 5, y: (random() - 0.5) * 5, z: 1.3 + random() * 3, spin: random() * 8 }));
   function matrix(mesh, i, x, y, z, scale = 1, rotation = 0, sy = scale, sz = scale) {
     dummy.position.set(x, y, z); dummy.rotation.set(0, 0, rotation); dummy.scale.set(scale, sy, sz); dummy.updateMatrix(); mesh.setMatrixAt(i, dummy.matrix);
@@ -100,7 +105,7 @@ export function createWorld(scene, study = false) {
     if (reduced || !['loss', 'win', 'reset'].includes(event.type)) return 0;
     const age = time - eventTime - (event.type === 'loss' ? 0.17 : 0);
     if (age < 0 || age > SCENE.ripple.lifetime) return 0;
-    const origin = cellPosition(event.origin), d = Math.hypot(x - origin.x, y - origin.y);
+    const origin = waveOrigin, d = Math.hypot(x - origin.x, y - origin.y);
     const envelope = Math.exp(-Math.pow((d - age * SCENE.ripple.speed) / SCENE.ripple.width, 2));
     return envelope * (1 - age / SCENE.ripple.lifetime) * (event.type === 'loss' ? SCENE.ripple.amplitude : 0.22);
   }
@@ -114,17 +119,29 @@ export function createWorld(scene, study = false) {
     },
     apply(next, gameStatus, nextEvent, time, generation, reduced) {
       if (generation !== activeGeneration) { revealTimes.fill(-20); flagValues.fill(0); lifts.fill(0); velocities.fill(0); activeGeneration = generation; resetTime = time; }
-      const origin = cellPosition(nextEvent.origin);
-      next.forEach((v, i) => { if ((typeof v === 'number' || v === 'mine' || v === 'hit') && values[i] !== v) revealTimes[i] = time + (reduced ? 0 : Math.min(0.34, cellPosition(i).distanceTo(origin) * 0.027)); });
-      values = next; status = gameStatus; event = nextEvent; eventTime = time; buddy.react(event, time);
+      const origin = POS[nextEvent.origin] ?? POS[119], { stagger, maxDelay } = SCENE.reveal;
+      // the clicked cell opens at once; a flood ripples outward, capped well under a fifth of a second
+      next.forEach((v, i) => { if ((typeof v === 'number' || v === 'mine' || v === 'hit') && values[i] !== v) revealTimes[i] = time + (reduced ? 0 : Math.min(maxDelay, Math.hypot(POS[i].x - origin.x, POS[i].y - origin.y) * stagger)); });
+      values = next; status = gameStatus; event = nextEvent; eventTime = time; waveOrigin = origin; buddy.react(event, time);
     },
-    update(time, dt, hover, pressed, focused, pointer, approached, reduced) {
-      const hovered = hover >= 0 ? cellPosition(hover) : null;
+    /* A chord that cannot fire yet (flags do not match the number) bumps the
+       covered neighbours instead of doing nothing. */
+    nudge(index, reduced) {
+      if (reduced || index < 0) return;
+      for (const n of [index, ...neighbors(index)]) if (values[n] === 'hidden') velocities[n] += 1.9;
+    },
+    update(time, dt, hover, pressed, focused, pointer, approached, reduced, chording = false) {
+      sunk.fill(0);
+      if (pressed >= 0) {
+        const pv = values[pressed];
+        // pressing a number (or chording) previews exactly the cells a chord would open
+        if (chording || (typeof pv === 'number' && pv > 0)) { for (const n of neighbors(pressed)) if (values[n] === 'hidden') sunk[n] = 1; }
+        if (pv === 'hidden') sunk[pressed] = 1;
+      }
       for (let i = 0; i < 256; i++) {
-        const p = cellPosition(i), v = values[i], isOpen = typeof v === 'number' || v === 'mine' || v === 'hit';
-        const progress = reduced ? (isOpen ? 1 : 0) : isOpen ? THREE.MathUtils.smoothstep(time - revealTimes[i], 0, 0.28) : 0;
-        const dist = hovered ? Math.hypot(hovered.x - p.x, hovered.y - p.y) : 100;
-        const target = reduced ? 0 : (i === pressed ? -SCENE.hover.press : dist === 0 ? SCENE.hover.lift : dist < 1.5 ? SCENE.hover.neighborLift : 0);
+        const p = POS[i], v = values[i], isOpen = typeof v === 'number' || v === 'mine' || v === 'hit';
+        const progress = reduced ? (isOpen ? 1 : 0) : isOpen ? THREE.MathUtils.smoothstep(time - revealTimes[i], 0, SCENE.reveal.duration) : 0;
+        const target = reduced ? 0 : (sunk[i] ? -SCENE.hover.press : i === hover && v === 'hidden' ? SCENE.hover.lift : 0);
         velocities[i] += ((target - lifts[i]) * SCENE.hover.stiffness - velocities[i] * SCENE.hover.damping) * dt;
         lifts[i] += velocities[i] * dt;
         const displacement = wave(p.x, p.y, time, reduced);
@@ -136,7 +153,9 @@ export function createWorld(scene, study = false) {
         caps.setColorAt(i, v === 'hit' ? lossColor : white);
         matrix(floors, i, p.x, p.y, -0.1 + displacement * 0.15, studyHidden ? 0 : 1);
         glyphIndices.setX(i, typeof v === 'number' ? v : v === 'wrong' ? 10 : 9);
-        matrix(glyphs, i, p.x, p.y, -0.045 + displacement * 0.15, ((typeof v === 'number' && v > 0) || v === 'mine' || v === 'hit' || v === 'wrong') && !studyHidden ? (v === 'wrong' ? 1 : progress) : 0);
+        // numbers arrive already near full size so they read on the first frames
+        const glyphScale = v === 'wrong' ? 1 : progress > 0 ? 0.65 + 0.35 * progress : 0;
+        matrix(glyphs, i, p.x, p.y, -0.045 + displacement * 0.15, ((typeof v === 'number' && v > 0) || v === 'mine' || v === 'hit' || v === 'wrong') && !studyHidden ? glyphScale : 0);
         const targetFlag = v === 'flag' ? 1 : 0;
         flagValues[i] += (targetFlag - flagValues[i]) * (reduced ? 1 : 1 - Math.exp(-dt * 18));
         const f = flagValues[i], drop = (1 - f) * 0.75 - Math.sin(f * Math.PI) * 0.3;
@@ -146,21 +165,22 @@ export function createWorld(scene, study = false) {
       }
       decorative.forEach((p, i) => {
         const w = wave(p.x, p.y, time, reduced);
-        const d = pointer.active ? Math.hypot(p.x-pointer.worldX,p.y-pointer.worldY) : 100;
+        // the wall answers the cursor only off the board, so playing an edge cell never heaves the frame
+        const d = pointer.active && hover < 0 ? Math.hypot(p.x-pointer.worldX,p.y-pointer.worldY) : 100;
         const target = reduced ? 0 : SCENE.wall.hoverLift*Math.exp(-d*d/2.2);
         p.velocity += ((target-p.lift)*SCENE.hover.stiffness-p.velocity*SCENE.hover.damping)*dt;
         p.lift += p.velocity*dt;
         matrix(wall, i, p.x, p.y, p.z + w * 1.6 + p.lift);
-        wall.setColorAt(i, baseColor.clone().multiplyScalar(Math.min(1, p.shade + w * 0.3)));
+        wall.setColorAt(i, tint.copy(baseColor).multiplyScalar(Math.min(1, p.shade + w * 0.3)));
       });
-      const age = time - eventTime - 0.17, origin = cellPosition(event.origin), exploding = event.type === 'loss' && age >= 0 && age < 1.7 && !reduced;
+      const age = time - eventTime - 0.17, origin = waveOrigin, exploding = event.type === 'loss' && age >= 0 && age < 1.7 && !reduced;
       fragments.forEach((f, i) => {
         const a = Math.max(0, age); matrix(fragmentMesh, i, origin.x + f.x * a, origin.y + f.y * a - a * a * 2,
           0.55 + f.z * a - a * a, exploding ? Math.max(0, 1 - a / 1.7) : 0, a * f.spin);
       });
       ring.visible = !reduced && ['loss', 'win'].includes(event.type) && age > 0 && age < 1.6;
       if (ring.visible) { ring.position.set(origin.x, origin.y, 0.49); ring.scale.setScalar(age * SCENE.ripple.speed); ring.material.opacity = (1 - age / 1.6) * 0.2; }
-      focus.visible = focused >= 0; if (focus.visible) { const p = cellPosition(focused); focus.position.set(p.x, p.y, 0.62); }
+      focus.visible = focused >= 0; if (focus.visible) { const p = POS[focused]; focus.position.set(p.x, p.y, 0.62); }
       for (const mesh of [caps, floors, glyphs, poles, flags, sockets, wall, fragmentMesh]) mesh.instanceMatrix.needsUpdate = true;
       caps.instanceColor.needsUpdate = wall.instanceColor.needsUpdate = glyphIndices.needsUpdate = true;
       buddy.update(time, dt, pointer, pressed >= 0, approached, status, reduced);
