@@ -36,7 +36,9 @@ export function mountWorld(host, callbacks) {
   function atPixel(x, y) { ray.setFromCamera(new THREE.Vector2(x / layout.width * 2 - 1, 1 - y / layout.height * 2), camera); return ray.ray.intersectPlane(plane, new THREE.Vector3()); }
   function cameraPosition(dt) {
     if (!layout) return;
-    const interacting = hover >= 0 || pressed >= 0 || focused >= 0 || buddyHover || buddyFocused || !!touch;
+    // the camera holds still whenever the pointer is near the board, so the target never drifts under the cursor
+    const nearBoard = pointer.active && Math.abs(pointer.worldX) < 9.6 && pointer.worldY < 11.4 && pointer.worldY > -9.6;
+    const interacting = nearBoard || hover >= 0 || pressed >= 0 || focused >= 0 || buddyHover || buddyFocused || !!touch || !!down;
     const progress = THREE.MathUtils.clamp(-hero.getBoundingClientRect().top / Math.max(1, hero.clientHeight), 0, 1);
     if (!interacting && !reduce.matches && !frozen) {
       const ease = 1 - Math.exp(-dt * 3);
@@ -81,7 +83,7 @@ export function mountWorld(host, callbacks) {
     pointer.gazeX = pointer.active ? Math.tanh((cursorX-buddyScreen.x)/Math.max(120,layout.scale*7)) : 0;
     pointer.gazeY = pointer.active ? Math.tanh((cursorY-buddyScreen.y)/Math.max(120,layout.scale*7)) : 0;
     world.buddy.group.scale.setScalar(layout.mobile && zoom > 1 ? 1 / zoom : 1);
-    world.update(time, dt, hover, pressed, focused, pointer, buddyHover || buddyFocused, reduce.matches || frozen);
+    world.update(time, dt, hover, pressed, focused, pointer, buddyHover || buddyFocused, reduce.matches || frozen, !!down?.chord);
     try { effects.render(); } catch { fail(); return; }
     if (!announcedReady) { callbacks.ready(); announcedReady = true; Object.assign(stats, effects.inspect()); }
     host.dataset.ready = 'true'; stats.frames++; stats.drawCalls = renderer.info.render.calls; stats.triangles = renderer.info.render.triangles;
@@ -111,26 +113,44 @@ export function mountWorld(host, callbacks) {
     return {index:within&&row>=0&&row<16&&col>=0&&col<16?row*16+col:-1,x:x/layout.width*2-1,y:1-y/layout.height*2,worldX:p.x,worldY:p.y};
   }
   const interactive = e => !!e.target.closest('a,button,.hv-copy,.hv-topbar');
+  /* Mouse model, the way practiced players expect it:
+     - left press depresses the cell under the cursor, the depression follows
+       the cursor while held, and release acts on whatever cell is under it
+       (no cancel for a few pixels of drift or crossing a cell edge);
+     - right press flags immediately, on the way down;
+     - left+right (either order) or middle is a chord, released on any cell;
+     - pressing a revealed number previews the cells a chord would open.
+     Releasing off the board cancels. */
   function move(e) {
     if (e.pointerType==='touch') return;
     if (e.movementX || e.movementY) { focused = -1; buddyFocused = false; callbacks.pointer(); }
-    if (down && (e.buttons & 3) === 3) down.chord = true;
     const h=hit(e); Object.assign(pointer,h,{active:true}); hover=interactive(e)?-1:h.index;
+    if (down) {
+      if ((e.buttons & 3) === 3) { down.chord = true; down.flagged = false; } // the second button of a chord arrives as a pointermove
+      pressed = down.button === 2 && !down.chord ? -1 : h.index;
+    }
     buddyHover=!!e.target.closest('.hv-ms-buddy'); hero.style.cursor=hover>=0?'pointer':''; requestDraw();
   }
-  function leave() { hover=-1; pointer.active=false; buddyHover=false; hero.style.cursor=''; requestDraw(); }
+  function leave() { hover=-1; pointer.active=false; buddyHover=false; hero.style.cursor=''; if (down) pressed=-1; requestDraw(); }
   function pointerDown(e) {
     if(e.pointerType==='touch'||interactive(e)||![0,1,2].includes(e.button))return;
     const h=hit(e); if(h.index<0)return;
-    focused=-1;
-    if(down){down.chord=true;return;}
-    down={...h,clientX:e.clientX,clientY:e.clientY,button:e.button,chord:e.button===1,done:false}; pressed=h.index; requestDraw();
-    e.preventDefault();
+    e.preventDefault(); focused=-1;
+    if(down){down.chord=true;pressed=h.index;requestDraw();return;}
+    const both=(e.buttons & 3) === 3;
+    down={button:e.button,chord:e.button===1||both,done:false};
+    if(e.button===2&&!both){callbacks.action('flag',h.index);pressed=-1;} // flags land on press, not release
+    else pressed=h.index;
+    requestDraw();
   }
   function pointerUp(e) {
     if(e.pointerType==='touch'||!down)return;
     const old=down,h=hit(e); pressed=-1;
-    if(!old.done && Math.hypot(e.clientX-old.clientX,e.clientY-old.clientY)<=8 && old.index===h.index){callbacks.action(old.chord?'chord':old.button===2?'flag':'reveal',h.index);old.done=true;}
+    if(!old.done&&h.index>=0&&!interactive(e)){
+      if(old.chord)callbacks.action('chord',h.index);
+      else if(old.button===0)callbacks.action('reveal',h.index); // a revealed number chords (act() decides)
+      old.done=true;
+    }
     if(!e.buttons)down=null; requestDraw();
   }
   function clearHold(){clearTimeout(holdTimer);holdTimer=0;}
@@ -142,7 +162,7 @@ export function mountWorld(host, callbacks) {
     if(interactive(e))return;
     if(e.touches.length===2&&!touch){const t=e.touches[0],h=hit(t);if(h.index<0)return;touch={x:t.clientX,y:t.clientY,index:h.index,moved:true};}
     if(e.touches.length===1){const t=e.touches[0],h=hit(t);if(h.index<0)return;touch={x:t.clientX,y:t.clientY,index:h.index,moved:false};held=false;pressed=h.index;
-      holdTimer=setTimeout(()=>{if(touch&&!touch.moved&&!gesture){callbacks.action('flag',touch.index);held=true;pressed=-1;requestDraw();}},450);requestDraw();}
+      holdTimer=setTimeout(()=>{if(touch&&!touch.moved&&!gesture){callbacks.action('flag',touch.index);navigator.vibrate?.(12);held=true;pressed=-1;requestDraw();}},420);requestDraw();}
     else if(e.touches.length===2&&touch){e.preventDefault();clearHold();touch.moved=true;pressed=-1;gesture={distance:span(e.touches),center:center(e.touches),zoom,panX,panY};}
   }
   function touchMove(e){
@@ -175,6 +195,6 @@ export function mountWorld(host, callbacks) {
   resize();
   return {dispose,refreshCounters:requestDraw,apply(values,status,event,generation){clearHold();world.apply(values,status,event,time,generation,reduce.matches||frozen);requestDraw()},
     focus(index){focused=index;if(index>=0&&zoom>1){zoom=1;panX=panY=0;}requestDraw()},buddyFocus(value){buddyFocused=value;requestDraw()},
-    resetView(){zoom=1;panX=panY=0;touchCancel();requestDraw()},project(index){return projectPoint(cellPosition(index).setZ(.4))},
+    resetView(){zoom=1;panX=panY=0;touchCancel();requestDraw()},nudge(index){world.nudge(index,reduce.matches||frozen);requestDraw()},project(index){return projectPoint(cellPosition(index).setZ(.4))},
     freeze(value=true){frozen=value;time=5;last=0;requestDraw()}};
 }
